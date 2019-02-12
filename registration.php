@@ -18,21 +18,22 @@
             $lName = $_POST['lName'];
             $email = $_POST['email'];
             $pass = $_POST['pass'];
+            $pass = password_hash($pass, PASSWORD_DEFAULT);
             $DoB = $_POST['DoB'];
             $userType = $_POST['userType'];
 
             if($fName != "" && $lName != "" && $email != "" && $pass != "" && $DoB != ""){
                 if($userType != 0){
-                    $sql1 = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `date`, `userTypeId`)
+                    $sql1 = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `userTypeId`)
                     VALUES (NULL,'".$fName."','".$lName."','".$email."','".$pass."','".$DoB."','".$userType."')";
 
-                    if(mysqli_query($conn, $sql1)){
+                    if(mysqli_query($connection, $sql1)){
                         header("location:logIn.php");
                     }
                     else{
                         echo "SQL: ".$sql1;
                         echo"<br>";
-                        printf("Errormessage: %s\n", mysqli_error($conn));
+                        printf("Errormessage: %s\n", mysqli_error($connection));
                     }
                 }
                 else{
@@ -52,13 +53,14 @@
         Last Name: <input type="text" name="lName"><br>
         Email: <input type="text" name="email"><br>
         Password: <input type="password" name="pass"><br>
+        Confirm Password: <input type="password" name="confirmPass"><br>
         Date of Birth: <input type="date" name="DoB"><br>
         User Type: 
         <select name="userType">
             <option value="0">Choose</option>
 
             <?php
-                $sql = mysqli_query($conn, "SELECT * FROM userType");
+                $sql = mysqli_query($connection, "SELECT * FROM userType");
                 while($row = mysqli_fetch_array($sql)){
                     $valueId = $row['id'];
                     $value = $row['userTypeName'];

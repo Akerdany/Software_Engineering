@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 08, 2019 at 01:38 PM
+-- Generation Time: Feb 12, 2019 at 07:37 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -19,8 +19,30 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `assignment`
+-- Database: `Database`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `address`
+--
+
+CREATE TABLE `address` (
+  `id` int(11) NOT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`id`, `address`, `parent_id`) VALUES
+(1, 'base', NULL),
+(2, 'Egypt', 1),
+(3, 'Cairo', 2),
+(4, 'Nasr City', 2);
 
 -- --------------------------------------------------------
 
@@ -57,8 +79,9 @@ CREATE TABLE `user` (
   `firstName` varchar(100) NOT NULL,
   `lastName` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `date` date NOT NULL,
+  `password` text NOT NULL,
+  `dateOfBirth` date NOT NULL,
+  `address_id` int(11) NOT NULL,
   `userTypeId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -66,9 +89,10 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `date`, `userTypeId`) VALUES
-(1, 'test1', 'test1', 'test', 'pass', '0111-11-11', 3),
-(2, 'admin', 'admin', 'admin', 'admin', '2019-02-05', 1);
+INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `address_id`, `userTypeId`) VALUES
+(1, 'test1', 'test1', 'test', 'pass', '0111-11-11', 0, 3),
+(3, 'hello', 'hello', 'hello', '$2y$10$Zm.1tm4yXUlitqpvwY//yeGnbXeEqA8hyLw/OrwYIXyHpZy2ILjQ6', '1111-11-11', 0, 4),
+(4, 'admin', 'admin', 'admin', '$2y$10$EVyYxauio/qK6uysFBjtO.n7a1wf6NeBdzjsOEOiIzo1DYGEVQiQe', '1111-11-11', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -88,11 +112,19 @@ CREATE TABLE `userType` (
 INSERT INTO `userType` (`id`, `userTypeName`) VALUES
 (1, 'Admin'),
 (2, 'Guest'),
-(3, 'Test');
+(3, 'Test'),
+(4, 'Emp');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `address`
+--
+ALTER TABLE `address`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `parent_id` (`parent_id`);
 
 --
 -- Indexes for table `pages`
@@ -119,6 +151,12 @@ ALTER TABLE `userType`
 --
 
 --
+-- AUTO_INCREMENT for table `address`
+--
+ALTER TABLE `address`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
@@ -128,17 +166,23 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `userType`
 --
 ALTER TABLE `userType`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `address`
+--
+ALTER TABLE `address`
+  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `address` (`id`);
 
 --
 -- Constraints for table `pages`

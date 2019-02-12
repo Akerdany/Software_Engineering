@@ -21,13 +21,12 @@
 
         $userType = $_SESSION['userType'];
         $sql="SELECT * FROM pages WHERE userTypeId = $userType";
-        $result = mysqli_query($conn, $sql);      
+        $result = mysqli_query($connection, $sql);      
 
-        if($row = mysqli_fetch_array($result)){
-            while($row = mysqli_fetch_array($result)){
-                echo '<a href="'.$row['link'].'">' . $row['pageName'] . '</a><br />';            
-            }
+        while($row = mysqli_fetch_array($result)){
+            echo '<a href="'.$row['link'].'">' . $row['pageName'] . '</a><br />';            
         }
+        
         //test
     ?>    
 

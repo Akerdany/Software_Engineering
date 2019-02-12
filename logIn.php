@@ -9,26 +9,47 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <?php
-        require("Connection.php");
-        session_start();
+    <?php        
+        if(isset($_POST['submit'])){
+            require("Connection.php");
 
-        $sql="SELECT * FROM user WHERE email='".$_POST['username']."' AND password='".$_POST['password']."'";
-        $result = mysqli_query($conn, $sql);      
+            $email = $_POST['username'];
+            $pass = $_POST['password'];
+    
+            //Security:
+            $email = strip_tags(mysqli_real_escape_string($connection, trim($email)));
+            $pass = strip_tags(mysqli_real_escape_string($connection, trim($pass)));
+    
+            $sql="SELECT * FROM user WHERE email='".$email."'";
+            $result = mysqli_query($connection, $sql);      
+    
+            if(mysqli_num_rows($result) > 0){
+                $row = mysqli_fetch_array($result);
+                $password_hash = $row['password'];
+    
+                if(password_verify($pass, $password_hash)){
+                    session_start();
+    
+                    $_SESSION['fName'] = $row['firstName'];
+                    $_SESSION['userType'] = $row['userTypeId'];
+        
+                    header("Location: Welcome.php");    
+                }
+                else{
+                    echo "Username or Password invalid";
+                    echo "<br>";
+                }    
+            }
+            else{
+                echo "Username or Password invalid";
+                echo "<br>";
+            }   
 
-        if(mysqli_num_rows($result) > 0 && $row = mysqli_fetch_array($result)){
-            $_SESSION['fName']=$row['firstName'];
-            $_SESSION['userType']=$row['userTypeId'];
-
-            header("Location: Welcome.php");
-        }
-        else{
-            echo "Username or Password invalid";
-            echo "<br>";
+            mysqli_close($connection);
         }
     ?>
 
-    <form name="logIn" action="" method="POST">
+    <form name="logIn" action="" method="POST" enctype="multipart/form-data">
         <input type="text" name="username" placeholder="Username"><br>
         <input type="password" name="password" placeholder="Password"><br><br>
         <a href='registration.php'>Register</a><br><br>

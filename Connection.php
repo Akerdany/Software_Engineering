@@ -2,12 +2,13 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
+$dbName = "Database";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password,"assignment");
+$connection = new mysqli($servername, $username, $password, $dbName);
 
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
 }
 ?>
