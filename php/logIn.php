@@ -11,7 +11,8 @@
 <body>
     <?php        
         if(isset($_POST['submit'])){
-            require("Connection.php");
+            require("connection.php");
+            require("classes.php");
 
             $email = $_POST['username'];
             $pass = $_POST['password'];
@@ -30,10 +31,13 @@
                 if(password_verify($pass, $password_hash)){
                     session_start();
     
-                    $_SESSION['fName'] = $row['firstName'];
+                    $_SESSION['id'] = $row['id'];
                     $_SESSION['userType'] = $row['userTypeId'];
-        
-                    header("Location: Welcome.php");    
+
+                    $tempUser = new user();
+                    $tempUser->userQuery($_SESSION['id']);
+                    $tempUser->print($_SESSION['id']);
+                    // header("Location: ../php/welcome.php");    
                 }
                 else{
                     echo "Username or Password invalid";

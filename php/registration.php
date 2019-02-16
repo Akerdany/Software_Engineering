@@ -11,7 +11,7 @@
 <body>
 
     <?php 
-        require("Connection.php");
+        require("connection.php");
 
         if(isset($_POST['submit'])){
             $fName = $_POST['fName'];
@@ -28,7 +28,7 @@
                     VALUES (NULL,'".$fName."','".$lName."','".$email."','".$pass."','".$DoB."','".$userType."')";
 
                     if(mysqli_query($connection, $sql1)){
-                        header("location:logIn.php");
+                        header("location: ../php/logIn.php");
                     }
                     else{
                         echo "SQL: ".$sql1;
