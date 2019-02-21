@@ -12,39 +12,54 @@
 
     <?php 
         require("connection.php");
+        include("classes.php");
 
         if(isset($_POST['submit'])){
-            $fName = $_POST['fName'];
-            $lName = $_POST['lName'];
-            $email = $_POST['email'];
+            // $fName = $_POST['fName'];
+            // $lName = $_POST['lName'];
+            // $email = $_POST['email'];
             $pass = $_POST['pass'];
             $pass = password_hash($pass, PASSWORD_DEFAULT);
-            $DoB = $_POST['DoB'];
-            $userType = $_POST['userType'];
+            // $DoB = $_POST['DoB'];
+            // $userType = $_POST['userType'];
 
-            if($fName != "" && $lName != "" && $email != "" && $pass != "" && $DoB != ""){
-                if($userType != 0){
-                    $sql1 = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `userTypeId`)
-                    VALUES (NULL,'".$fName."','".$lName."','".$email."','".$pass."','".$DoB."','".$userType."')";
+            $user = New User();
+            $user->firstName =$_POST['fName'];
+            echo $_POST['fName'];
+            echo"<br>";
+            echo $user->firstName;
+            $user->lastName = $_POST['lName'];
+            $user->email = $_POST['email'];
+            $user->password = $pass;
+            $user->dateOfBirth = $_POST['DoB'];
+            $user->addressId = 3;
+            $user->userTypeId = $_POST['userType'];
 
-                    if(mysqli_query($connection, $sql1)){
-                        header("location: ../php/logIn.php");
-                    }
-                    else{
-                        echo "SQL: ".$sql1;
-                        echo"<br>";
-                        printf("Errormessage: %s\n", mysqli_error($connection));
-                    }
-                }
-                else{
-                    echo"Please choose a user type";
-                    echo "<br>";
-                }
-            }
-            else{
-                echo "Please fill all the data<br>";
-                echo "<br>";
-            }
+            $user->insertUser($user);
+
+            // if($fName != "" && $lName != "" && $email != "" && $pass != "" && $DoB != ""){
+            //     if($userType != 0){
+            //         $sql1 = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `userTypeId`)
+            //         VALUES (NULL,'".$fName."','".$lName."','".$email."','".$pass."','".$DoB."','".$userType."')";
+
+            //         if(mysqli_query($connection, $sql1)){
+            //             header("location: ../php/logIn.php");
+            //         }
+            //         else{
+            //             echo "SQL: ".$sql1;
+            //             echo"<br>";
+            //             printf("Errormessage: %s\n", mysqli_error($connection));
+            //         }
+            //     }
+            //     else{
+            //         echo"Please choose a user type";
+            //         echo "<br>";
+            //     }
+            // }
+            // else{
+            //     echo "Please fill all the data<br>";
+            //     echo "<br>";
+            // }
         }
     ?>
 

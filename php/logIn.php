@@ -36,8 +36,8 @@
 
                     $tempUser = new user();
                     $tempUser->userQuery($_SESSION['id']);
-                    $tempUser->print($_SESSION['id']);
-                    // header("Location: ../php/welcome.php");    
+                    // $tempUser->print($_SESSION['id']);
+                    header("Location: ../php/welcome.php");    
                 }
                 else{
                     echo "Username or Password invalid";

@@ -7,6 +7,7 @@
         public $firstName;
         public $lastName;
         public $email;
+        public $password;
         public $dateOfBirth;
         public $addressId;
         public $userTypeId;
@@ -18,6 +19,19 @@
             $result = mysqli_query($DB->getdbconnect(), $sql);      
 
             list($id, $firstName, $lastName, $email, , $dateOfBirth, $addressId, $userTypeId) = mysqli_fetch_array($result);
+
+        }
+
+        public static function insertUser($tempUser){
+            $DB = new DbConnection();
+
+            $sql1 = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `addressId`, `userTypeId`)
+                        VALUES (NULL,'".$tempUser->firstName."','".$tempUser->lastName."','".$tempUser->email."','".$tempUser->password."',
+                        '".$tempUser->dateOfBirth."','".$tempUser->addressId."','".$tempUser->userTypeId."')";
+            
+            if(mysqli_query($DB->getdbconnect(), $sql1)){
+                header("location: ../php/logIn.php");
+            }
 
         }
 
@@ -36,8 +50,8 @@
             echo"<br>";
         }
 
-        public static function insertUser(){
-
+        public static function updateUser(){
+            $sql1 = "UPDATE user SET WHERE id='$id";
         }
     }
 
