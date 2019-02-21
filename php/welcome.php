@@ -12,9 +12,9 @@
     Welcome 
 
     <?php 
-        require("Connection.php");
+        require("connection.php");
         session_start();
-        echo $_SESSION['fName'];
+        // echo $_SESSION['fName'];
         echo "<br><br>";
         echo "Here are your pages:";
         echo "<br>";
