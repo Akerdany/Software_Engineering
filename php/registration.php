@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
     <script src="main.js"></script>
 </head>
 <body>
@@ -15,66 +15,67 @@
         include("classes.php");
 
         if(isset($_POST['submit'])){
+            echo"HELLOOOOOOOOOOOOOOOOOOOOOO";
 
-            //Security:
-            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            $lName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['lName'])));
-            $email = strip_tags(mysqli_real_escape_string($connection, trim($_POST['email'])));
-            $pass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
-            $pass = password_hash($pass, PASSWORD_DEFAULT);
-            $DoB = strip_tags(mysqli_real_escape_string($connection, trim($_POST['DoB'])));
-            $userType = strip_tags(mysqli_real_escape_string($connection, trim($_POST['userType'])));
-            $addressId = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-
-            // $fName = $_POST['fName'];
-            // $lName = $_POST['lName'];
-            // $email = $_POST['email'];
-            // $pass = $_POST['pass'];
+            // //Security:
+            // $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            // $lName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['lName'])));
+            // $email = strip_tags(mysqli_real_escape_string($connection, trim($_POST['email'])));
+            // $pass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
             // $pass = password_hash($pass, PASSWORD_DEFAULT);
+            // $DoB = strip_tags(mysqli_real_escape_string($connection, trim($_POST['DoB'])));
+            // $userType = strip_tags(mysqli_real_escape_string($connection, trim($_POST['userType'])));
+            // $addressId = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            // $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            // $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            // $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
 
-            // $DoB = $_POST['DoB'];
-            // $userType = $_POST['userType'];
+            // // $fName = $_POST['fName'];
+            // // $lName = $_POST['lName'];
+            // // $email = $_POST['email'];
+            // // $pass = $_POST['pass'];
+            // // $pass = password_hash($pass, PASSWORD_DEFAULT);
 
-            $user = New User();
-            $user->firstName =$_POST['fName'];
-            echo $_POST['fName'];
-            echo"<br>";
-            echo $user->firstName;
-            $user->lastName = $_POST['lName'];
-            $user->email = $_POST['email'];
-            $user->password = $pass;
-            $user->dateOfBirth = $_POST['DoB'];
-            $user->addressId = 3;
-            $user->userTypeId = $_POST['userType'];
+            // // $DoB = $_POST['DoB'];
+            // // $userType = $_POST['userType'];
 
-            $user->insertUser($user);
+            // $user = New User();
+            // $user->firstName =$_POST['fName'];
+            // echo $_POST['fName'];
+            // echo"<br>";
+            // echo $user->firstName;
+            // $user->lastName = $_POST['lName'];
+            // $user->email = $_POST['email'];
+            // $user->password = $pass;
+            // $user->dateOfBirth = $_POST['DoB'];
+            // $user->addressId = 3;
+            // $user->userTypeId = $_POST['userType'];
 
-            // if($fName != "" && $lName != "" && $email != "" && $pass != "" && $DoB != ""){
-            //     if($userType != 0){
-            //         $sql1 = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `userTypeId`)
-            //         VALUES (NULL,'".$fName."','".$lName."','".$email."','".$pass."','".$DoB."','".$userType."')";
+            // $user->insertUser($user);
 
-            //         if(mysqli_query($connection, $sql1)){
-            //             header("location: ../php/logIn.php");
-            //         }
-            //         else{
-            //             echo "SQL: ".$sql1;
-            //             echo"<br>";
-            //             printf("Errormessage: %s\n", mysqli_error($connection));
-            //         }
-            //     }
-            //     else{
-            //         echo"Please choose a user type";
-            //         echo "<br>";
-            //     }
-            // }
-            // else{
-            //     echo "Please fill all the data<br>";
-            //     echo "<br>";
-            // }
+            // // if($fName != "" && $lName != "" && $email != "" && $pass != "" && $DoB != ""){
+            // //     if($userType != 0){
+            // //         $sql1 = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `userTypeId`)
+            // //         VALUES (NULL,'".$fName."','".$lName."','".$email."','".$pass."','".$DoB."','".$userType."')";
+
+            // //         if(mysqli_query($connection, $sql1)){
+            // //             header("location: ../php/logIn.php");
+            // //         }
+            // //         else{
+            // //             echo "SQL: ".$sql1;
+            // //             echo"<br>";
+            // //             printf("Errormessage: %s\n", mysqli_error($connection));
+            // //         }
+            // //     }
+            // //     else{
+            // //         echo"Please choose a user type";
+            // //         echo "<br>";
+            // //     }
+            // // }
+            // // else{
+            // //     echo "Please fill all the data<br>";
+            // //     echo "<br>";
+            // // }
         }
     ?>
 
