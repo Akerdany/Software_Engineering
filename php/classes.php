@@ -28,17 +28,17 @@
             $userTypeId = $USER;
         }
 
-        public static function userQuery($id, $userTypeID){
+        public function userQuery($id){
             $DB = new DbConnection();
 
             $sql = "SELECT * FROM user WHERE id='".$id."'";
             $result = mysqli_query($DB->getdbconnect(), $sql);      
 
-            list($id, $firstName, $lastName, $email, $password, $dateOfBirth, $dateOfBirth, $telephone, $ssn, $addressId, $userTypeId) = mysqli_fetch_array($result);
+            list($id, $firstName, $lastName, $email, $password, $dateOfBirth, $telephone, $ssn, $addressId, $userTypeId) = mysqli_fetch_array($result);
 
         }
 
-        public static function insertUser($tempUser){
+        public function insertUser($tempUser){
             $DB = new DbConnection();
 
             $sql = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `addressId`, `userTypeId`)
@@ -55,14 +55,13 @@
         }
 
         //print the user:
-        public static function print($id){
+        public function print($id){
             $DB = new DbConnection();
 
             $sql = "SELECT * FROM user WHERE id='".$id."'";
-            $connection = getConnection();
-            $result = mysqli_query($connection, $sql);      
+            $result = mysqli_query($DB->getdbconnect(), $sql);      
 
-            list($id, $firstName, $lastName, $email, , $dateOfBirth, $addressId, $userTypeId) = mysqli_fetch_array($result);
+            list($id, $firstName, $lastName, $email, $password, $dateOfBirth, $telephone, $ssn, $addressId, $userTypeId) = mysqli_fetch_array($result);
 
             echo"id:".$id;
             echo"<br>";
@@ -70,7 +69,7 @@
             echo"<br>";
         }
 
-        public static function updateUser($tempUser){
+        public function updateUser($tempUser){
             $DB = new DbConnection();
 
             $sql = "UPDATE user SET firstName=$tempUser->firstName, lastName=$tempUser->lastName, email=$tempUser->email, 
@@ -86,7 +85,7 @@
             }
         }
 
-        public static function deleteUser($id){
+        public function deleteUser($id){
             $DB = new DbConnection();
 
             $sql = "DELETE FROM user WHERE id=$id";
@@ -96,6 +95,35 @@
             }      
             else{
                 echo "ERROR: Could not able to execute $sql. ". mysqli_error($DB->getdbconnect());
+                return false;
+            }
+        }
+
+        public function logIn($email, $pass){
+            $DB = new DbConnection();
+
+
+            $sql = "SELECT * FROM user WHERE email='".$email."'";
+            $result = mysqli_query($DB->getdbconnect(), $sql);      
+    
+            if(mysqli_num_rows($result) > 0){
+                $row = mysqli_fetch_array($result);
+                $password_hash = $row['password'];
+    
+                if(password_verify($pass, $password_hash)){
+                    session_start();
+    
+                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['userType'] = $row['userTypeId'];
+                    $_SESSION['addressID'] = $row['addressId'];
+
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
                 return false;
             }
         }

@@ -49,6 +49,8 @@
               getaddress($id,$connection);
             }
         }
+
+        echo'<a href="../php/logOut.php">Log Out</a><br>';
     ?>    
 
 </body>

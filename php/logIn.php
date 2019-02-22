@@ -21,35 +21,19 @@
             $email = strip_tags(mysqli_real_escape_string($connection, trim($email)));
             $pass = strip_tags(mysqli_real_escape_string($connection, trim($pass)));
     
-            $sql="SELECT * FROM user WHERE email='".$email."'";
-            $result = mysqli_query($connection, $sql);      
-    
-            if(mysqli_num_rows($result) > 0){
-                $row = mysqli_fetch_array($result);
-                $password_hash = $row['password'];
-    
-                if(password_verify($pass, $password_hash)){
-                    session_start();
-    
-                    $_SESSION['id'] = $row['id'];
-                    $_SESSION['userType'] = $row['userTypeId'];
-                    $_SESSION['addressID'] = $row['addressId'];
+            $tempUser = new User();
 
-                    $tempUser = new User();
-                    $tempUser->userQuery($_SESSION['id']);
-                    $tempUser->print($_SESSION['id']);
-                    // header("Location: ../php/welcome.php");    
-                }
-                else{
-                    echo "Username or Password invalid";
-                    echo "<br>";
-                }    
+            if($tempUser->logIn($email, $pass)){
+                $tempUser->userQuery($_SESSION['id']);
+                // $tempUser->print($_SESSION['id']);
+
+                mysqli_close($connection);
+                header("Location: ../php/welcome.php");    
             }
             else{
                 echo "Username or Password invalid";
                 echo "<br>";
-            }   
-
+            }    
             mysqli_close($connection);
         }
     ?>

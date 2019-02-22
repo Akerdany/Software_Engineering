@@ -12,13 +12,14 @@
         die("Connection failed: " . $connection->connect_error);
     }
 
-    function getConnection(){
- 
-        return $connection;
-    }
+    //Database Conection for Classes:
     Class DbConnection{
         function getdbconnect(){
-            $conn = mysqli_connect("localhost", "root", "", "Database") or die("Couldn't connect");
+            $conn = mysqli_connect("localhost", "root", "", "Database");
+
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }        
     
             return $conn;
         }
