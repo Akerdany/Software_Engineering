@@ -34,11 +34,11 @@
                     $_SESSION['id'] = $row['id'];
                     $_SESSION['userType'] = $row['userTypeId'];
                     $_SESSION['addressID'] = $row['addressId'];
-                    
-                    $tempUser = new user();
+
+                    $tempUser = new User();
                     $tempUser->userQuery($_SESSION['id']);
-                    // $tempUser->print($_SESSION['id']);
-                    header("Location: ../php/welcome.php");    
+                    $tempUser->print($_SESSION['id']);
+                    // header("Location: ../php/welcome.php");    
                 }
                 else{
                     echo "Username or Password invalid";
