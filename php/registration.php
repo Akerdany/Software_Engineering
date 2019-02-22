@@ -15,11 +15,26 @@
         include("classes.php");
 
         if(isset($_POST['submit'])){
+
+            //Security:
+            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            $lName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['lName'])));
+            $email = strip_tags(mysqli_real_escape_string($connection, trim($_POST['email'])));
+            $pass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
+            $pass = password_hash($pass, PASSWORD_DEFAULT);
+            $DoB = strip_tags(mysqli_real_escape_string($connection, trim($_POST['DoB'])));
+            $userType = strip_tags(mysqli_real_escape_string($connection, trim($_POST['userType'])));
+            $addressId = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+
             // $fName = $_POST['fName'];
             // $lName = $_POST['lName'];
             // $email = $_POST['email'];
-            $pass = $_POST['pass'];
-            $pass = password_hash($pass, PASSWORD_DEFAULT);
+            // $pass = $_POST['pass'];
+            // $pass = password_hash($pass, PASSWORD_DEFAULT);
+
             // $DoB = $_POST['DoB'];
             // $userType = $_POST['userType'];
 
@@ -70,19 +85,24 @@
         Password: <input type="password" name="pass"><br>
         Confirm Password: <input type="password" name="confirmPass"><br>
         Date of Birth: <input type="date" name="DoB"><br>
-        User Type: 
-        <select name="userType">
-            <option value="0">Choose</option>
+        Telephone: <input type="number" name="tel"><br>
+        SSN: <input type="number" name="ssn"><br>
+        Address: <input type="text" name="add"><br>
+        <?php
+            if($_SESSION['userType'] = 1){
+                echo"User Type: ";
+                echo"<select name='userType'>";
+                    echo"<option value=0>Choose</option>";
 
-            <?php
-                $sql = mysqli_query($connection, "SELECT * FROM userType");
-                while($row = mysqli_fetch_array($sql)){
-                    $valueId = $row['id'];
-                    $value = $row['userTypeName'];
-                    echo '<option value="' . $valueId . '">' . $value . '</option>';
-                }
-            ?>
-        </select><br>
+                        $sql = mysqli_query($connection, "SELECT * FROM userType");
+                        while($row = mysqli_fetch_array($sql)){
+                            $valueId = $row['id'];
+                            $value = $row['userTypeName'];
+                            echo '<option value="' . $valueId . '">' . $value . '</option>';
+                        }
+                echo"</select><br>";
+            }
+        ?>
         <input type="submit" name="submit">
     </form>
     
