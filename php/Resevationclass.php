@@ -73,7 +73,7 @@ require_once("connection.php");
      {
       $DB = new DbConnection();
       $conn=$DB->getdbconnect();
-      $Q="SELECT court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId 
+      $Q="SELECT court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId,reservationdetails.date
       FROM reservation 
       INNER JOIN user ON reservation.userId=user.id 
       INNER JOIN court ON reservation.courtId=court.id 
@@ -82,6 +82,7 @@ require_once("connection.php");
          echo '<table id = "courtstable">';
          echo '<tr>'
              .'<th>Court Number</th>'
+             .'<th>Date</th>'
              .'<th>Reserver First name</th>'
              .'<th>Reserver Last name</th>'
              .'<th>Start time</th>'
@@ -96,6 +97,7 @@ require_once("connection.php");
             $row1 = mysqli_fetch_array($result1);
             echo '<tr>'
                 .'<td>'.$row['courtNumber'].'</td>'
+                .'<td>'.$row['date'].'</td>'
                 .'<td>'.$row['firstName'].'</td>'
                 .'<td>'.$row['lastName'].'</td>'
                 .'<td>'.$row['startTime'].'</td>'
