@@ -1,5 +1,5 @@
-w<?php
-require("connection.php");
+<?php
+require_once("connection.php");
  class reservation 
  {
     public $ID;
@@ -77,8 +77,37 @@ require("connection.php");
       FROM reservation 
       INNER JOIN user ON reservation.userId=user.id 
       INNER JOIN court ON reservation.courtId=court.id 
-      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id"
-        
+      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id";
+         $result = mysqli_query( $conn, $Q);
+         echo '<table id = "courtstable">';
+         echo '<tr>'
+             .'<th>Court Number</th>'
+             .'<th>Reserver First name</th>'
+             .'<th>Reserver Last name</th>'
+             .'<th>Start time</th>'
+             .'<th>End time</th>'
+             .'<th>Suppervisor first name</th>'
+             .'<th>Suppervisor Lastname name</th>'
+             .'</tr>';
+         while($row = mysqli_fetch_array($result))
+         {
+            $Q1="SELECT `firstName`,`lastName` FROM `user` WHERE `id`=".$row['supervisorId'];
+            $result1 = mysqli_query( $conn, $Q1);
+            $row1 = mysqli_fetch_array($result1);
+            echo '<tr>'
+                .'<td>'.$row['courtNumber'].'</td>'
+                .'<td>'.$row['firstName'].'</td>'
+                .'<td>'.$row['lastName'].'</td>'
+                .'<td>'.$row['startTime'].'</td>'
+                .'<td>'.$row['endTime'].'</td>'
+                .'<td>'.$row1['firstName'].'</td>'
+                .'<td>'.$row1['lastName'].'</td>'
+                .'<td> <form action = "editCourt.php" method = "POST">'
+                .'<button type = "submit" name = "editButton" value = "1">Edit</button>'
+                .'</form>'
+                .'</tr>';
+        }
+        echo '</table>';
      }
  }
 
