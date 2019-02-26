@@ -73,7 +73,11 @@ require("connection.php");
      {
       $DB = new DbConnection();
       $conn=$DB->getdbconnect();
-      $Q=""
+      $Q="SELECT court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId 
+      FROM reservation 
+      INNER JOIN user ON reservation.userId=user.id 
+      INNER JOIN court ON reservation.courtId=court.id 
+      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id"
         
      }
  }
