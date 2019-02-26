@@ -1,4 +1,4 @@
-<?php
+w<?php
 require("connection.php");
  class reservation 
  {
@@ -68,6 +68,13 @@ require("connection.php");
         $Q1="DELETE FROM `reservationdetails` WHERE `ID` = '$this->RDID'";
         mysqli_query($conn,$Q);
         mysqli_query($conn,$Q1);
+     }
+     public static function Display()
+     {
+      $DB = new DbConnection();
+      $conn=$DB->getdbconnect();
+      $Q=""
+        
      }
  }
 

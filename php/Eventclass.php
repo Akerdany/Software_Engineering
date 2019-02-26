@@ -37,7 +37,7 @@ class events
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
-        $Q="DELETE FROM `users` WHERE `ID` = '$this->ID'";
+        $Q="DELETE FROM `users` WHERE `ID` = '$ID'";
         mysqli_query($conn,$Q);
     }
 ?>
