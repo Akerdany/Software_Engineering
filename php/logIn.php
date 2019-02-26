@@ -64,6 +64,7 @@
           <a href="#forgot">Forgot Password?</a>
         </div>
       </form>
+      
       <form class="sign-up-htm" action="registration.php" method="POST">
         <div class="group">
           <label for="user" class="label">Username</label>
