@@ -47,7 +47,7 @@ require("connection.php");
          $r=mysqli_query($conn,$Q2);
          if($row=mysqli_fetch_assoc($r))
          { 
-            $this->RDID=$row;
+            $RDID=$row;
          }
          $Q3="INSERT INTO `reservation` ( `userId`, `courtId`, `reservationDetailsId`) VALUES ( '$R->UID', '$R->courtID', '$R->RDID')";
          mysqli_query($conn, $Q3);
