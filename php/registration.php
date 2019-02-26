@@ -17,65 +17,65 @@
         if(isset($_POST['submit'])){
             echo"HELLOOOOOOOOOOOOOOOOOOOOOO";
 
-            // //Security:
-            // $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            // $lName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['lName'])));
-            // $email = strip_tags(mysqli_real_escape_string($connection, trim($_POST['email'])));
-            // $pass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
+            //Security:
+            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            $lName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['lName'])));
+            $email = strip_tags(mysqli_real_escape_string($connection, trim($_POST['email'])));
+            $pass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
+            $pass = password_hash($pass, PASSWORD_DEFAULT);
+            $DoB = strip_tags(mysqli_real_escape_string($connection, trim($_POST['DoB'])));
+            $userType = strip_tags(mysqli_real_escape_string($connection, trim($_POST['userType'])));
+            $addressId = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+
+            // $fName = $_POST['fName'];
+            // $lName = $_POST['lName'];
+            // $email = $_POST['email'];
+            // $pass = $_POST['pass'];
             // $pass = password_hash($pass, PASSWORD_DEFAULT);
-            // $DoB = strip_tags(mysqli_real_escape_string($connection, trim($_POST['DoB'])));
-            // $userType = strip_tags(mysqli_real_escape_string($connection, trim($_POST['userType'])));
-            // $addressId = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            // $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            // $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            // $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
 
-            // // $fName = $_POST['fName'];
-            // // $lName = $_POST['lName'];
-            // // $email = $_POST['email'];
-            // // $pass = $_POST['pass'];
-            // // $pass = password_hash($pass, PASSWORD_DEFAULT);
+            // $DoB = $_POST['DoB'];
+            // $userType = $_POST['userType'];
 
-            // // $DoB = $_POST['DoB'];
-            // // $userType = $_POST['userType'];
+            $user = New User();
+            $user->firstName =$_POST['fName'];
+            echo $_POST['fName'];
+            echo"<br>";
+            echo $user->firstName;
+            $user->lastName = $_POST['lName'];
+            $user->email = $_POST['email'];
+            $user->password = $pass;
+            $user->dateOfBirth = $_POST['DoB'];
+            $user->addressId = 3;
+            $user->userTypeId = $_POST['userType'];
 
-            // $user = New User();
-            // $user->firstName =$_POST['fName'];
-            // echo $_POST['fName'];
-            // echo"<br>";
-            // echo $user->firstName;
-            // $user->lastName = $_POST['lName'];
-            // $user->email = $_POST['email'];
-            // $user->password = $pass;
-            // $user->dateOfBirth = $_POST['DoB'];
-            // $user->addressId = 3;
-            // $user->userTypeId = $_POST['userType'];
+            $user->insertUser($user);
 
-            // $user->insertUser($user);
+            // if($fName != "" && $lName != "" && $email != "" && $pass != "" && $DoB != ""){
+            //     if($userType != 0){
+            //         $sql1 = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `userTypeId`)
+            //         VALUES (NULL,'".$fName."','".$lName."','".$email."','".$pass."','".$DoB."','".$userType."')";
 
-            // // if($fName != "" && $lName != "" && $email != "" && $pass != "" && $DoB != ""){
-            // //     if($userType != 0){
-            // //         $sql1 = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `userTypeId`)
-            // //         VALUES (NULL,'".$fName."','".$lName."','".$email."','".$pass."','".$DoB."','".$userType."')";
-
-            // //         if(mysqli_query($connection, $sql1)){
-            // //             header("location: ../php/logIn.php");
-            // //         }
-            // //         else{
-            // //             echo "SQL: ".$sql1;
-            // //             echo"<br>";
-            // //             printf("Errormessage: %s\n", mysqli_error($connection));
-            // //         }
-            // //     }
-            // //     else{
-            // //         echo"Please choose a user type";
-            // //         echo "<br>";
-            // //     }
-            // // }
-            // // else{
-            // //     echo "Please fill all the data<br>";
-            // //     echo "<br>";
-            // // }
+            //         if(mysqli_query($connection, $sql1)){
+            //             header("location: ../php/logIn.php");
+            //         }
+            //         else{
+            //             echo "SQL: ".$sql1;
+            //             echo"<br>";
+            //             printf("Errormessage: %s\n", mysqli_error($connection));
+            //         }
+            //     }
+            //     else{
+            //         echo"Please choose a user type";
+            //         echo "<br>";
+            //     }
+            // }
+            // else{
+            //     echo "Please fill all the data<br>";
+            //     echo "<br>";
+            // }
         }
     ?>
 
@@ -88,7 +88,7 @@
         Date of Birth: <input type="date" name="DoB"><br>
         Telephone: <input type="number" name="tel"><br>
         SSN: <input type="number" name="ssn"><br>
-        Address: <input type="text" name="add"><br>
+        <!-- Address: <input type="text" name="add"><br> -->
         <?php
             if($_SESSION['userType'] = 1){
                 echo"User Type: ";

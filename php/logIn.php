@@ -52,10 +52,10 @@
           <label for="pass" class="label">Password</label>
           <input id="password" name="password" type="password" class="input" data-type="password">
         </div>
-        <div class="group">
+        <!-- <div class="group">
           <input id="check" type="checkbox" class="check" checked>
           <label for="check"><span class="icon"></span> Keep me Signed in</label>
-        </div>
+        </div> -->
         <div class="group">
           <input type="submit" class="button" value="Sign In" name="submit">
         </div>
@@ -64,6 +64,7 @@
           <a href="#forgot">Forgot Password?</a>
         </div>
       </form>
+      
       <form class="sign-up-htm" action="registration.php" method="POST">
         <div class="group">
           <label for="user" class="label">Username</label>

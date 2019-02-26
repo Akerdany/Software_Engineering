@@ -10,12 +10,12 @@
         public static function displayCourts(){
             $DB = new DBConnection();
             $sql = 'SELECT court.id, sports.name, court.courtNumber, court.price, courtdetails.specs 
-            FROM court 
-            INNER JOIN sports ON court.sportId = sports.id 
-            INNER JOIN ccd ON court.id = ccd.courtId 
+            FROM court
+            INNER JOIN sports ON court.sportId = sports.id
+            INNER JOIN ccd ON court.id = ccd.courtId
             INNER JOIN courtdetails ON courtdetails.id = ccd.courtDetailsId';
             $result = mysqli_query($DB->getdbconnect(), $sql);
-            echo '<table id = "courtstable">';
+            echo '<table class = "displaytables">';
             echo '<tr>'
                 .'<th>Sport</th>'
                 .'<th>Court No.</th>'
@@ -53,7 +53,7 @@
 
             $ccdSQL = 'INSERT INTO ccd (courtId, courtDetailsId) VALUES ("'.$court->id.'","'.$court->specsid.'")';
             mysqli_query($DB->getdbconnect(), $ccdSQL);
-
+            header('Location: displayCourts.php');
             mysqli_close($DB->getdbconnect());
         }
 
@@ -64,6 +64,7 @@
             $sql2 = 'DELETE FROM ccd WHERE courtId = "'.$id.'"';
             mysqli_query($DB->getdbconnect(), $sql2);
             mysqli_query($DB->getdbconnect(), $sql);
+            header('Location: displayCourts.php');
         }
 
 
