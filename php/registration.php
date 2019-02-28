@@ -17,6 +17,7 @@
         if(isset($_POST['submit'])){
 
             //Security:
+            $pass=$pass.$email;
             $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
             $lName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['lName'])));
             $email = strip_tags(mysqli_real_escape_string($connection, trim($_POST['email'])));

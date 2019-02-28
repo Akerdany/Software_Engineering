@@ -23,7 +23,7 @@
             $pass = strip_tags(mysqli_real_escape_string($connection, trim($pass)));
     
             $tempUser = new User();
-
+            $pass=$pass.$email;
             if($tempUser->logIn($email, $pass)){
                 $tempUser->userQuery($_SESSION['id']);
                 // $tempUser->print($_SESSION['id']);
