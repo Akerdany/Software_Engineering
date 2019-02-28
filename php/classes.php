@@ -120,7 +120,7 @@
         public function deleteUser($id){
             $DB = new DbConnection();
 
-            $sql = "DELETE FROM user WHERE id=$id";
+            $sql = "UPDATE user SET isDeleted=1 WHERE id=$id";
 
             if($result = mysqli_query($DB->getdbconnect(), $sql)){
                 return true;
