@@ -32,6 +32,7 @@ class events
                 .'<th>Event Date</th>'
                 .'<th>Event Details</th>'
                 .'<th>Edit Event</th>'
+                .'<th>Delete Event</th>'
                 .'</tr>';
             while($row = mysqli_fetch_array($result))
             {
@@ -42,11 +43,13 @@ class events
                     .'<td> <form action = "editEvent.php" method = "POST">'
                     .'<button type = "submit" name = "editButton" value = "'.$row['id'].'">Edit</button>'
                     .'</form>'
+                    .'<td> <form action = "deleteEvent.php" method = "POST">'
+                    .'<button class = "button" type = "submit" name = "deleteButton" value = "'.$row['id'].'">Delete</button>'
+                    .'</form>'
                     .'</tr>';
             }
             echo '</table>';
-            echo '<a href= "addEvent.php" class="button">Add Court</a><br><br>';
-            echo '<a href= "deleteEvent.php" class="button">Delete Court</a>';
+            echo '<a href= "addEvent.php" class="button">Add Event</a><br><br>';
     }
     public static function AddEvent($E)
     {
@@ -54,20 +57,23 @@ class events
         $conn=$DB->getdbconnect();
         $Q="INSERT INTO `events` (`name`, `date`, `details`) VALUES ('$E->Name', '$E->Date', '$E->Details')";
         mysqli_query($conn,$Q);
+        header('Location: displayEvents.php');
     }
-    public static function Update()
+    public static function Update($E)
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
-        $Q="UPDATE `events` SET `name` = '$Name', `Date` = '$Date', `Details` = '$Details' WHERE `ID` = '$ID' ";
+        $Q="UPDATE `events` SET `name` = '$E->Name', `Date` = '$E->Date', `Details` = '$E->Details' WHERE `ID` = '$E->ID' ";
         mysqli_query($conn,$Q);
+        header('Location: displayEvents.php');
     }
-    public static function Delete()
+    public static function Delete($ID)
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
-        $Q="DELETE FROM `users` WHERE `ID` = '$ID'";
+        $Q="DELETE FROM `events` WHERE `id` = '$ID'";
         mysqli_query($conn,$Q);
+        header('Location: displayEvents.php');
     }
 }
 ?>
