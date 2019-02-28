@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 28, 2019 at 07:47 PM
+-- Generation Time: Feb 28, 2019 at 10:36 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `test`
+-- Database: `database`
 --
 
 -- --------------------------------------------------------
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `options` (
   `name` varchar(100) NOT NULL,
   `type` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `options`
@@ -176,7 +176,9 @@ CREATE TABLE IF NOT EXISTS `options` (
 
 INSERT INTO `options` (`id`, `name`, `type`) VALUES
 (1, 'Name', 'text'),
-(2, 'Expiry Date', 'date');
+(2, 'Expiry Date', 'date'),
+(3, 'number', 'int'),
+(4, 'cvv', 'int');
 
 -- --------------------------------------------------------
 
@@ -327,7 +329,17 @@ CREATE TABLE IF NOT EXISTS `selectedoptions` (
   PRIMARY KEY (`id`),
   KEY `paymentId` (`paymentId`),
   KEY `optionId` (`optionId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `selectedoptions`
+--
+
+INSERT INTO `selectedoptions` (`id`, `paymentId`, `optionId`, `priority`) VALUES
+(1, 1, 1, 1),
+(2, 1, 3, 2),
+(3, 1, 4, 3),
+(4, 1, 2, 4);
 
 -- --------------------------------------------------------
 
