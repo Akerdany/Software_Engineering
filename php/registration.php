@@ -15,7 +15,6 @@
         include("classes.php");
 
         if(isset($_POST['submit'])){
-            echo"HELLOOOOOOOOOOOOOOOOOOOOOO";
 
             //Security:
             $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));

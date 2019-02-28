@@ -51,6 +51,8 @@
         }
 
         echo'<a href="../php/logOut.php">Log Out</a><br>';
+        echo'<a href="../php/editUser.php">Edit Account</a><br>';
+
     ?>    
 
 </body>

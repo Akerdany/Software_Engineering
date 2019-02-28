@@ -13,7 +13,7 @@
         public $ssn;
         public $addressId;
         public $userTypeId;
-        public $userType;
+        public $isDeleted;
 
         public function userData($ID, $FIRSTNAME, $LASTNAME, $EMAIL, $PASSWORD, $DATEOFBIRTH, $TELEPHONE, $SSN, $ADDRESS, $USER){
             $id = $ID;
@@ -34,8 +34,27 @@
             $sql = "SELECT * FROM user WHERE id='".$id."'";
             $result = mysqli_query($DB->getdbconnect(), $sql);      
 
-            list($id, $firstName, $lastName, $email, $password, $dateOfBirth, $telephone, $ssn, $addressId, $userTypeId) = mysqli_fetch_array($result);
+            // list($id, $firstName, $lastName, $email, $password, $dateOfBirth, $telephone, $ssn, $addressId, $userTypeId, $isDeleted) = mysqli_fetch_array($result);
+            if($row = mysqli_fetch_array($result)){
 
+                $this->id=$row['id'];
+                $this->firstName=$row['firstName'];
+                $this->lastName=$row['lastName'];
+                $this->email=$row['email'];
+                $this->password=$row['password'];
+                $this->dateOfBirth=$row['dateOfBirth'];
+                $this->telephone=$row['telephone'];
+                $this->ssn=$row['ssn'];
+                $this->addressId=$row['addressId'];
+                $this->userTypeId=$row['userTypeId'];
+                $this->isDeleted=$row['isDeleted'];
+
+                return true;
+            }
+            else{
+                echo "ERROR: Could not able to execute $sql. ". mysqli_error($DB->getdbconnect());
+                return false;
+            }
         }
 
         public function insertUser($tempUser){
@@ -55,26 +74,39 @@
         }
 
         //print the user:
-        public function print($id){
-            $DB = new DbConnection();
+        public function print(){
+            // $DB = new DbConnection();
 
-            $sql = "SELECT * FROM user WHERE id='".$id."'";
-            $result = mysqli_query($DB->getdbconnect(), $sql);      
+            // $sql = "SELECT * FROM user WHERE id='".$id."'";
+            // $result = mysqli_query($DB->getdbconnect(), $sql);      
 
-            list($id, $firstName, $lastName, $email, $password, $dateOfBirth, $telephone, $ssn, $addressId, $userTypeId) = mysqli_fetch_array($result);
+            // list($id, $firstName, $lastName, $email, $password, $dateOfBirth, $telephone, $ssn, $addressId, $userTypeId, $isDeleted) = mysqli_fetch_array($result);
 
-            echo"id:".$id;
+            echo"id: ".$this->id;
             echo"<br>";
-            echo"First Name: ".$firstName;
+            echo"First Name: ".$this->firstName;
             echo"<br>";
+            echo"Last Name: ".$this->lastName;
+            echo"<br>";
+            echo"Email: ".$this->email;
+            echo"<br>";
+            echo"Password: ".$this->password;
+            echo"<br>";
+            echo"dateOfBirth: ".$this->dateOfBirth;
+            echo"<br>";
+            echo"Telephone: ".$this->telephone;
+            echo"<br>";
+            echo"SSN: ".$this->ssn;
+            echo"<br>";
+
         }
 
         public function updateUser($tempUser){
             $DB = new DbConnection();
 
-            $sql = "UPDATE user SET firstName=$tempUser->firstName, lastName=$tempUser->lastName, email=$tempUser->email, 
-                        password=$tempUser->password, dateOfBirth=$tempUser->dateOfBirth, telephone=$tempUser->telephone, 
-                        ssn=$tempUser->ssn, addressId=$tempUser->addressId, userTypeId=$tempUser->userTypeId WHERE id='$tempUser->id";
+            $sql = "UPDATE user SET firstName='$tempUser->firstName', lastName='$tempUser->lastName', email='$tempUser->email', 
+                        dateOfBirth='$tempUser->dateOfBirth', telephone='$tempUser->telephone', 
+                        ssn='$tempUser->ssn', addressId='$tempUser->addressId', userTypeId='$tempUser->userTypeId' WHERE id=$tempUser->id";
 
             if($result = mysqli_query($DB->getdbconnect(), $sql)){
                 return true;
@@ -110,7 +142,7 @@
                 $row = mysqli_fetch_array($result);
                 $password_hash = $row['password'];
     
-                if(password_verify($pass, $password_hash)){
+                if(password_verify($pass, $password_hash) && $row['isDeleted'] == 0){
                     session_start();
     
                     $_SESSION['id'] = $row['id'];
