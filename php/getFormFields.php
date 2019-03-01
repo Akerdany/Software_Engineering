@@ -14,8 +14,9 @@ while($row = mysqli_fetch_array($result)){
     $q = 'SELECT * from options WHERE id = "'.$row['optionId'].'"'; 
     $r = mysqli_query($DB->getdbconnect(), $q);
     $optionRow = mysqli_fetch_array($r);   //get option names of the payment method's options
+    
     $label = '<label>'.$optionRow['name'].'</label>';    //label of each field by the option name
-    $field = '<input type = "'.$optionRow['type'].'" name = "'.$optionRow['name'].'">';   // input field type from type column and name attribute based on option name
+    $field = '<input type = "'.$optionRow['type'].'" name = "'.$optionRow['name'].'"><br>';   // input field type from type column and name attribute based on option name
     $formElements .= $label;    // appending label then input field to the empty string
     $formElements .= '<br>';
     $formElements .= $field;

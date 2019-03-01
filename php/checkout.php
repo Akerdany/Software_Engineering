@@ -13,7 +13,7 @@ function getForm(pmId) {
     xmlhttp.open("GET", "getFormFields.php?id=" + pmId, true); //request to getFormFields with paymentMethodId to get the fields
     xmlhttp.send();
 }
-
+//$time1 = strtotime($string);
 
 </script>
 </head>
@@ -33,7 +33,9 @@ echo '<form id = "checkout" action = "" method = "POST">'
     .'<option>Choose</option>';
 while($row = mysqli_fetch_array($result))
 {
+    echo $row['name'].'<br>';
     echo '<option value = "'.$row['id'].'">'.$row['name'].'</option>';
+    
 }
 echo '</select> <br>'
     .'<div id = "fields"></div>';
@@ -54,11 +56,12 @@ if (isset($_POST['submit']))
         $r = mysqli_query($DB->getdbconnect(), $q); //get the name of option from each optionId used in previous query
         $optionRow = mysqli_fetch_array($r);
         $optionName = $optionRow['name'];
-
+        
         
         $soRow = mysqli_fetch_array($r1);
         $soId = $soRow['id'];
         $fieldname = $_POST[''.$optionName.'']; //use the option name to get field values
+        echo $fieldname ."<br>";
         $insertSQL = 'INSERT INTO p_method_option_value (`selectedoptionsId`, `value`, `reservationId`) VALUES ( "'.$soId.'","'.$fieldname.'","1")';
         mysqli_query($DB->getdbconnect(), $insertSQL);
     }
