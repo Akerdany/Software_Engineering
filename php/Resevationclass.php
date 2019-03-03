@@ -79,7 +79,7 @@ require_once("connection.php");
       INNER JOIN court ON reservation.courtId=court.id 
       INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id";
          $result = mysqli_query( $conn, $Q);
-         echo '<table id = "courtstable">';
+         echo '<table class = "displaytables">';
          echo '<tr>'
              .'<th>Court Number</th>'
              .'<th>Date</th>'
