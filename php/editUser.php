@@ -46,7 +46,7 @@
 
         $editUser = new User();
 
-        if($editUser->userQuery($_SESSION['id'])){
+        if($editUser->userQuery(5)){
             echo '<div id="editForm">';
             echo '<form name="editUser" action="" method="POST">';
             echo "First Name: <input type='text' name='fName' value='".$editUser->firstName."'><br>";

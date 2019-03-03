@@ -74,7 +74,9 @@
         }
 
         //print the user:
-        public function print1(){
+
+        public function printo(){
+
             // $DB = new DbConnection();
 
             // $sql = "SELECT * FROM user WHERE id='".$id."'";
