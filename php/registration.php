@@ -13,15 +13,16 @@
     <?php 
         require("connection.php");
         include("classes.php");
+        session_start();
 
         if(isset($_POST['submit'])){
 
             //Security:
-            $pass=$pass.$email;
             $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
             $lName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['lName'])));
             $email = strip_tags(mysqli_real_escape_string($connection, trim($_POST['email'])));
             $pass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
+            $pass = $pass.$email;
             $pass = password_hash($pass, PASSWORD_DEFAULT);
             $DoB = strip_tags(mysqli_real_escape_string($connection, trim($_POST['DoB'])));
             $userType = strip_tags(mysqli_real_escape_string($connection, trim($_POST['userType'])));
@@ -30,28 +31,24 @@
             $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
             $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
 
-            // $fName = $_POST['fName'];
-            // $lName = $_POST['lName'];
-            // $email = $_POST['email'];
-            // $pass = $_POST['pass'];
-            // $pass = password_hash($pass, PASSWORD_DEFAULT);
-
-            // $DoB = $_POST['DoB'];
-            // $userType = $_POST['userType'];
-
             $user = New User();
-            $user->firstName =$_POST['fName'];
-            echo $_POST['fName'];
-            echo"<br>";
-            echo $user->firstName;
-            $user->lastName = $_POST['lName'];
-            $user->email = $_POST['email'];
+            $user->firstName = $fName;
+            $user->lastName = $lName;
+            $user->email = $email;
             $user->password = $pass;
-            $user->dateOfBirth = $_POST['DoB'];
+            $user->dateOfBirth = $DoB;
             $user->addressId = 3;
-            $user->userTypeId = $_POST['userType'];
 
-            $user->insertUser($user);
+            if($_SESSION['userType'] != 1){
+                $user->userTypeId = 2;
+            }
+            else{
+                $user->userTypeId = $addressId;
+            }
+
+            if($user->insertUser($user)){
+                header("location: ../php/logIn.php");
+            }
 
             // if($fName != "" && $lName != "" && $email != "" && $pass != "" && $DoB != ""){
             //     if($userType != 0){
@@ -90,7 +87,7 @@
         SSN: <input type="number" name="ssn"><br>
         <!-- Address: <input type="text" name="add"><br> -->
         <?php
-            if($_SESSION['userType'] = 1){
+            if(!empty($_SESSION['userType']) && $_SESSION['userType'] == 1){
                 echo"User Type: ";
                 echo"<select name='userType'>";
                     echo"<option value=0>Choose</option>";
