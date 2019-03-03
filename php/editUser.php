@@ -58,7 +58,7 @@
             echo "<button name='pass' id='pass'> Change Password  </button> <button name='delAccount' id='delAccount'> Delete Account </button> ";  
             echo '</div>';   
             
-            echo '<div id="passwordForm" style="display:none;';
+            echo '<div id="passwordForm" style="display:none;">';
             echo '<form name="changePassword" action="" method="POST">';
             echo "Old Password: <input type='password' name='oldPass' placeholder='Old Password'><br>";
             echo "New Password: <input type='password' name='newPass' placeholder='New Password'><br>";
@@ -68,7 +68,7 @@
             echo "<button name='backP' id='backP'> Back </button>";  
             echo '</div>';   
 
-            echo '<div id="deleteForm" style="display:none;';
+            echo '<div id="deleteForm" style="display:none;">';
             echo '<form name="deleteAccount" action="" method="POST">';
             echo "Password: <input type='password' name='pass' placeholder='Enter Your Password'><br>";
             echo "Confirm Password: <input type='password' name='confirmPass' placeholder='Confirm Your Password'><br>";

@@ -2,7 +2,7 @@
 <head>
 <script>
 function getForm(pmId) {
-
+    alert("Hello! I am an alert box!!");
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
