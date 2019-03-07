@@ -9,7 +9,7 @@ $sql = 'SELECT * from selectedoptions WHERE paymentId = "'.$paymentMethodId.'" O
 $result = mysqli_query($DB->getdbconnect(), $sql);    //get options of the chosen payment method sorted by priority of appearance
 
 $formElements = "";    //empty string where html code for the fields will be stored and sent back to the AJAX call
-
+echo $sql;
 while($row = mysqli_fetch_array($result)){
     $q = 'SELECT * from options WHERE id = "'.$row['optionId'].'"'; 
     $r = mysqli_query($DB->getdbconnect(), $q);
