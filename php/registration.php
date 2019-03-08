@@ -6,6 +6,7 @@
     <title>Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+    <link href="../css/temp.css" rel="stylesheet" type="text/css">
     <script src="main.js"></script>
 </head>
 <body>
@@ -75,16 +76,16 @@
             // }
         }
     ?>
-
-    <form name="registration" action="" method="POST">
+<div id = "regForm">
+    <form name="registration" id = "registrationForm" action="" method="POST">
         First Name: <input type="text" name="fName"><br>
         Last Name: <input type="text" name="lName"><br>
         Email: <input type="text" name="email"><br>
         Password: <input type="password" name="pass"><br>
         Confirm Password: <input type="password" name="confirmPass"><br>
         Date of Birth: <input type="date" name="DoB"><br>
-        Telephone: <input type="number" name="tel"><br>
-        SSN: <input type="number" name="ssn"><br>
+        Telephone: <input type="text" name="tel"><br>
+        SSN: <input type="text" name="ssn"><br>
         <!-- Address: <input type="text" name="add"><br> -->
         <?php
             if(!empty($_SESSION['userType']) && $_SESSION['userType'] == 1){
@@ -103,6 +104,7 @@
         ?>
         <input type="submit" name="submit">
     </form>
+        </div>
     
 </body>
 </html>

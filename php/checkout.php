@@ -2,7 +2,6 @@
 <head>
 <script>
 function getForm(pmId) {
-    alert("Hello! I am an alert box!!");
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -55,13 +54,12 @@ if (isset($_POST['submit']))
         $q = 'SELECT name from options WHERE id = "'.$row['optionId'].'"';
         $r = mysqli_query($DB->getdbconnect(), $q); //get the name of option from each optionId used in previous query
         $optionRow = mysqli_fetch_array($r);
-        $optionName = $optionRow['name'];
+        $optionName = str_replace(" ","",$optionRow['name']);
         
         
         $soRow = mysqli_fetch_array($r1);
         $soId = $soRow['id'];
         $fieldname = $_POST[''.$optionName.'']; //use the option name to get field values
-        echo $fieldname ."<br>";
         $insertSQL = 'INSERT INTO p_method_option_value (`selectedoptionsId`, `value`, `reservationId`) VALUES ( "'.$soId.'","'.$fieldname.'","1")';
         mysqli_query($DB->getdbconnect(), $insertSQL);
     }

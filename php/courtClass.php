@@ -42,7 +42,7 @@
 
         public static function addCourt($court){
             $DB = new DbConnection();
-            $sql = 'INSERT INTO court (courtNumber, sportId, price) VALUES ( "'.$court->courtNumber.'","'.$court->sportid.'","'.$court->pricePerHour.'")';
+            $sql = 'INSERT INTO court (courtNumber, sportId, price, isDeleted) VALUES ( "'.$court->courtNumber.'","'.$court->sportid.'","'.$court->pricePerHour.'", 0)';
             mysqli_query($DB->getdbconnect(), $sql);
             $lastIdSQL = 'SELECT MAX(id) from court';
             $lastIdResult = mysqli_query($DB->getdbconnect(), $lastIdSQL);

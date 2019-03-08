@@ -5,26 +5,38 @@ echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 $DB = new DbConnection();
 
 
+
 $sqlsports = 'SELECT * from sports';
 $resultsports = mysqli_query($DB->getdbconnect(), $sqlsports);
             
 $sqloptions = 'SELECT * from courtdetails';
 $resultoptions = mysqli_query($DB->getdbconnect(), $sqloptions);
 
+$sql = 'SELECT court.id, sports.name, court.courtNumber, court.price, courtdetails.specs 
+            FROM court
+            INNER JOIN sports ON court.sportId = sports.id
+            INNER JOIN ccd ON court.id = ccd.courtId
+            INNER JOIN courtdetails ON courtdetails.id = ccd.courtDetailsId
+            WHERE court.id = "'.$_POST['editButton'].'"';
+$result = mysqli_query($DB->getdbconnect(), $sql);
+$r = mysqli_fetch_array($result);
+
+
+
             echo '<form action = "" method = "POST" class = "form-basic">
                     <label>Sport </label>
-                    <select name = "sport">';
+                    <select name = "sport" value = "'.$r['name'].'">';
             while($row = mysqli_fetch_array($resultsports))
             {
                 echo '<option value = "'.$row['id'].'">'.$row['name'].'</option>';
             }
             echo '</select> <br>';
             echo '<label>Court Number </label>
-                <input type = "text" name = "courtnumber"><br>
+                <input type = "text" name = "courtnumber" value = "'.$r['courtNumber'].'"><br>
                 <label>Hourly Price</label>
-                <input type = "text" name = "courtprice"> <br>
+                <input type = "text" name = "courtprice" value = "'.$r['price'].'"> <br>
                 <label>Court Specs </label>
-                <select name = "specs">';
+                <select name = "specs" value = "'.$r['specs'].'">';
 
             while($row = mysqli_fetch_array($resultoptions))
             {

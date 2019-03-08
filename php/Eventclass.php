@@ -55,7 +55,7 @@ class events
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
-        $Q="INSERT INTO `events` (`name`, `date`, `details`) VALUES ('$E->Name', '$E->Date', '$E->Details')";
+        $Q="INSERT INTO `events` (`name`, `date`, `details`, `isDeleted`) VALUES ('$E->Name', '$E->Date', '$E->Details', '0')";
         mysqli_query($conn,$Q);
         header('Location: displayEvents.php');
     }
