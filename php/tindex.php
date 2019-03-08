@@ -45,20 +45,37 @@ div.content {
 }
 </style>
 </head>
+
 <?php
 session_start();
 if(!(isset($_SESSION['userType']))){
-    echo "helloeee";
+    echo "<script>
+    
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById('fields').innerHTML = ''; //empty form before appending
+            document.getElementById('fields').innerHTML += this.responseText; // append retrieved fields
+            }
+        };
+        xmlhttp.open('GET', 'buttons.php?id=' + "."1".", true); //request to getFormFields with paymentMethodId to get the fields
+        xmlhttp.send();
+    
+   
+    
+    </script>";
 }
 ?>
 <body>
 
 <div class="sidebar">
 <a href='#' class='logo' ><img src="http://www.emss.gov.eg/assets/finle/images/logo-header.png" alt="" width="120px" height="100%"></a>
-  <a class="active" href="#home">SignIn</a>
-  <a href="#news">Signup</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+
+<div id = "fields">
+<a  href="#home">SignIn</a>
+  <a href="logOut.php">Signup</a>
+  
+  </div>
 </div>
 </body>
 </html>
