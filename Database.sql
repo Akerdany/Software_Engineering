@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 07, 2019 at 03:37 PM
+-- Generation Time: Mar 08, 2019 at 03:27 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -62,15 +62,15 @@ CREATE TABLE IF NOT EXISTS `ccd` (
   PRIMARY KEY (`id`),
   KEY `courtId` (`courtId`),
   KEY `courtDetailsId` (`courtDetailsId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ccd`
 --
 
 INSERT INTO `ccd` (`id`, `courtId`, `courtDetailsId`) VALUES
-(1, 1, 1),
-(2, 2, 1);
+(4, 3, 2),
+(5, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -88,15 +88,16 @@ CREATE TABLE IF NOT EXISTS `court` (
   `isDeleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sportId` (`sportId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `court`
 --
 
 INSERT INTO `court` (`id`, `courtNumber`, `sportId`, `price`, `creationDate`, `isDeleted`) VALUES
-(1, '1', 1, 50, '2019-02-28 19:43:57', 0),
-(2, '2', 1, 70, '2019-02-28 19:43:57', 0);
+(1, '34', 1, 64, '2019-02-28 19:43:57', 0),
+(3, '142', 1, 12, '2019-03-08 14:02:31', 0),
+(4, '12', 1, 15, '2019-03-08 14:03:08', 0);
 
 -- --------------------------------------------------------
 
@@ -134,14 +135,14 @@ CREATE TABLE IF NOT EXISTS `events` (
   `isDeleted` tinyint(1) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `events`
 --
 
 INSERT INTO `events` (`id`, `name`, `date`, `details`, `isDeleted`, `creationDate`) VALUES
-(1, 'Koora', '2010-11-10', 'hanel3aab koora', 0, '2019-02-28 19:44:55');
+(1, 'hhhh', '2010-11-10', 'hanel3aab koora', 0, '2019-02-28 19:44:55');
 
 -- --------------------------------------------------------
 
@@ -152,9 +153,18 @@ INSERT INTO `events` (`id`, `name`, `date`, `details`, `isDeleted`, `creationDat
 DROP TABLE IF EXISTS `features`;
 CREATE TABLE IF NOT EXISTS `features` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `feature` int(11) NOT NULL,
+  `feature` varchar(11) NOT NULL,
+  `file` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `features`
+--
+
+INSERT INTO `features` (`id`, `feature`, `file`) VALUES
+(1, 'Delete_user', 'deleteUser.php'),
+(2, 'Edit_user', 'editUser.php');
 
 -- --------------------------------------------------------
 
@@ -246,7 +256,15 @@ CREATE TABLE IF NOT EXISTS `previliges` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `optionId` (`featureId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `previliges`
+--
+
+INSERT INTO `previliges` (`id`, `userTypeId`, `featureId`) VALUES
+(1, 1, 1),
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -262,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `p_method_option_value` (
   `reservationId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `reservationId` (`reservationId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `p_method_option_value`
@@ -272,7 +290,11 @@ INSERT INTO `p_method_option_value` (`id`, `selectedoptionsId`, `value`, `reserv
 (1, 1, 'hussammm', 1),
 (2, 2, '1234567890', 1),
 (3, 3, '132', 1),
-(4, 4, '2019-03-21', 1);
+(4, 4, '2019-03-21', 1),
+(5, 1, 'hhh', 1),
+(6, 2, '123', 1),
+(7, 3, '321', 1),
+(8, 4, '2019-03-14', 1);
 
 -- --------------------------------------------------------
 
