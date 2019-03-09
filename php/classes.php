@@ -60,9 +60,11 @@
         public function insertUser($tempUser){
             $DB = new DbConnection();
 
-            $sql = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `addressId`, `userTypeId`, `telephone`, `ssn`)
+            $date = date('Y-m-d H:i:s');
+
+            $sql = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `addressId`, `userTypeId`, `telephone`, `ssn`, `creationDate`)
                         VALUES (NULL,'".$tempUser->firstName."','".$tempUser->lastName."','".$tempUser->email."','".$tempUser->password."',
-                        '".$tempUser->dateOfBirth."','".$tempUser->addressId."','".$tempUser->userTypeId."','".$tempUser->telephone."','".$tempUser->ssn."')";
+                        '".$tempUser->dateOfBirth."','".$tempUser->addressId."','".$tempUser->userTypeId."','".$tempUser->telephone."','".$tempUser->ssn."','".$date."')";
             
             if($result = mysqli_query($DB->getdbconnect(), $sql)){
                 return true;
