@@ -112,7 +112,8 @@
                     if($editUser->updateUser($editUser)){
 
                         mysqli_close($connection);
-                        header("Location: ../php/welcome.php");    
+                        session_destroy();
+                        header("Location: ../php/logIn.php");    
                     }
                 }
                 else{
