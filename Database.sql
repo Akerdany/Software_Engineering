@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 09, 2019 at 09:18 PM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.10
+-- Host: 127.0.0.1:3306
+-- Generation Time: Mar 09, 2019 at 09:09 PM
+-- Server version: 5.7.21
+-- PHP Version: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Database`
+-- Database: `database`
 --
 
 -- --------------------------------------------------------
@@ -28,11 +28,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `address`
 --
 
-CREATE TABLE `address` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `address`;
+CREATE TABLE IF NOT EXISTS `address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `address` varchar(100) NOT NULL,
-  `parent_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `parent_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `address`
@@ -51,11 +54,15 @@ INSERT INTO `address` (`id`, `address`, `parent_id`) VALUES
 -- Table structure for table `ccd`
 --
 
-CREATE TABLE `ccd` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ccd`;
+CREATE TABLE IF NOT EXISTS `ccd` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `courtId` int(11) NOT NULL,
-  `courtDetailsId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `courtDetailsId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `courtId` (`courtId`),
+  KEY `courtDetailsId` (`courtDetailsId`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ccd`
@@ -71,14 +78,17 @@ INSERT INTO `ccd` (`id`, `courtId`, `courtDetailsId`) VALUES
 -- Table structure for table `court`
 --
 
-CREATE TABLE `court` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `court`;
+CREATE TABLE IF NOT EXISTS `court` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `courtNumber` varchar(100) NOT NULL,
   `sportId` int(11) NOT NULL,
   `price` int(100) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `isDeleted` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `isDeleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sportId` (`sportId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `court`
@@ -95,10 +105,12 @@ INSERT INTO `court` (`id`, `courtNumber`, `sportId`, `price`, `creationDate`, `i
 -- Table structure for table `courtdetails`
 --
 
-CREATE TABLE `courtdetails` (
-  `id` int(11) NOT NULL,
-  `specs` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `courtdetails`;
+CREATE TABLE IF NOT EXISTS `courtdetails` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `specs` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `courtdetails`
@@ -114,14 +126,16 @@ INSERT INTO `courtdetails` (`id`, `specs`) VALUES
 -- Table structure for table `events`
 --
 
-CREATE TABLE `events` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `events`;
+CREATE TABLE IF NOT EXISTS `events` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL COMMENT 'Title of the event',
   `date` date NOT NULL,
   `details` text NOT NULL,
   `isDeleted` tinyint(1) NOT NULL,
-  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `events`
@@ -136,11 +150,13 @@ INSERT INTO `events` (`id`, `name`, `date`, `details`, `isDeleted`, `creationDat
 -- Table structure for table `features`
 --
 
-CREATE TABLE `features` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `features`;
+CREATE TABLE IF NOT EXISTS `features` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `feature` varchar(11) NOT NULL,
-  `file` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `file` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `features`
@@ -156,11 +172,13 @@ INSERT INTO `features` (`id`, `feature`, `file`) VALUES
 -- Table structure for table `options`
 --
 
-CREATE TABLE `options` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `options`;
+CREATE TABLE IF NOT EXISTS `options` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `type` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `type` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `options`
@@ -180,11 +198,13 @@ INSERT INTO `options` (`id`, `name`, `type`) VALUES
 -- Table structure for table `pages`
 --
 
-CREATE TABLE `pages` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `pages`;
+CREATE TABLE IF NOT EXISTS `pages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `link` varchar(100) NOT NULL,
-  `pageName` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `pageName` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pages`
@@ -201,12 +221,14 @@ INSERT INTO `pages` (`id`, `link`, `pageName`) VALUES
 -- Table structure for table `paymentmethod`
 --
 
-CREATE TABLE `paymentmethod` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `paymentmethod`;
+CREATE TABLE IF NOT EXISTS `paymentmethod` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `isDeleted` tinyint(1) NOT NULL,
-  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `paymentmethod`
@@ -222,11 +244,15 @@ INSERT INTO `paymentmethod` (`id`, `name`, `isDeleted`, `creationDate`) VALUES
 -- Table structure for table `previliges`
 --
 
-CREATE TABLE `previliges` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `previliges`;
+CREATE TABLE IF NOT EXISTS `previliges` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `userTypeId` int(11) NOT NULL,
-  `featureId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `featureId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userTypeId` (`userTypeId`),
+  KEY `optionId` (`featureId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `previliges`
@@ -242,12 +268,15 @@ INSERT INTO `previliges` (`id`, `userTypeId`, `featureId`) VALUES
 -- Table structure for table `p_method_option_value`
 --
 
-CREATE TABLE `p_method_option_value` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `p_method_option_value`;
+CREATE TABLE IF NOT EXISTS `p_method_option_value` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `selectedoptionsId` int(11) NOT NULL,
   `value` text NOT NULL,
-  `reservationId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `reservationId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `reservationId` (`reservationId`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `p_method_option_value`
@@ -269,14 +298,19 @@ INSERT INTO `p_method_option_value` (`id`, `selectedoptionsId`, `value`, `reserv
 -- Table structure for table `reservation`
 --
 
-CREATE TABLE `reservation` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `reservation`;
+CREATE TABLE IF NOT EXISTS `reservation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
   `courtId` int(11) NOT NULL,
   `reservationDetailsId` int(11) NOT NULL,
   `isDeleted` tinyint(1) NOT NULL,
-  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `reservationDetailsId` (`reservationDetailsId`),
+  KEY `courtId` (`courtId`),
+  KEY `userId` (`userId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservation`
@@ -291,15 +325,18 @@ INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `i
 -- Table structure for table `reservationdetails`
 --
 
-CREATE TABLE `reservationdetails` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `reservationdetails`;
+CREATE TABLE IF NOT EXISTS `reservationdetails` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
   `startTime` time NOT NULL,
   `endTime` time NOT NULL,
   `supervisorId` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
-  `cost` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `cost` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `supervisorId` (`supervisorId`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservationdetails`
@@ -314,12 +351,16 @@ INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervi
 -- Table structure for table `selectedoptions`
 --
 
-CREATE TABLE `selectedoptions` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `selectedoptions`;
+CREATE TABLE IF NOT EXISTS `selectedoptions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `paymentId` int(11) NOT NULL,
   `optionId` int(11) NOT NULL,
-  `priority` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `priority` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `paymentId` (`paymentId`),
+  KEY `optionId` (`optionId`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `selectedoptions`
@@ -339,10 +380,12 @@ INSERT INTO `selectedoptions` (`id`, `paymentId`, `optionId`, `priority`) VALUES
 -- Table structure for table `sports`
 --
 
-CREATE TABLE `sports` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `sports`;
+CREATE TABLE IF NOT EXISTS `sports` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sports`
@@ -357,8 +400,9 @@ INSERT INTO `sports` (`id`, `name`) VALUES
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(100) NOT NULL,
   `lastName` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -368,9 +412,12 @@ CREATE TABLE `user` (
   `ssn` varchar(14) NOT NULL,
   `addressId` int(11) NOT NULL,
   `userTypeId` int(11) NOT NULL,
-  `isDeleted` tinyint(1) NOT NULL,
-  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
+  `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `userTypeId` (`userTypeId`),
+  KEY `address_id` (`addressId`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -382,7 +429,10 @@ INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfB
 (4, 'admin', 'admin', 'admin', '$2y$10$EVyYxauio/qK6uysFBjtO.n7a1wf6NeBdzjsOEOiIzo1DYGEVQiQe', '1111-11-11', '012', '124', 2, 1, 0, '2019-02-28 19:46:28'),
 (5, 'aa', 'aa', 'aa', '$2y$10$piv8sfS2caynSYamyO70b.jv78RwdUbIfK0XUPz1DSBLZGwBz0n62', '0000-00-00', '01010', '125', 3, 2, 0, '2019-02-28 19:46:28'),
 (6, 'test', 'test', 'test', '$2y$10$RzrBPRj5SDpfd3YvU1GscuxEAERmVruNhOhvZTEi443oo8mS5Hu5G', '0066-06-16', '6616', '661616', 3, 2, 0, '2019-03-09 21:09:03'),
-(7, 'test', 'test', 'test', '$2y$10$kHbKqh/xTTd.rnrS08j3W.VuvqIAEQihtdvkWIHl9prEGc/PkO6c2', '0018-12-18', '81818', '18181', 3, 2, 0, '2019-03-09 21:09:58');
+(7, 'test', 'test', 'test', '$2y$10$kHbKqh/xTTd.rnrS08j3W.VuvqIAEQihtdvkWIHl9prEGc/PkO6c2', '0018-12-18', '81818', '18181', 3, 2, 0, '2019-03-09 21:09:58'),
+(8, 'ahmed', 'zeft', 'zeft', '$2y$10$BYXXQnkvwHvqO.PR89JAZ.LEkt4CU6qYgYtJAagJm6eqihd/xk5wS', '0017-12-17', '1717171', '1111111', 3, 2, 0, '2019-03-09 21:40:13'),
+(9, 'hussam', 'eldin', 'hussam@gmail.com', '$2y$10$uneyeYAhIXqnHWWEWqvDOedTOSYEFY7d78CxeAj6pA.e5lBcqjdzS', '2019-03-27', '123456234', '1242131243', 3, 2, 0, '2019-03-09 20:37:04'),
+(10, 'wageh', 'wego', 'wego@gmail.com', '$2y$10$CquEoUkFfh.G6YuwJ0zwAemlan87ebswYY/SODvg8nnHRcjefEGoW', '2019-03-22', '12345467', '123456', 3, 2, 1, '2019-03-09 18:46:51');
 
 -- --------------------------------------------------------
 
@@ -390,10 +440,12 @@ INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfB
 -- Table structure for table `usertype`
 --
 
-CREATE TABLE `usertype` (
-  `id` int(11) NOT NULL,
-  `userTypeName` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `usertype`;
+CREATE TABLE IF NOT EXISTS `usertype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userTypeName` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usertype`
@@ -408,266 +460,29 @@ INSERT INTO `usertype` (`id`, `userTypeName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userType_Pages`
+-- Table structure for table `usertype_pages`
 --
 
-CREATE TABLE `userType_Pages` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `usertype_pages`;
+CREATE TABLE IF NOT EXISTS `usertype_pages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `pageId` int(11) NOT NULL,
-  `userTypeId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `userTypeId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `pageId` (`pageId`),
+  KEY `userTypeId` (`userTypeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `userType_Pages`
+-- Dumping data for table `usertype_pages`
 --
 
-INSERT INTO `userType_Pages` (`id`, `pageId`, `userTypeId`) VALUES
+INSERT INTO `usertype_pages` (`id`, `pageId`, `userTypeId`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 2, 1),
 (4, 2, 2),
 (5, 3, 1);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `address`
---
-ALTER TABLE `address`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `parent_id` (`parent_id`);
-
---
--- Indexes for table `ccd`
---
-ALTER TABLE `ccd`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `courtId` (`courtId`),
-  ADD KEY `courtDetailsId` (`courtDetailsId`);
-
---
--- Indexes for table `court`
---
-ALTER TABLE `court`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `sportId` (`sportId`);
-
---
--- Indexes for table `courtdetails`
---
-ALTER TABLE `courtdetails`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `events`
---
-ALTER TABLE `events`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `features`
---
-ALTER TABLE `features`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `options`
---
-ALTER TABLE `options`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `pages`
---
-ALTER TABLE `pages`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `paymentmethod`
---
-ALTER TABLE `paymentmethod`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `previliges`
---
-ALTER TABLE `previliges`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `userTypeId` (`userTypeId`),
-  ADD KEY `optionId` (`featureId`);
-
---
--- Indexes for table `p_method_option_value`
---
-ALTER TABLE `p_method_option_value`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `reservationId` (`reservationId`);
-
---
--- Indexes for table `reservation`
---
-ALTER TABLE `reservation`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `reservationDetailsId` (`reservationDetailsId`),
-  ADD KEY `courtId` (`courtId`),
-  ADD KEY `userId` (`userId`);
-
---
--- Indexes for table `reservationdetails`
---
-ALTER TABLE `reservationdetails`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `supervisorId` (`supervisorId`);
-
---
--- Indexes for table `selectedoptions`
---
-ALTER TABLE `selectedoptions`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `paymentId` (`paymentId`),
-  ADD KEY `optionId` (`optionId`);
-
---
--- Indexes for table `sports`
---
-ALTER TABLE `sports`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `userTypeId` (`userTypeId`),
-  ADD KEY `address_id` (`addressId`);
-
---
--- Indexes for table `usertype`
---
-ALTER TABLE `usertype`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `userType_Pages`
---
-ALTER TABLE `userType_Pages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `pageId` (`pageId`),
-  ADD KEY `userTypeId` (`userTypeId`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `address`
---
-ALTER TABLE `address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `ccd`
---
-ALTER TABLE `ccd`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `court`
---
-ALTER TABLE `court`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `courtdetails`
---
-ALTER TABLE `courtdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `events`
---
-ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `features`
---
-ALTER TABLE `features`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `options`
---
-ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `pages`
---
-ALTER TABLE `pages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `paymentmethod`
---
-ALTER TABLE `paymentmethod`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `previliges`
---
-ALTER TABLE `previliges`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `p_method_option_value`
---
-ALTER TABLE `p_method_option_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `reservation`
---
-ALTER TABLE `reservation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `reservationdetails`
---
-ALTER TABLE `reservationdetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `selectedoptions`
---
-ALTER TABLE `selectedoptions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `sports`
---
-ALTER TABLE `sports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `usertype`
---
-ALTER TABLE `usertype`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `userType_Pages`
---
-ALTER TABLE `userType_Pages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -734,9 +549,9 @@ ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`addressId`) REFERENCES `address` (`id`);
 
 --
--- Constraints for table `userType_Pages`
+-- Constraints for table `usertype_pages`
 --
-ALTER TABLE `userType_Pages`
+ALTER TABLE `usertype_pages`
   ADD CONSTRAINT `userType_Pages_ibfk_1` FOREIGN KEY (`pageId`) REFERENCES `pages` (`id`),
   ADD CONSTRAINT `userType_Pages_ibfk_2` FOREIGN KEY (`userTypeId`) REFERENCES `usertype` (`id`);
 COMMIT;
