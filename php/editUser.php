@@ -88,8 +88,9 @@
             $editUser->telephone = $_POST['tel'];
 
             if($editUser->updateUser($editUser)){
+                
                 mysqli_close($connection);
-                header("Location: ../php/welcome.php");    
+                header("Location: ../php/index.php");    
             }
         }
 
@@ -113,7 +114,7 @@
 
                         mysqli_close($connection);
                         session_destroy();
-                        header("Location: ../php/logIn.php");    
+                        header("Location: ../php/index.php");    
                     }
                 }
                 else{
@@ -141,8 +142,9 @@
 
                 if(password_verify($pass, $editUser->password)){
                     $editUser->deleteUser($_SESSION['id']);
+
                     mysqli_close($connection);
-                    header("Location: ../php/welcome.php");    
+                    header("Location: ../php/index.php");    
                 }
                 else{
                     echo "Wrong Password";

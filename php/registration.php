@@ -50,7 +50,9 @@
             }
 
             if($user->insertUser($user)){
-                header("location: ../php/logIn.php");
+                
+                mysqli_close($connection);
+                header("Location: ../php/index.php");    
             }
 
             // if($fName != "" && $lName != "" && $email != "" && $pass != "" && $DoB != ""){
