@@ -24,9 +24,9 @@
     
             $tempUser = new User();
             $pass = $pass.$email;
-
+          
             if($tempUser->logIn($email, $pass)){
-                $tempUser->userQuery($_SESSION['id']);
+                // $tempUser->userQuery($_SESSION['id']);
                 // $tempUser->printo($_SESSION['id']);
 
                 mysqli_close($connection);

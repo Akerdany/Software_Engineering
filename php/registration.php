@@ -27,10 +27,10 @@
             $pass = password_hash($pass, PASSWORD_DEFAULT);
             $DoB = strip_tags(mysqli_real_escape_string($connection, trim($_POST['DoB'])));
             $userType = strip_tags(mysqli_real_escape_string($connection, trim($_POST['userType'])));
-            $addressId = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            // $addressId = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
+            $tel = strip_tags(mysqli_real_escape_string($connection, trim($_POST['tel'])));
+            $ssn = strip_tags(mysqli_real_escape_string($connection, trim($_POST['ssn'])));
+            // $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
 
             $user = New User();
             $user->firstName = $fName;
@@ -38,13 +38,15 @@
             $user->email = $email;
             $user->password = $pass;
             $user->dateOfBirth = $DoB;
+            $user->telephone = $tel;
+            $user->ssn = $ssn;
             $user->addressId = 3;
 
             if($_SESSION['userType'] != 1){
                 $user->userTypeId = 2;
             }
             else{
-                $user->userTypeId = $addressId;
+                $user->userTypeId = $userType;
             }
 
             if($user->insertUser($user)){

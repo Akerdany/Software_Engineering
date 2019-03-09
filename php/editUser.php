@@ -46,7 +46,7 @@
 
         $editUser = new User();
 
-        if($editUser->userQuery(5)){
+        if($editUser->userQuery($_SESSION['id'])){
             echo '<div id="editForm">';
             echo '<form name="editUser" action="" method="POST">';
             echo "First Name: <input type='text' name='fName' value='".$editUser->firstName."'><br>";
@@ -94,18 +94,23 @@
         }
 
         else if(isset($_POST['passSubmit'])){
-            $oldPass = $_POST['oldPass'];
+            $oldPass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['oldPass'])));;
             $newPass = $_POST['newPass'];
             $confirmNewPass = $_POST['confirmNewPass'];
 
             if($newPass == $confirmNewPass){
-                $newPass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
-                $newPass = password_hash($pass, PASSWORD_DEFAULT);
+                
+                $newPass = $newPass.$_SESSION['email'];
+                $newPass = password_hash($newPass, PASSWORD_DEFAULT);
+
+                $oldPass = $oldPass.$_SESSION['email'];
 
                 if(password_verify($oldPass, $editUser->password)){
+
                     $editUser->password = $newPass;
 
                     if($editUser->updateUser($editUser)){
+
                         mysqli_close($connection);
                         header("Location: ../php/welcome.php");    
                     }
@@ -115,7 +120,7 @@
                 }
             }
             else{
-                echo "You have the enter the confirmation correctly";
+                echo "You have the enter the confirmation incorrect";
             }
         }
 
@@ -123,12 +128,20 @@
             $pass = $_POST['pass'];
             $confirmPass = $_POST['confirmPass'];
 
-            if($pass == $onfirmPass){
+            if($pass == $confirmPass){
                 $pass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
-                $pass = password_hash($pass, PASSWORD_DEFAULT);
+                $pass = $pass.$_SESSION['email'];
+                // $pass = password_hash($pass, PASSWORD_DEFAULT);
+                echo $_SESSION['email'];
+                echo "<br>";
+                echo $pass;
+                echo"<br>";
+                echo $editUser->password;
 
                 if(password_verify($pass, $editUser->password)){
                     $editUser->deleteUser($_SESSION['id']);
+                    mysqli_close($connection);
+                    header("Location: ../php/welcome.php");    
                 }
                 else{
                     echo "Wrong Password";

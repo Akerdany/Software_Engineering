@@ -20,11 +20,14 @@
         echo "<br>";
 
         $userType = $_SESSION['userType'];
-        $sql="SELECT * FROM pages WHERE userTypeId = $userType";
+        $sql = "SELECT * FROM userType_Pages WHERE userTypeId = $userType";
         $result = mysqli_query($connection, $sql);      
 
         while($row = mysqli_fetch_array($result)){
-            echo '<a href="'.$row['link'].'">' . $row['pageName'] . '</a><br />';            
+            $sql2 = "SELECT * FROM pages WHERE id='".$row['pageId']."'";
+            $result2 = mysqli_query($connection, $sql2);      
+            $row2 = mysqli_fetch_array($result2);
+            echo '<a href="'.$row2['link'].'">' . $row2['pageName'] . '</a><br />';            
         }
       
         $sql="SELECT id,address,parent_id FROM address Where id= ".$_SESSION['addressID'];
@@ -50,8 +53,7 @@
             }
         }
 
-        echo'<a href="../php/logOut.php">Log Out</a><br>';
-        echo'<a href="../php/editUser.php">Edit Account</a><br>';
+        mysqli_close($connection);
 
     ?>    
 

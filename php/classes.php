@@ -60,9 +60,9 @@
         public function insertUser($tempUser){
             $DB = new DbConnection();
 
-            $sql = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `addressId`, `userTypeId`)
+            $sql = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `addressId`, `userTypeId`, `telephone`, `ssn`)
                         VALUES (NULL,'".$tempUser->firstName."','".$tempUser->lastName."','".$tempUser->email."','".$tempUser->password."',
-                        '".$tempUser->dateOfBirth."','".$tempUser->addressId."','".$tempUser->userTypeId."')";
+                        '".$tempUser->dateOfBirth."','".$tempUser->addressId."','".$tempUser->userTypeId."','".$tempUser->telephone."','".$tempUser->ssn."')";
             
             if($result = mysqli_query($DB->getdbconnect(), $sql)){
                 return true;
@@ -107,7 +107,7 @@
             $DB = new DbConnection();
 
             $sql = "UPDATE user SET firstName='$tempUser->firstName', lastName='$tempUser->lastName', email='$tempUser->email', 
-                        dateOfBirth='$tempUser->dateOfBirth', telephone='$tempUser->telephone', 
+                        password='$tempUser->password', dateOfBirth='$tempUser->dateOfBirth', telephone='$tempUser->telephone', 
                         ssn='$tempUser->ssn', addressId='$tempUser->addressId', userTypeId='$tempUser->userTypeId' WHERE id=$tempUser->id";
 
             if($result = mysqli_query($DB->getdbconnect(), $sql)){
@@ -148,6 +148,7 @@
                     session_start();
     
                     $_SESSION['id'] = $row['id'];
+                    $_SESSION['email'] = $row['email'];
                     $_SESSION['userType'] = $row['userTypeId'];
                     $_SESSION['addressID'] = $row['addressId'];
 
