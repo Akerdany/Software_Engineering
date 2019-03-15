@@ -3,9 +3,9 @@ require_once('connection.php');
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 $DB = new DbConnection();
 
-$paymentMethodId = $_REQUEST['id'];
+$COURT = $_REQUEST['id'];
 
-$sql = 'SELECT * from selectedoptions WHERE paymentId = "'.$paymentMethodId.'" ORDER BY priority ASC';
+$sql = 'SELECT * from selectedoptions WHERE paymentId = "'."5".'" ORDER BY priority ASC';
 $result = mysqli_query($DB->getdbconnect(), $sql);    //get options of the chosen payment method sorted by priority of appearance
 
 $formElements = "";    //empty string where html code for the fields will be stored and sent back to the AJAX call
