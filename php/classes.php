@@ -166,7 +166,11 @@
         }
 
         public function checkData($data){
-            $data = 
+            $data = strip_tags(mysqli_real_escape_string($connection, trim($data)));
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+
+            return $data;
         }
     }
 
