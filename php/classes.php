@@ -164,6 +164,10 @@
                 return false;
             }
         }
+
+        public function checkData($data){
+            $data = 
+        }
     }
 
 ?>
