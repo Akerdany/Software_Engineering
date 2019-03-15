@@ -23,7 +23,7 @@ function getForm(pmId) {
 require_once('connection.php');
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 $DB = new DbConnection();
-$sql = 'SELECT * from paymentmethod';
+$sql = 'SELECT * from paymentmethod WHERE isDeleted = "0"';
 $result = mysqli_query($DB->getdbconnect(), $sql);
 
 echo '<form id = "checkout" action = "" method = "POST">'
