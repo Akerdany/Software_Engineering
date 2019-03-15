@@ -138,7 +138,6 @@
         public function logIn($email, $pass){
             $DB = new DbConnection();
 
-
             $sql = "SELECT * FROM user WHERE email='".$email."'";
             $result = mysqli_query($DB->getdbconnect(), $sql);      
     
@@ -166,7 +165,9 @@
         }
 
         public function checkData($data){
-            $data = strip_tags(mysqli_real_escape_string($connection, trim($data)));
+            $DB = new DbConnection();
+
+            $data = strip_tags(mysqli_real_escape_string($DB->getdbconnect(), trim($data)));
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
 
