@@ -13,7 +13,8 @@
             FROM court
             INNER JOIN sports ON court.sportId = sports.id
             INNER JOIN ccd ON court.id = ccd.courtId
-            INNER JOIN courtdetails ON courtdetails.id = ccd.courtDetailsId';
+            INNER JOIN courtdetails ON courtdetails.id = ccd.courtDetailsId
+            WHERE court.isDeleted = "0"';
             $result = mysqli_query($DB->getdbconnect(), $sql);
             echo '<table class = "displaytables">';
             echo '<tr>'
@@ -60,8 +61,8 @@
 
         public static function deleteCourt($id){
             $DB = new DbConnection();
-            $sql = 'DELETE FROM court WHERE id = "'.$id.'"';
-            $sql2 = 'DELETE FROM ccd WHERE courtId = "'.$id.'"';
+            $sql = 'UPDATE court SET isDeleted = "1" WHERE id = "'.$id.'"';
+            //$sql2 = 'DELETE FROM ccd WHERE courtId = "'.$id.'"';
             mysqli_query($DB->getdbconnect(), $sql2);
             mysqli_query($DB->getdbconnect(), $sql);
             header('Location: displayCourts.php');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 09, 2019 at 09:09 PM
+-- Generation Time: Mar 15, 2019 at 12:38 AM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `isDeleted` tinyint(1) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `events`
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `link` varchar(100) NOT NULL,
   `pageName` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pages`
@@ -228,15 +228,16 @@ CREATE TABLE IF NOT EXISTS `paymentmethod` (
   `isDeleted` tinyint(1) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `paymentmethod`
 --
 
 INSERT INTO `paymentmethod` (`id`, `name`, `isDeleted`, `creationDate`) VALUES
-(1, 'Visa', 0, '2019-02-28 19:45:28'),
-(3, 'Fawry', 0, '2019-03-01 20:54:54');
+(1, 'Visaa', 0, '2019-02-28 19:45:28'),
+(5, 'fawry', 0, '2019-03-14 13:00:25'),
+(6, 'abaS', 1, '2019-03-14 13:03:54');
 
 -- --------------------------------------------------------
 
@@ -360,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `selectedoptions` (
   PRIMARY KEY (`id`),
   KEY `paymentId` (`paymentId`),
   KEY `optionId` (`optionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `selectedoptions`
@@ -371,8 +372,8 @@ INSERT INTO `selectedoptions` (`id`, `paymentId`, `optionId`, `priority`) VALUES
 (2, 1, 3, 2),
 (3, 1, 4, 3),
 (4, 1, 2, 4),
-(5, 3, 6, 2),
-(6, 3, 5, 1);
+(9, 5, 1, 1),
+(10, 5, 3, 2);
 
 -- --------------------------------------------------------
 
