@@ -148,7 +148,7 @@ function onselection()
                 {
                     $paymentM->priority=$_POST['priority'.$selected];
                     $paymentM->optionsID=$selected;
-                    $paymentM->insertSelectedoptions2($paymentM);
+                    $paymentM->insertSelectedoptions($paymentM);
                 }
             }
         }

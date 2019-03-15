@@ -78,15 +78,9 @@ class paymentMethod
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
-        $sql2="Select Max(id) id from paymentmethod";
-        $result2=mysqli_query($conn,$sql2);
-     if($row=mysqli_fetch_assoc($result2))
-     { 
-        $E->pmID=$row['id'];
-     }
         $sql="INSERT INTO `selectedoptions` ( `paymentId`, `optionId`, `priority`) VALUES ( '$E->pmID', '$E->optionsID', '$E->priority')";
         mysqli_query($conn,$sql);
-       header('Location: displaypm.php');
+        header('Location: displaypm.php');
     }
     // public static function insertoptions($E)
     // {
@@ -113,13 +107,6 @@ class paymentMethod
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
         $sql="UPDATE `selectedoptions` SET `priority` = '$E->priority' WHERE  `paymentId` = '$E->pmID' AND `id` = '$E->soID'";
-        mysqli_query($conn,$sql);
-    }
-    public static function insertSelectedoptions2($E)
-    {
-        $DB = new DbConnection();
-        $conn=$DB->getdbconnect();
-        $sql="INSERT INTO `selectedoptions` ( `paymentId`, `optionId`, `priority`) VALUES ( '$E->pmID', '$E->optionsID', '$E->priority')";
         mysqli_query($conn,$sql);
     }
     public static function DeleteSelectedoptions($E)

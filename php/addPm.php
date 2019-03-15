@@ -82,6 +82,10 @@ if (isset($_POST['submit']))
             {
                 $paymentM->priority=$_POST['priority'.$selected];
                 $paymentM->optionsID=$selected;
+                $sql2="Select Max(id) id from paymentmethod";
+                $result2=mysqli_query($DB->getdbconnect(),$sql2);
+                 if($row=mysqli_fetch_assoc($result2)) 
+                  $paymentM->pmID=$row['id'];
                 $paymentM->insertSelectedoptions($paymentM);
             }
         }
