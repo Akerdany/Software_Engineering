@@ -173,6 +173,20 @@
 
             return $data;
         }
+        public function encrypt($password){
+            $password .= "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+            $password = sha1($password);
+            return $password;
+        }
+        public static function isSimilar($password, $enteredPassword){
+            $enteredPassword = sha1($enteredPassword."!#$%&'()*+,-./:;<=>?@[\]^_`{|}~");
+            if($password == $enteredPassword){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     }
 
 ?>
