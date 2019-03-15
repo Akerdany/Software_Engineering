@@ -62,7 +62,7 @@
         public static function deleteCourt($id){
             $DB = new DbConnection();
             $sql = 'UPDATE court SET isDeleted = "1" WHERE id = "'.$id.'"';
-            $sql2 = 'DELETE FROM ccd WHERE courtId = "'.$id.'"';
+            //$sql2 = 'DELETE FROM ccd WHERE courtId = "'.$id.'"';
             mysqli_query($DB->getdbconnect(), $sql2);
             mysqli_query($DB->getdbconnect(), $sql);
             header('Location: displayCourts.php');
