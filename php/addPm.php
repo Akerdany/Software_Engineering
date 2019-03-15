@@ -7,7 +7,6 @@ $DB = new DbConnection();
 $sql = 'SELECT * FROM options';
 $result = mysqli_query($DB->getdbconnect(), $sql);
 $options=[];
-#comeent
 ?>
 
 <form action = "" method = "POST">
