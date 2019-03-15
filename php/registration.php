@@ -19,65 +19,67 @@
         if(isset($_POST['submit'])){
 
             //Security:
-            $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            $lName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['lName'])));
-            $email = strip_tags(mysqli_real_escape_string($connection, trim($_POST['email'])));
-            $pass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
-            $pass = $pass.$email;
-            $pass = password_hash($pass, PASSWORD_DEFAULT);
-            $DoB = strip_tags(mysqli_real_escape_string($connection, trim($_POST['DoB'])));
-            $userType = strip_tags(mysqli_real_escape_string($connection, trim($_POST['userType'])));
-            // $addressId = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-            $tel = strip_tags(mysqli_real_escape_string($connection, trim($_POST['tel'])));
-            $ssn = strip_tags(mysqli_real_escape_string($connection, trim($_POST['ssn'])));
-            // $fName = strip_tags(mysqli_real_escape_string($connection, trim($_POST['fName'])));
-
-            $user = New User();
-            $user->firstName = $fName;
-            $user->lastName = $lName;
-            $user->email = $email;
-            $user->password = $pass;
-            $user->dateOfBirth = $DoB;
-            $user->telephone = $tel;
-            $user->ssn = $ssn;
-            $user->addressId = 3;
-
-            if($_SESSION['userType'] != 1){
-                $user->userTypeId = 2;
+            $fName = $_POST['fName'];
+            $lName = $_POST['lName'];
+            $email = $_POST['email'];
+            $pass = $_POST['pass'];
+            $DoB = $_POST['DoB'];
+            $tel = $_POST['tel'];
+            $ssn = $_POST['ssn'];
+            
+            if(!empty($fName) && !empty($lName) && !empty($email) && !empty($pass) && !empty($DoB) && !empty($tel) && !empty($ssn)){
+                
+                if (filter_var($tel, FILTER_VALIDATE_INT) && filter_var($ssn, FILTER_VALIDATE_INT) && filter_var($email, FILTER_VALIDATE_EMAIL)){
+                    
+                    $user = New User();
+                    
+                    $fName = $user->checkData($fName);
+                    $user->firstName = $fName;
+        
+                    $lName = $user->checkData($lName);
+                    $user->lastName = $lName;     
+        
+                    $email = $user->checkData($email);
+                    $user->email = $email;
+        
+                    $pass = $user->checkData($pass);
+                    $pass = $pass.$email;
+                    $pass = password_hash($pass, PASSWORD_DEFAULT);
+                    $user->password = $pass;
+        
+                    $user->dateOfBirth = $DoB;
+        
+                    $tel = $user->checkData($tel);
+                    $user->telephone = $tel;
+        
+                    $ssn = $user->checkData($ssn);
+                    $user->ssn = $ssn;
+                    
+                    $user->addressId = 3;
+        
+                    if($_SESSION['userType'] != 1){
+                        $user->userTypeId = 2;
+                    }
+                    else{
+                        $user->userTypeId = $userType;
+                    }
+        
+                    if($user->insertUser($user)){
+                        
+                        mysqli_close($connection);
+                        header("Location: ../php/index.php");    
+                    }
+                    else{
+                        echo "An error occured, please try again later";
+                    }
+                }
+                else{
+                    echo "Please enter the data correctly";
+                }
             }
             else{
-                $user->userTypeId = $userType;
+                echo "Please fill all the fields";
             }
-
-            if($user->insertUser($user)){
-                
-                mysqli_close($connection);
-                header("Location: ../php/index.php");    
-            }
-
-            // if($fName != "" && $lName != "" && $email != "" && $pass != "" && $DoB != ""){
-            //     if($userType != 0){
-            //         $sql1 = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `userTypeId`)
-            //         VALUES (NULL,'".$fName."','".$lName."','".$email."','".$pass."','".$DoB."','".$userType."')";
-
-            //         if(mysqli_query($connection, $sql1)){
-            //             header("location: ../php/logIn.php");
-            //         }
-            //         else{
-            //             echo "SQL: ".$sql1;
-            //             echo"<br>";
-            //             printf("Errormessage: %s\n", mysqli_error($connection));
-            //         }
-            //     }
-            //     else{
-            //         echo"Please choose a user type";
-            //         echo "<br>";
-            //     }
-            // }
-            // else{
-            //     echo "Please fill all the data<br>";
-            //     echo "<br>";
-            // }
         }
     ?>
 <div id = "regForm">
