@@ -3,7 +3,7 @@ require('Eventclass.php');
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 $DB = new DbConnection();
 
-$sql = 'SELECT * from events WHERE id = '.$_POST["editButton"];
+$sql = 'SELECT * from events WHERE isDeleted=0 AND id = '.$_POST["editButton"];
 $result = mysqli_query($DB->getdbconnect(), $sql);
 $row = mysqli_fetch_array($result);
 

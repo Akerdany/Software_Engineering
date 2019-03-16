@@ -1,10 +1,6 @@
 <?php
 require('Eventclass.php');
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
-$DB = new DbConnection();
-$sql = 'SELECT * from events';
-$result = mysqli_query($DB->getdbconnect(), $sql);
-
 
 echo '<form action = "" method = "POST">'
     .'<label>Event Name</label>'

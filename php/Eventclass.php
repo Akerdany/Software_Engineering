@@ -6,11 +6,12 @@ class events
     public $Name;
     public $Date;
     public $Details;
+    public $isDeleted;
     function __construct($ID)
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
-         $Q = "SELECT * FROM events WHERE id='".$ID."'";
+         $Q = "SELECT * FROM events WHERE `isDeleted`= 0 AND id='".$ID."'";
          $r=mysqli_query($conn,$Q);
          if($row=mysqli_fetch_array($r))
          {
@@ -23,7 +24,7 @@ class events
     {
         $DB = new DbConnection();
         $conn = $DB->getdbconnect();
-        $sql = 'SELECT id, name, date, details FROM events';
+        $sql = 'SELECT id, name, date, details FROM events WHERE `isDeleted`= 0';
         $result = mysqli_query($DB->getdbconnect(), $sql);
         echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
         echo '<table class = "displaytables">';
@@ -71,7 +72,7 @@ class events
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
-        $Q="DELETE FROM `events` WHERE `id` = '$ID'";
+        $Q="UPDATE `events` SET `isDeleted` = '1' WHERE `ID` = '$ID' ";
         mysqli_query($conn,$Q);
         header('Location: displayEvents.php');
     }
