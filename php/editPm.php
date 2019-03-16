@@ -107,6 +107,11 @@ function onselection()
                     if($_POST['priority'.$selected]==$_POST['priority'.$compared] && $selected!=$compared)
                     {
                         $isPriority=false;
+                        $DB = new DbConnection();
+                        $Q="SELECT `priority` FROM `selectedoptions` WHERE `id` = '$selected' ";
+                        $result=mysqli_query($DB->getdbconnect(),$Q);
+                        $row = mysqli_fetch_array($result);
+                        $_POST['priority'.$selected]= $row['priority'];
                         break;
                     }
                 }
