@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 15, 2019 at 12:38 AM
+-- Generation Time: Mar 16, 2019 at 03:53 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -330,21 +330,24 @@ DROP TABLE IF EXISTS `reservationdetails`;
 CREATE TABLE IF NOT EXISTS `reservationdetails` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
-  `startTime` time NOT NULL,
-  `endTime` time NOT NULL,
+  `startTime` decimal(10,2) NOT NULL,
+  `endTime` decimal(10,2) NOT NULL,
   `supervisorId` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
   `cost` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `supervisorId` (`supervisorId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservationdetails`
 --
 
 INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervisorId`, `type`, `cost`) VALUES
-(1, '2019-02-11', '02:00:00', '04:00:00', 4, 'player', 50);
+(1, '2019-02-11', '2.00', '4.00', 4, 'player', 50),
+(2, '2019-03-21', '4.00', '6.00', 4, 'normal', 15),
+(3, '2019-03-21', '1.30', '3.00', 4, 'normal', 15),
+(4, '2019-03-21', '8.00', '11.30', 4, 'normal', 15);
 
 -- --------------------------------------------------------
 
@@ -394,6 +397,62 @@ CREATE TABLE IF NOT EXISTS `sports` (
 
 INSERT INTO `sports` (`id`, `name`) VALUES
 (1, 'Tennis');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `time`
+--
+
+DROP TABLE IF EXISTS `time`;
+CREATE TABLE IF NOT EXISTS `time` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `hours` decimal(10,2) NOT NULL,
+  `state` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `time`
+--
+
+INSERT INTO `time` (`ID`, `hours`, `state`) VALUES
+(2, '8.00', 0),
+(3, '8.30', 0),
+(4, '9.00', 0),
+(5, '9.30', 0),
+(6, '10.00', 0),
+(7, '10.30', 0),
+(8, '11.00', 0),
+(9, '11.30', 0),
+(10, '12.00', 0),
+(11, '12.30', 0),
+(12, '13.00', 0),
+(13, '13.30', 0),
+(14, '14.00', 0),
+(15, '14.30', 0),
+(16, '15.00', 0),
+(17, '15.30', 0),
+(18, '16.00', 0),
+(19, '16.30', 0),
+(20, '17.00', 0),
+(21, '17.30', 0),
+(22, '18.00', 0),
+(23, '18.30', 0),
+(24, '19.00', 0),
+(25, '19.30', 0),
+(26, '20.00', 0),
+(27, '20.30', 0),
+(28, '21.00', 0),
+(29, '21.30', 0),
+(30, '22.00', 0),
+(31, '22.30', 0),
+(32, '23.00', 0),
+(33, '23.30', 0),
+(34, '24.00', 0),
+(35, '24.30', 0),
+(36, '25.00', 0),
+(37, '25.30', 0);
 
 -- --------------------------------------------------------
 
