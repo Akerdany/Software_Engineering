@@ -135,6 +135,20 @@
             }
         }
 
+        public function activateUser($id){
+            $DB = new DbConnection();
+
+            $sql = "UPDATE user SET isDeleted=0 WHERE id=$id";
+
+            if($result = mysqli_query($DB->getdbconnect(), $sql)){
+                return true;
+            }      
+            else{
+                echo "ERROR: Could not able to execute $sql. ". mysqli_error($DB->getdbconnect());
+                return false;
+            }
+        }
+
         public function logIn($email, $pass){
             $DB = new DbConnection();
 
@@ -189,6 +203,7 @@
                 return false;
             }
         }
+
         public function displayAllUsers(){
             $sql = "SELECT * FROM user";
             $DB = new DbConnection();
@@ -196,7 +211,7 @@
             $result = mysqli_query($DB->getdbconnect(), $sql);
     
             if(mysqli_num_rows($result) > 0){
-                echo"<form id='form' name='form' method='post' action=''>";
+                // echo"<form id='form' name='form' method='post' action=''>";
                 // echo "<input type='submit' id='Activate_Account' name='Activate_Account' value='Activate Account'>";
                 // echo "<input type='submit' id='Decline_Account' name='Decline_Account' value='Decline Account'>";
                 echo"<table id='table' border='1' class='displaytables'>
@@ -212,6 +227,7 @@
                     <th>Address</th>
                     <th>Type of User</th>
                     <th>Account Status</th>
+                    <th>Action</th>
                     <th>Date & Time Joined</th>
                     </tr>";
     
@@ -234,17 +250,25 @@
     
                     if($row['isDeleted'] == 0){
                         echo "<td>Active</td>";
+                        echo '<td> <form action="deleteUser.php" method="POST">'
+                        .'<button type="submit" name="deleteUserButton" value="'.$row['id'].'">Delete User</button>'
+                        .'</form></td>';
                     }
                     else{
                         echo "<td>Deleted</td>";
+                        echo '<td> <form action="activateUser.php" method="POST">'
+                        .'<button type="submit" name="activateUserButton" value="'.$row['id'].'">Activate User</button>'
+                        .'</form></td>';
                     }
     
                     echo "<td>".$row['creationDate']."</td>";
                     echo "</tr>";
                 }
                 echo "</table>";
-                echo "</form>";
-            }    
+                // echo "</form>";
+            }   
+            echo '<a href= "registration.php" class="button">Add User</a><br><br>';
+            mysqli_close($DB->getdbconnect()); 
         }
     }
 
