@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Edit Account</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link href="../css/temp.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
 </head>
 <script>
@@ -82,76 +82,109 @@
         }
 
         if(isset($_POST['submit'])){
-            $editUser->firstName = $_POST['fName'];
-            $editUser->lastName = $_POST['lName'];
-            $editUser->email = $_POST['email'];
-            $editUser->telephone = $_POST['tel'];
+            $fistName = $editUser->checkData($_POST['fName']);
+            $editUser->firstName = $fistName;
 
-            if($editUser->updateUser($editUser)){
+            $lastName = $editUser->checkData($_POST['lName']);
+            $editUser->lastName = $lastName;
+
+            $email = $editUser->checkData($_POST['email']);
+            $editUser->email = $email;
+
+            $tel = $editUser->checkData($_POST['tel']);
+            $editUser->telephone = $tel;
+
+            if(!empty($fistName) && !empty($lastName) && !empty($email) && !empty($tel)){
                 
-                mysqli_close($connection);
-                header("Location: ../php/index.php");    
-            }
-        }
-
-        else if(isset($_POST['passSubmit'])){
-            $oldPass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['oldPass'])));;
-            $newPass = $_POST['newPass'];
-            $confirmNewPass = $_POST['confirmNewPass'];
-
-            if($newPass == $confirmNewPass){
-                
-                $newPass = $newPass.$_SESSION['email'];
-                $newPass = password_hash($newPass, PASSWORD_DEFAULT);
-
-                $oldPass = $oldPass.$_SESSION['email'];
-
-                if(password_verify($oldPass, $editUser->password)){
-
-                    $editUser->password = $newPass;
+                if (filter_var($tel, FILTER_VALIDATE_INT) && filter_var($email, FILTER_VALIDATE_EMAIL)){
 
                     if($editUser->updateUser($editUser)){
-
+                
                         mysqli_close($connection);
-                        session_destroy();
                         header("Location: ../php/index.php");    
                     }
                 }
                 else{
-                    echo "Old password is wrong";
+                    echo "You must enter the data correctly";
                 }
             }
             else{
-                echo "You have the enter the confirmation incorrect";
+                echo "You must fill all the fields";
+            }
+        }
+
+        else if(isset($_POST['passSubmit'])){
+
+            $oldPass = $editUser->checkData($_POST['oldPass']);
+            $newPass = $editUser->checkData($_POST['newPass']);
+            $confirmNewPass = $editUser->checkData($_POST['confirmNewPass']);
+
+            if(!empty($oldPass) && !empty($newPass) && !empty($confirmNewPass)){
+
+                if($newPass == $confirmNewPass){
+                    
+                    $newPass = $newPass.$_SESSION['email'];
+                    $newPass = password_hash($newPass, PASSWORD_DEFAULT);
+
+                    $oldPass = $oldPass.$_SESSION['email'];
+
+                    if(password_verify($oldPass, $editUser->password)){
+
+                        $editUser->password = $newPass;
+
+                        if($editUser->updateUser($editUser)){
+
+                            mysqli_close($connection);
+                            session_destroy();
+                            header("Location: ../php/index.php");    
+                        }
+                    }
+                    else{
+                        echo "Old password is wrong";
+                    }
+                }
+                else{
+                    echo "You have the enter the confirmation incorrect";
+                }
+            }
+            else{
+                echo "You must fill all the fields";
             }
         }
 
         else if(isset($_POST['delSubmit'])){
-            $pass = $_POST['pass'];
-            $confirmPass = $_POST['confirmPass'];
 
-            if($pass == $confirmPass){
-                $pass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
-                $pass = $pass.$_SESSION['email'];
-                // $pass = password_hash($pass, PASSWORD_DEFAULT);
-                echo $_SESSION['email'];
-                echo "<br>";
-                echo $pass;
-                echo"<br>";
-                echo $editUser->password;
+            $pass = $editUser->checkData($_POST['pass']);
+            $confirmPass = $editUser->checkData($_POST['confirmPass']);
 
-                if(password_verify($pass, $editUser->password)){
-                    $editUser->deleteUser($_SESSION['id']);
+            if(!empty($pass) && !empty($confirmPass)){
 
-                    mysqli_close($connection);
-                    header("Location: ../php/index.php");    
+                if($pass == $confirmPass){
+                    $pass = strip_tags(mysqli_real_escape_string($connection, trim($_POST['pass'])));
+                    $pass = $pass.$_SESSION['email'];
+                    // $pass = password_hash($pass, PASSWORD_DEFAULT);
+                    // echo $_SESSION['email'];
+                    // echo "<br>";
+                    // echo $pass;
+                    // echo"<br>";
+                    echo $editUser->password;
+
+                    if(password_verify($pass, $editUser->password)){
+                        $editUser->deleteUser($_SESSION['id']);
+
+                        mysqli_close($connection);
+                        header("Location: ../php/index.php");    
+                    }
+                    else{
+                        echo "Wrong Password";
+                    }
                 }
                 else{
                     echo "Wrong Password";
                 }
-            }
-            else{
-                echo "Wrong Password";
+            }else{
+                echo "You must fill all the fields";
+
             }
         }
     ?>

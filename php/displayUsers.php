@@ -5,10 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Display Users</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link href="../css/temp.css" rel="stylesheet" type="text/css">
     <script src="main.js"></script>
 </head>
 <body>
-    
+    <?php
+        require("connection.php");
+        require("classes.php");
+        
+        $myUser = new User();
+
+        $myUser->displayAllUsers();
+    ?>
 </body>
 </html>

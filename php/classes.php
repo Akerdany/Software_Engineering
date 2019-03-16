@@ -173,11 +173,13 @@
 
             return $data;
         }
+
         public function encrypt($password){
             $password .= "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
             $password = sha1($password);
             return $password;
         }
+
         public static function isSimilar($password, $enteredPassword){
             $enteredPassword = sha1($enteredPassword."!#$%&'()*+,-./:;<=>?@[\]^_`{|}~");
             if($password == $enteredPassword){
@@ -186,6 +188,63 @@
             else{
                 return false;
             }
+        }
+        public function displayAllUsers(){
+            $sql = "SELECT * FROM user";
+            $DB = new DbConnection();
+
+            $result = mysqli_query($DB->getdbconnect(), $sql);
+    
+            if(mysqli_num_rows($result) > 0){
+                echo"<form id='form' name='form' method='post' action=''>";
+                // echo "<input type='submit' id='Activate_Account' name='Activate_Account' value='Activate Account'>";
+                // echo "<input type='submit' id='Decline_Account' name='Decline_Account' value='Decline Account'>";
+                echo"<table id='table' border='1' class='displaytables'>
+                    <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Telephone Number</th>
+                    <th>SSN</th>
+                    <th>Address</th>
+                    <th>Type of User</th>
+                    <th>Account Status</th>
+                    <th>Date & Time Joined</th>
+                    </tr>";
+    
+                while($row = mysqli_fetch_array($result)){
+                    echo "<tr>";
+                    echo "<td><input type='checkbox' name='checkbox[]' id='checkbox[]' value=".$row['id']."></td>";
+                    echo "<td>" .$row['id']. "</td>";
+                    echo "<td>" .$row['email']. "</td>";
+                    echo "<td>" .$row['firstName']. "</td>";
+                    echo "<td>" .$row['lastName']."</td>";
+                    echo "<td>" .$row['dateOfBirth']. "</td>";
+                    echo "<td>" .$row['telephone']."</td>";
+                    echo "<td>" .$row['ssn']. "</td>";
+                    echo "<td>" .$row['addressId']. "</td>";
+    
+                    $userType = mysqli_query($DB->getdbconnect(), "SELECT * FROM usertype WHERE id='".$row["userTypeId"]."'");
+                    if($r = mysqli_fetch_array($userType)){
+                        echo "<td>" .$r['userTypeName']. "</td>";
+                    }
+    
+                    if($row['isDeleted'] == 0){
+                        echo "<td>Active</td>";
+                    }
+                    else{
+                        echo "<td>Deleted</td>";
+                    }
+    
+                    echo "<td>".$row['creationDate']."</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
+                echo "</form>";
+            }    
         }
     }
 
