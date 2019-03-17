@@ -42,6 +42,7 @@
     <?php
         session_start();
         require_once('connection.php');
+        include('navbar.php');
         require('classes.php');
 
         $editUser = new User();
