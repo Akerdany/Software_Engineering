@@ -41,7 +41,7 @@
   				<div class="collapse navbar-collapse navbar-ex1-collapse">
   					<ul class="nav navbar-nav navbar-right">
   						<li><a href="#">Home</a></li>
-  						<li><a href="#">About Us</a></li>
+  						<li><a href="aboutUs.php">About Us</a></li>
   						<li><a href="#">Blog</a></li>
   						<li class="dropdown">
   							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
@@ -68,7 +68,6 @@
   						<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ullam consequatur repellat debitis maxime.</p>
   						<ul class="list-inline">
   							<li><a href="#" title="Learn More" class="btn btn-md btn-info">Learn More</a></li>
-  							<li><a href="#" title="Learn More" class="btn btn-md btn-primary">Download Now</a></li>
   						</ul>
   					</div>
   				</div>
