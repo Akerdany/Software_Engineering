@@ -1,7 +1,7 @@
 <!DOCTYPE html>
   <html lang="">
   	<head>
-	  <?php include("navbar.php") ?>
+	  <?php include("navbar.php");?>
   		<meta charset="utf-8">
   		<meta http-equiv="X-UA-Compatible" content="IE=edge">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +24,7 @@
   		<![endif]-->
   	</head>
   	<body>
+	
   		<nav class="navbar navbar-default" role="navigation">
   			<div class="container">
   				<!-- Brand and toggle get grouped for better mobile display -->

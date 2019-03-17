@@ -1,6 +1,7 @@
 <?php
 require_once('connection.php');
-include('index.php');
+// include('index.php');
+include('navbar.php');
 require('courtClass.php');
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 $DB = new DbConnection();

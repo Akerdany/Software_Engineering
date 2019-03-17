@@ -1,55 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
-</head>
-<style>
+<link href="../css/temp.css" rel="stylesheet" type="text/css">
 
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body {
+                font-family: "Lato", sans-serif;
+            }
 
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  background-color: #63a9e4;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-  z-index:9999;
-}
-
-.sidebar a {
-  display: block;
-  color: black;
-  padding: 16px;
-  text-decoration: none;
-}
- 
-.sidebar a.active {
-  background-color: #2082d6;
-  color: white;
-}
-
-.sidebar a:hover:not(.logo):not(.active) {
-  background-color: #555;
-  color: white;
-}
-
-div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
-}
-
-
-
-
-}
-</style>
-</head>
+           
+        </style>
+    </head>
 
 <?php
-session_start();
-if(!(isset($_SESSION['userType']))){
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+if((isset($_SESSION['userType']))){
     echo "<script>
     
         var xmlhttp = new XMLHttpRequest();
@@ -59,7 +28,7 @@ if(!(isset($_SESSION['userType']))){
             document.getElementById('fields').innerHTML += this.responseText; // append retrieved fields
             }
         };
-        xmlhttp.open('GET', 'buttons.php?id=' + "."1".", true); //request to getFormFields with paymentMethodId to get the fields
+        xmlhttp.open('GET', 'buttons.php?id=' + '".$_SESSION['userType']."', true); //request to getFormFields with paymentMethodId to get the fields
         xmlhttp.send();
     
    
@@ -69,14 +38,30 @@ if(!(isset($_SESSION['userType']))){
 ?>
 <body>
 
-<div class="sidebar">
-<a href='#' class='logo' ><img src="http://www.emss.gov.eg/assets/finle/images/logo-header.png" alt="" width="120px" height="100%"></a>
+<div id="mySidenav1" class="sidenav1">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href='#' class='logo' class="sideNavLink"><img src="http://www.emss.gov.eg/assets/finle/images/logo-header.png" alt="" width="120px" height="100%"></a>
 
 <div id = "fields">
-<a  href="#home">SignIn</a>
-  <a href="logOut.php">Signup</a>
+  <a href="logIn.php" class="sideNavLink">SignIn</a>
+  <a href="logOut.php" class="sideNavLink">Signup</a>
   
   </div>
 </div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav1").style.width = "250px";
+        document.getElementById("fields").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav1").style.width = "0";
+        document.getElementById("fields").style.width = "0";
+    }
+</script>
+
 </body>
 </html>

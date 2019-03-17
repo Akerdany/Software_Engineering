@@ -1,7 +1,7 @@
 .displaytables {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 70%;
 }
 .displaytables td, .displaytables th {
     border: 1px solid #ddd;
@@ -18,8 +18,12 @@
     background-color: #4CAF50;
     color: white;
 }
+a.sideNavLink:link, a.sideNavLink:visited{
+  background-color: none;
+}
+
   a:link, a:visited {
-      background-color: #f44336;
+      /* background-color: #f44336; */
       color: white;
       padding: 14px 25px;
       text-align: center;
@@ -42,7 +46,7 @@
   #regForm{
 
   }
-  /* textarea {
+  textarea {
     width: 100%;
     height: 150px;
     padding: 12px 20px;
@@ -51,7 +55,7 @@
     border-radius: 4px;
     background-color: #f8f8f8;
     resize: none;
-  } */
+  }
   input[type=submit],input[type=button] {
     width: 100%;
     background-color: #4CAF50;
@@ -69,8 +73,8 @@
   
   div {
     border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
+    /* background-color: #f2f2f2; */
+    /* padding: 20px; */
   }
   button {
     background-color: #4CAF50; /* Green */
@@ -86,3 +90,48 @@
     width: 25px;
     height: 25px;
   }
+  .sidenav1 {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    
+}
+
+.sidenav1 a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav1 a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav1 .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+a.sideNavLink:link, a.sideNavLink:visited{
+  background-color: none;
+}
+
+
+@media screen and (max-height: 450px) {
+.sidenav1 {padding-top: 15px;}
+.sidenav1 a {font-size: 18px;}
+}
+  
