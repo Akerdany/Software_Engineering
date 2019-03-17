@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 17, 2019 at 07:42 PM
+-- Generation Time: Mar 17, 2019 at 08:04 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -71,6 +71,19 @@ CREATE TABLE IF NOT EXISTS `ccd` (
 INSERT INTO `ccd` (`id`, `courtId`, `courtDetailsId`) VALUES
 (4, 3, 2),
 (5, 4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company`
+--
+
+DROP TABLE IF EXISTS `company`;
+CREATE TABLE IF NOT EXISTS `company` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -191,6 +204,20 @@ INSERT INTO `options` (`id`, `name`, `type`) VALUES
 (4, 'cvv', 'int'),
 (5, 'email', 'text'),
 (6, 'phoneNo', 'int');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pagecode`
+--
+
+DROP TABLE IF EXISTS `pagecode`;
+CREATE TABLE IF NOT EXISTS `pagecode` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `PageID` int(11) NOT NULL,
+  `HTML` text NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -543,6 +570,19 @@ INSERT INTO `usertype_pages` (`id`, `pageId`, `userTypeId`) VALUES
 (3, 2, 1),
 (4, 2, 2),
 (5, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_company`
+--
+
+DROP TABLE IF EXISTS `user_company`;
+CREATE TABLE IF NOT EXISTS `user_company` (
+  `ID` int(11) NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `CompanyID` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Constraints for dumped tables
