@@ -41,7 +41,7 @@
   				<div class="collapse navbar-collapse navbar-ex1-collapse">
   					<ul class="nav navbar-nav navbar-right">
   						<li><a href="#">Home</a></li>
-  						<li><a href="aboutUs.php">About Us</a></li>
+  						<li><a href="aboutUs.html">About Us</a></li>
   						<li><a href="#">Blog</a></li>
   						<li class="dropdown">
   							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
