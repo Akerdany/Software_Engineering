@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 17, 2019 at 08:04 PM
+-- Generation Time: Mar 17, 2019 at 10:36 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -265,6 +265,28 @@ INSERT INTO `paymentmethod` (`id`, `name`, `isDeleted`, `creationDate`) VALUES
 (1, 'Visaa', 0, '2019-02-28 19:45:28'),
 (5, 'fawry', 0, '2019-03-14 13:00:25'),
 (6, 'abaS', 1, '2019-03-14 13:03:54');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission`
+--
+
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE IF NOT EXISTS `permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `permission`
+--
+
+INSERT INTO `permission` (`id`, `name`) VALUES
+(1, 'addUser'),
+(2, 'editUser'),
+(3, 'deleteUser');
 
 -- --------------------------------------------------------
 
@@ -570,6 +592,20 @@ INSERT INTO `usertype_pages` (`id`, `pageId`, `userTypeId`) VALUES
 (3, 2, 1),
 (4, 2, 2),
 (5, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usertype_permission`
+--
+
+DROP TABLE IF EXISTS `usertype_permission`;
+CREATE TABLE IF NOT EXISTS `usertype_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userTypeId` int(11) NOT NULL,
+  `permissionId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
