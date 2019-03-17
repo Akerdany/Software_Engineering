@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 16, 2019 at 03:53 PM
+-- Generation Time: Mar 17, 2019 at 07:42 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -153,7 +153,7 @@ INSERT INTO `events` (`id`, `name`, `date`, `details`, `isDeleted`, `creationDat
 DROP TABLE IF EXISTS `features`;
 CREATE TABLE IF NOT EXISTS `features` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `feature` varchar(11) NOT NULL,
+  `feature` varchar(50) NOT NULL,
   `file` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
