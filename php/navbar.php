@@ -14,6 +14,7 @@
   position: fixed;
   height: 100%;
   overflow: auto;
+  z-index:9999;
 }
 
 .sidebar a {
