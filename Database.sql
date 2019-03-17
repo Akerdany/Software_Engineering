@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 17, 2019 at 10:36 PM
+-- Generation Time: Mar 17, 2019 at 11:17 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -275,9 +275,9 @@ INSERT INTO `paymentmethod` (`id`, `name`, `isDeleted`, `creationDate`) VALUES
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE IF NOT EXISTS `permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `permission`
@@ -286,7 +286,12 @@ CREATE TABLE IF NOT EXISTS `permission` (
 INSERT INTO `permission` (`id`, `name`) VALUES
 (1, 'addUser'),
 (2, 'editUser'),
-(3, 'deleteUser');
+(3, 'deleteUser'),
+(4, 'addEvent'),
+(5, 'addcourt'),
+(6, 'addFeature'),
+(7, 'addOption'),
+(8, 'addReservation');
 
 -- --------------------------------------------------------
 
