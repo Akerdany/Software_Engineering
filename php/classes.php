@@ -226,7 +226,6 @@
             $addAccess = false;
             $editAccess = false;
             $deleteAccess = false;
-            $_SESSION['userType'] = 1;
     
             if(mysqli_num_rows($result) > 0){
                 $userPermission = mysqli_query($DB->getdbconnect(), "SELECT * From usertype_permission WHERE userTypeId='".$_SESSION["userType"]."'");
