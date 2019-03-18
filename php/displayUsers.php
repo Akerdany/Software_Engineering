@@ -12,6 +12,7 @@
     <?php
         require("connection.php");
         require("classes.php");
+        include("navbar.php");
         
         $myUser = new User();
 
