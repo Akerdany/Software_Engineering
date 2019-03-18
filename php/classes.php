@@ -259,7 +259,6 @@
                     <th>Address</th>
                     <th>Type of User</th>";
                     if($editAccess){
-                        echo"Hellooooo";
                         echo"<th>Edit User Type</th>";
                     }
                     if($deleteAccess){
