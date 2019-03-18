@@ -26,6 +26,7 @@
             $DoB = $_POST['DoB'];
             $tel = $_POST['tel'];
             $ssn = $_POST['ssn'];
+            $userType = $_POST['userType'];
             
             if(!empty($fName) && !empty($lName) && !empty($email) && !empty($pass) && !empty($DoB) && !empty($tel) && !empty($ssn)){
                 
@@ -99,7 +100,7 @@
                 echo"<select name='userType'>";
                     echo"<option value=0>Choose</option>";
 
-                        $sql = mysqli_query($connection, "SELECT * FROM userType");
+                        $sql = mysqli_query($connection, "SELECT * FROM usertype");
                         while($row = mysqli_fetch_array($sql)){
                             $valueId = $row['id'];
                             $value = $row['userTypeName'];
