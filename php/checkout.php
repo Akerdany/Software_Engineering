@@ -60,9 +60,10 @@ if (isset($_POST['submit']))
         $soRow = mysqli_fetch_array($r1);
         $soId = $soRow['id'];
         $fieldname = $_POST[''.$optionName.'']; //use the option name to get field values
-        $insertSQL = 'INSERT INTO p_method_option_value (`selectedoptionsId`, `value`, `reservationId`) VALUES ( "'.$soId.'","'.$fieldname.'","1")';
+        $insertSQL = 'INSERT INTO p_method_option_value (`selectedoptionsId`, `value`, `reservationId`) VALUES ( "'.$soId.'","'.$fieldname.'","-1")';
         mysqli_query($DB->getdbconnect(), $insertSQL);
     }
+    header('Location: confermation.php');
 }
 
 ?>

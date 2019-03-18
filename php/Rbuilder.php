@@ -4,7 +4,7 @@ echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 $DB = new DbConnection();
 
 $COURT = $_REQUEST['id'];
-
+echo $COURT;
 $sql = 'SELECT * from selectedoptions WHERE paymentId = "'."5".'" ORDER BY priority ASC';
 $result = mysqli_query($DB->getdbconnect(), $sql);    //get options of the chosen payment method sorted by priority of appearance
 

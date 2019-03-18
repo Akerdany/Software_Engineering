@@ -4,7 +4,14 @@ echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 $DB = new DbConnection();
 
 $paymentMethodId = $_REQUEST['id'];
+$sql1 = 'SELECT `name` FROM `paymentmethod` WHERE `id`='.$paymentMethodId ;
+$result1 = mysqli_query($DB->getdbconnect(), $sql1); 
+$m=mysqli_fetch_assoc($result1);
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
+  $_SESSION["Method"] = $m['name'];
 $sql = 'SELECT * from selectedoptions WHERE paymentId = "'.$paymentMethodId.'" ORDER BY priority ASC';
 $result = mysqli_query($DB->getdbconnect(), $sql);    //get options of the chosen payment method sorted by priority of appearance
 
