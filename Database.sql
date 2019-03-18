@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 18, 2019 at 07:17 PM
+-- Generation Time: Mar 18, 2019 at 11:29 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -197,6 +197,13 @@ CREATE TABLE `pagecode` (
   `HTML` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pagecode`
+--
+
+INSERT INTO `pagecode` (`ID`, `PageID`, `HTML`) VALUES
+(1, 4, '\n    <html><head>\n		<title>About Us</title>\n		<meta charset=\"utf-8\">\n		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n		<link rel=\"stylesheet\" href=\"../css/aboutUs.css\">\n		<script src=\"../CKEDITOR/ckeditor.js\"></script><style>.cke{visibility:hidden;}</style>\n		<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\n		<script type=\"text/javascript\" src=\"http://localhost/Software_Engineering/CKEDITOR/config.js?t=J1QB\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"http://localhost/Software_Engineering/CKEDITOR/skins/moono-lisa/editor.css?t=J1QB\"><script type=\"text/javascript\" src=\"http://localhost/Software_Engineering/CKEDITOR/lang/en.js?t=J1QB\"></script><script type=\"text/javascript\" src=\"http://localhost/Software_Engineering/CKEDITOR/styles.js?t=J1QB\"></script>\n</head>\n	<body cz-shortcut-listen=\"true\">\n\n		<!-- Header -->\n			<header id=\"header\">\n				<div class=\"logo\"><a href=\"#\">About Us</a></div>\n			</header>\n\n		<!-- Main -->\n			<section id=\"main\">\n				<div class=\"inner\">\n\n				<!-- One -->\n					<section id=\"one\" class=\"wrapper style1\">\n						<header class=\"special\">\n							<h2>About the ministry</h2>\n							<p>of youth</p>\n						</header>\n						<div class=\"content\">\n							<p id=\"originalText\" name=\"originalText\">Another Test  </p>\n							\n					</div>\n					<form action=\"pagebuilder.php\" method=\"post\">\n							<input type=\"hidden\" id = \"paragraph\" name = \"paragraph\">\n							<input type=\"submit\" id=\"submitButton\" name=\"submit\" value=\"Edit Content\">\n						</form>\n					</section>\n</div>\n</section></body>\n<script>\n		var text = $(\"#originalText\").html();\n		$(\"#paragraph\").val(text);\n</script>\n</html>\n    ');
+
 -- --------------------------------------------------------
 
 --
@@ -216,7 +223,8 @@ CREATE TABLE `pages` (
 INSERT INTO `pages` (`id`, `link`, `pageName`) VALUES
 (1, '../php/logOut.php', 'Log Out'),
 (2, '../php/editUser.php', 'Edit Account'),
-(3, '../php/registration.php', 'Registration');
+(3, '../php/registration.php', 'Registration'),
+(4, '../php/aboutus.php', 'About Us');
 
 -- --------------------------------------------------------
 
@@ -267,7 +275,9 @@ INSERT INTO `permission` (`id`, `name`) VALUES
 (9, 'addPm'),
 (10, 'editPm'),
 (11, 'deletePm'),
-(12, 'displayPm');
+(12, 'displayPm'),
+(17, 'editCourt'),
+(18, 'deleteCourt');
 
 -- --------------------------------------------------------
 
@@ -314,7 +324,19 @@ INSERT INTO `p_method_option_value` (`id`, `selectedoptionsId`, `value`, `reserv
 (5, 1, 'hhh', 1),
 (6, 2, '123', 1),
 (7, 3, '321', 1),
-(8, 4, '2019-03-14', 1);
+(8, 4, '2019-03-14', 1),
+(9, 1, 'hussam', -1),
+(10, 2, '145235235', -1),
+(11, 3, '123', -1),
+(12, 4, '2019-03-16', -1),
+(13, 1, 'hanon', -1),
+(14, 2, '124124235', -1),
+(15, 3, '123', -1),
+(16, 4, '2019-03-20', -1),
+(17, 1, 'hanon', -1),
+(18, 2, '214134132', -1),
+(19, 3, '123', -1),
+(20, 4, '2019-03-14', -1);
 
 -- --------------------------------------------------------
 
@@ -336,7 +358,10 @@ CREATE TABLE `reservation` (
 --
 
 INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `isDeleted`, `creationDate`) VALUES
-(1, 3, 1, 1, 0, '2019-02-28 19:45:48');
+(2, 3, 1, 1, 0, '2019-03-18 16:04:57'),
+(3, 1, 1, 2, 0, '2019-03-18 16:04:57'),
+(4, 4, 1, 3, 0, '2019-03-18 16:05:34'),
+(5, 8, 1, 4, 0, '2019-03-18 16:05:34');
 
 -- --------------------------------------------------------
 
@@ -493,7 +518,7 @@ INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfB
 (5, 'aa', 'aa', 'aa', '$2y$10$piv8sfS2caynSYamyO70b.jv78RwdUbIfK0XUPz1DSBLZGwBz0n62', '0000-00-00', '01010', '125', 3, 3, 0, '2019-02-28 19:46:28'),
 (6, 'test', 'test', 'test', '$2y$10$RzrBPRj5SDpfd3YvU1GscuxEAERmVruNhOhvZTEi443oo8mS5Hu5G', '0066-06-16', '6616', '661616', 3, 2, 0, '2019-03-09 21:09:03'),
 (7, 'test', 'test', 'test', '$2y$10$kHbKqh/xTTd.rnrS08j3W.VuvqIAEQihtdvkWIHl9prEGc/PkO6c2', '0018-12-18', '81818', '18181', 3, 2, 0, '2019-03-09 21:09:58'),
-(8, 'ahmed', 'zeft', 'zeft', '$2y$10$BYXXQnkvwHvqO.PR89JAZ.LEkt4CU6qYgYtJAagJm6eqihd/xk5wS', '0017-12-17', '1717171', '1111111', 3, 1, 1, '2019-03-09 21:40:13'),
+(8, 'ahmed', 'z', 'z', '$2y$10$BYXXQnkvwHvqO.PR89JAZ.LEkt4CU6qYgYtJAagJm6eqihd/xk5wS', '0017-12-17', '1717171', '1111111', 3, 1, 1, '2019-03-09 21:40:13'),
 (9, 'hussam', 'eldin', 'hussam@gmail.com', '$2y$10$uneyeYAhIXqnHWWEWqvDOedTOSYEFY7d78CxeAj6pA.e5lBcqjdzS', '2019-03-27', '123456234', '1242131243', 3, 2, 0, '2019-03-09 20:37:04'),
 (10, 'wageh', 'wego', 'wego@gmail.com', '$2y$10$CquEoUkFfh.G6YuwJ0zwAemlan87ebswYY/SODvg8nnHRcjefEGoW', '2019-03-22', '12345467', '123456', 3, 2, 1, '2019-03-09 18:46:51'),
 (11, 'ahmed', 'ahmed', 'ahmed@gmail.com', '$2y$10$m/wQGt97ok84qgQvq64rZOb7noPiGsYl8yMI.7VLTqVJGaFbwmmna', '1919-12-19', '19919919', '199919919919', 3, 1, 0, '2019-03-18 11:15:15');
@@ -795,13 +820,13 @@ ALTER TABLE `options`
 -- AUTO_INCREMENT for table `pagecode`
 --
 ALTER TABLE `pagecode`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `paymentmethod`
@@ -813,7 +838,7 @@ ALTER TABLE `paymentmethod`
 -- AUTO_INCREMENT for table `permission`
 --
 ALTER TABLE `permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `previliges`
@@ -825,13 +850,13 @@ ALTER TABLE `previliges`
 -- AUTO_INCREMENT for table `p_method_option_value`
 --
 ALTER TABLE `p_method_option_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `reservationdetails`
@@ -912,18 +937,12 @@ ALTER TABLE `previliges`
   ADD CONSTRAINT `previliges_ibfk_2` FOREIGN KEY (`featureId`) REFERENCES `features` (`id`);
 
 --
--- Constraints for table `p_method_option_value`
---
-ALTER TABLE `p_method_option_value`
-  ADD CONSTRAINT `P_Method_Option_Value_ibfk_1` FOREIGN KEY (`reservationId`) REFERENCES `reservation` (`id`);
-
---
 -- Constraints for table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`courtId`) REFERENCES `court` (`id`),
-  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`reservationDetailsId`) REFERENCES `reservationdetails` (`id`);
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`reservationDetailsId`) REFERENCES `reservationdetails` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`courtId`) REFERENCES `court` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reservationdetails`
