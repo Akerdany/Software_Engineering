@@ -77,12 +77,14 @@
 <?php
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 $court=$_POST["court"];
+
 $date=$_POST["Rdate"];
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
 $_SESSION["date"] = $date;
+$_SESSION["cID"] = $court;
 echo"<H2>Court number  ".$court." On ".$date."</H2>";
 ?>
 <div id="test">
@@ -103,6 +105,7 @@ echo"<H2>Court number  ".$court." On ".$date."</H2>";
  $P = $out["price"];
  $_SESSION["CN"] = $CN;
  $_SESSION["price"] =  $P;
+ $_SESSION["cID"] = $court;
  $row;
  $H=array() ;
  $state=array();

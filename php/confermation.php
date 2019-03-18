@@ -39,7 +39,7 @@
     <h2>Payment Method: </h2>
     <?php if (session_status() == PHP_SESSION_NONE) {session_start();}  echo " <h3>". $_SESSION["Method"]."</h3>";?>
     <div >
-    <a href="index.php">
+    <a href="ToDB.php">
     <button class="button">confirm</button>
     </a>
     <a href="addRe.php">
