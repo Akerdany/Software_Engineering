@@ -42,18 +42,6 @@
   				<div class="collapse navbar-collapse navbar-ex1-collapse">
   					<ul class="nav navbar-nav navbar-right">
   						<li><a href="#">Home</a></li>
-  						<li><a href="#">About Us</a></li>
-  						<li><a href="#">Blog</a></li>
-  						<li class="dropdown">
-  							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
-  							<ul class="dropdown-menu">
-  								<li><a href="#">Action</a></li>
-  								<li><a href="#">Another action</a></li>
-  								<li><a href="#">Something else here</a></li>
-  								<li><a href="#">Separated link</a></li>
-  							</ul>
-  						</li>
-  						<li><a href="#">Contact</a></li>
   					</ul>
   				</div><!-- /.navbar-collapse -->
   			</div>
@@ -68,8 +56,7 @@
   						<h2>Indigo Template</h2>
   						<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ullam consequatur repellat debitis maxime.</p>
   						<ul class="list-inline">
-  							<li><a href="#" title="Learn More" class="btn btn-md btn-info">Learn More</a></li>
-  							<li><a href="#" title="Learn More" class="btn btn-md btn-primary">Download Now</a></li>
+  							<li><a href="aboutUs.html" title="Learn More" class="btn btn-md btn-info">About Us</a></li>
   						</ul>
   					</div>
   				</div>
