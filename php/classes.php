@@ -149,6 +149,20 @@
             }
         }
 
+        public function editUserType($id, $newUserType){
+            $DB = new DbConnection();
+
+            $sql = "UPDATE user SET userTypeId=$newUserType WHERE id=$id";
+
+            if($result = mysqli_query($DB->getdbconnect(), $sql)){
+                return true;
+            }      
+            else{
+                echo "ERROR: Could not able to execute $sql. ". mysqli_error($DB->getdbconnect());
+                return false;
+            }
+        }
+
         public function logIn($email, $pass){
             $DB = new DbConnection();
 
@@ -205,19 +219,37 @@
         }
 
         public function displayAllUsers(){
-            $sql = "SELECT * FROM user";
             $DB = new DbConnection();
 
+            $sql = "SELECT * FROM user";
             $result = mysqli_query($DB->getdbconnect(), $sql);
+            $addAccess = false;
+            $editAccess = false;
+            $deleteAccess = false;
+            $_SESSION['userType'] = 1;
     
             if(mysqli_num_rows($result) > 0){
+                $userPermission = mysqli_query($DB->getdbconnect(), "SELECT * From usertype_permission WHERE userTypeId='".$_SESSION["userType"]."'");
+                while($r2 = mysqli_fetch_array($userPermission)){
+                    if($r2['permissionId'] == 1){
+                        $addAccess = true;
+                    }
+
+                    else if($r2['permissionId'] == 2){
+                        $editAccess = true;
+                    }
+
+                    else if($r2['permissionId'] == 3){
+                        $deleteAccess = true;
+                    }
+                }    
                 // echo"<form id='form' name='form' method='post' action=''>";
                 // echo "<input type='submit' id='Activate_Account' name='Activate_Account' value='Activate Account'>";
                 // echo "<input type='submit' id='Decline_Account' name='Decline_Account' value='Decline Account'>";
                 echo"<table id='table' border='1' class='displaytables'>
-                    <tr>
-                    <th>#</th>
-                    <th>ID</th>
+                    <tr>";
+                    // <th>#</th>
+                echo"<th>ID</th>
                     <th>Email</th>
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -225,15 +257,20 @@
                     <th>Telephone Number</th>
                     <th>SSN</th>
                     <th>Address</th>
-                    <th>Type of User</th>
-                    <th>Account Status</th>
-                    <th>Action</th>
-                    <th>Date & Time Joined</th>
+                    <th>Type of User</th>";
+                    if($editAccess){
+                        echo"<th>Edit User Type</th>";
+                    }
+                    if($deleteAccess){
+                        echo"<th>Account Status</th>
+                        <th>Action</th>";
+                    }
+                echo"<th>Date & Time Joined</th>
                     </tr>";
     
                 while($row = mysqli_fetch_array($result)){
                     echo "<tr>";
-                    echo "<td><input type='checkbox' name='checkbox[]' id='checkbox[]' value=".$row['id']."></td>";
+                    // echo "<td><input type='checkbox' name='checkbox[]' id='checkbox[]' value=".$row['id']."></td>";
                     echo "<td>" .$row['id']. "</td>";
                     echo "<td>" .$row['email']. "</td>";
                     echo "<td>" .$row['firstName']. "</td>";
@@ -242,32 +279,56 @@
                     echo "<td>" .$row['telephone']."</td>";
                     echo "<td>" .$row['ssn']. "</td>";
                     echo "<td>" .$row['addressId']. "</td>";
-    
                     $userType = mysqli_query($DB->getdbconnect(), "SELECT * FROM usertype WHERE id='".$row["userTypeId"]."'");
                     if($r = mysqli_fetch_array($userType)){
                         echo "<td>" .$r['userTypeName']. "</td>";
                     }
+
+                    if($editAccess && $row['userTypeId'] == 1){
+                        echo"<td>No Actions</td>";
+                    }
+
+                    else if($editAccess){
+                        echo '<form action="editUserType.php" method="POST">';
+
+                        echo"<td><select name='userType'>";
+                        echo"<option value=0>Choose</option>";
     
-                    if($row['isDeleted'] == 0){
-                        echo "<td>Active</td>";
-                        echo '<td> <form action="deleteUser.php" method="POST">'
-                        .'<button type="submit" name="deleteUserButton" value="'.$row['id'].'">Delete User</button>'
+                            $sqlUserType = mysqli_query($DB->getdbconnect(), "SELECT * FROM usertype");
+                            while($rowUserType = mysqli_fetch_array($sqlUserType)){
+                                $valueId = $rowUserType['id'];
+                                $value = $rowUserType['userTypeName'];
+                                echo '<option value="' . $valueId . '">' . $value . '</option>';
+                            }
+                        echo"</select><br>";
+    
+                        echo'<button type="submit" name="editUserButton" value="'.$row['id'].'">Save</button>'
                         .'</form></td>';
                     }
-                    else{
-                        echo "<td>Deleted</td>";
-                        echo '<td> <form action="activateUser.php" method="POST">'
-                        .'<button type="submit" name="activateUserButton" value="'.$row['id'].'">Activate User</button>'
-                        .'</form></td>';
+
+                    if($deleteAccess){
+                        if($row['isDeleted'] == 0){
+                            echo "<td>Active</td>";
+                            echo '<td> <form action="deleteUser.php" method="POST">'
+                            .'<button type="submit" name="deleteUserButton" value="'.$row['id'].'">Delete User</button>'
+                            .'</form></td>';
+                        }
+                        else if($row['isDeleted']){
+                            echo "<td>Deleted</td>";
+                            echo '<td> <form action="activateUser.php" method="POST">'
+                            .'<button type="submit" name="activateUserButton" value="'.$row['id'].'">Activate User</button>'
+                            .'</form></td>';
+                        }
                     }
-    
                     echo "<td>".$row['creationDate']."</td>";
                     echo "</tr>";
                 }
                 echo "</table>";
                 // echo "</form>";
             }   
-            echo '<a href= "registration.php" class="button">Add User</a><br><br>';
+            if($addAccess){
+                echo '<a href= "registration.php" class="button">Add User</a><br><br>';
+            }
             mysqli_close($DB->getdbconnect()); 
         }
     }
