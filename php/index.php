@@ -34,7 +34,7 @@
   						<span class="icon-bar"></span>
   						<span class="icon-bar"></span>
   					</button>
-  					<a class="navbar-brand" href="#">Indigo</a>
+  					<a class="navbar-brand" href="#">Ministry of Youth & Sports</a>
   				</div>
   		
   				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -52,8 +52,8 @@
   			<div class="container">
   				<div class="row">
   					<div class="col-md-12">
-  						<h2>Indigo Template</h2>
-  						<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ullam consequatur repellat debitis maxime.</p>
+  						<h2>Ministry of Youth & Sports</h2>
+  						<p class="lead"></p>
   						<ul class="list-inline">
   							<li><a href="aboutUs.php" title="Learn More" class="btn btn-md btn-info">About Us</a></li>
   						</ul>
