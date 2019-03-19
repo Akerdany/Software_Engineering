@@ -44,7 +44,7 @@ if((isset($_SESSION['userType']))){
 
 <div id = "fields">
   <a href="logIn.php" class="sideNavLink">SignIn</a>
-  <a href="logOut.php" class="sideNavLink">Signup</a>
+  <a href="registration.php" class="sideNavLink">Signup</a>
   
   </div>
 </div>
