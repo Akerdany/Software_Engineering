@@ -5,7 +5,6 @@
   		<meta charset="utf-8">
   		<meta http-equiv="X-UA-Compatible" content="IE=edge">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
-  		<title>Indigo</title>
   
   		<!-- Bootstrap CSS -->
   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -56,7 +55,7 @@
   						<h2>Indigo Template</h2>
   						<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ullam consequatur repellat debitis maxime.</p>
   						<ul class="list-inline">
-  							<li><a href="aboutUs.html" title="Learn More" class="btn btn-md btn-info">About Us</a></li>
+  							<li><a href="aboutUs.php" title="Learn More" class="btn btn-md btn-info">About Us</a></li>
   						</ul>
   					</div>
   				</div>
