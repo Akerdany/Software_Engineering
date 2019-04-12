@@ -11,78 +11,77 @@
 </head>
 <body>
 
-    <?php 
-        require("connection.php");
-        include("classes.php");
-        session_start();
+    <?php
 
-        if(isset($_POST['submit'])){
+require "connection.php";
+include "classes.php";
+session_start();
 
-            //Security:
-            $fName = $_POST['fName'];
-            $lName = $_POST['lName'];
-            $email = $_POST['email'];
-            $pass = $_POST['pass'];
-            $DoB = $_POST['DoB'];
-            $tel = $_POST['tel'];
-            $ssn = $_POST['ssn'];
-            $userType = $_POST['userType'];
-            
-            if(!empty($fName) && !empty($lName) && !empty($email) && !empty($pass) && !empty($DoB) && !empty($tel) && !empty($ssn)){
-                
-                if (filter_var($tel, FILTER_VALIDATE_INT) && filter_var($ssn, FILTER_VALIDATE_INT) && filter_var($email, FILTER_VALIDATE_EMAIL)){
-                    
-                    $user = New User();
-                    
-                    $fName = $user->checkData($fName);
-                    $user->firstName = $fName;
-        
-                    $lName = $user->checkData($lName);
-                    $user->lastName = $lName;     
-        
-                    $email = $user->checkData($email);
-                    $user->email = $email;
-        
-                    $pass = $user->checkData($pass);
-                    $pass = $pass.$email;
-                    $pass = password_hash($pass, PASSWORD_DEFAULT);
-                    $user->password = $pass;
-        
-                    $user->dateOfBirth = $DoB;
-        
-                    $tel = $user->checkData($tel);
-                    $user->telephone = $tel;
-        
-                    $ssn = $user->checkData($ssn);
-                    $user->ssn = $ssn;
-                    
-                    $user->addressId = 3;
-        
-                    if($_SESSION['userType'] != 1){
-                        $user->userTypeId = 2;
-                    }
-                    else{
-                        $user->userTypeId = $userType;
-                    }
-        
-                    if($user->insertUser($user)){
-                        
-                        mysqli_close($connection);
-                        header("Location: ../php/index.php");    
-                    }
-                    else{
-                        echo "An error occured, please try again later";
-                    }
-                }
-                else{
-                    echo "Please enter the data correctly";
-                }
+if (isset($_POST['submit'])) {
+
+    //Security:
+    $fName    = $_POST['fName'];
+    $lName    = $_POST['lName'];
+    $email    = $_POST['email'];
+    $pass     = $_POST['pass'];
+    $DoB      = $_POST['DoB'];
+    $tel      = $_POST['tel'];
+    $ssn      = $_POST['ssn'];
+    $userType = $_POST['userType'];
+
+    if (!empty($_SESSION['userType']) && $_SESSION['userType'] == 1) {
+        $userType = $userType;
+    } else {
+        $userType = 2;
+    }
+
+    if (!empty($fName) && !empty($lName) && !empty($email) && !empty($pass) && !empty($DoB) && !empty($tel) && !empty($ssn)) {
+
+        if (filter_var($tel, FILTER_VALIDATE_INT) && filter_var($ssn, FILTER_VALIDATE_INT) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+            $user = New User();
+
+            $fName           = $user->checkData($fName);
+            $user->firstName = $fName;
+
+            $lName          = $user->checkData($lName);
+            $user->lastName = $lName;
+
+            $email       = $user->checkData($email);
+            $user->email = $email;
+
+            $pass           = $user->checkData($pass);
+            $pass           = $pass . $email;
+            $pass           = password_hash($pass, PASSWORD_DEFAULT);
+            $user->password = $pass;
+
+            $user->dateOfBirth = $DoB;
+
+            $tel             = $user->checkData($tel);
+            $user->telephone = $tel;
+
+            $ssn       = $user->checkData($ssn);
+            $user->ssn = $ssn;
+
+            $user->addressId = 3;
+
+            $user->userTypeId = $userType;
+
+            if ($user->insertUser($user)) {
+
+                mysqli_close($connection);
+                header("Location: ../php/index.php");
+            } else {
+                echo "An error occured, please try again later";
             }
-            else{
-                echo "Please fill all the fields";
-            }
+        } else {
+            echo "Please enter the data correctly";
         }
-    ?>
+    } else {
+        echo "Please fill all the fields";
+    }
+}
+?>
 <div id = "regForm">
     <form name="registration" id = "registrationForm" action="" method="POST">
         First Name: <input type="text" name="fName"><br>
@@ -95,23 +94,23 @@
         SSN: <input type="text" name="ssn"><br>
         <!-- Address: <input type="text" name="add"><br> -->
         <?php
-            if(!empty($_SESSION['userType']) && $_SESSION['userType'] == 1){
-                echo"User Type: ";
-                echo"<select name='userType'>";
-                    echo"<option value=0>Choose</option>";
+if (!empty($_SESSION['userType']) && $_SESSION['userType'] == 1) {
+    echo "User Type: ";
+    echo "<select name='userType'>";
+    echo "<option value=0>Choose</option>";
 
-                        $sql = mysqli_query($connection, "SELECT * FROM usertype");
-                        while($row = mysqli_fetch_array($sql)){
-                            $valueId = $row['id'];
-                            $value = $row['userTypeName'];
-                            echo '<option value="' . $valueId . '">' . $value . '</option>';
-                        }
-                echo"</select><br>";
-            }
-        ?>
+    $sql = mysqli_query($connection, "SELECT * FROM usertype");
+    while ($row = mysqli_fetch_array($sql)) {
+        $valueId = $row['id'];
+        $value   = $row['userTypeName'];
+        echo '<option value="' . $valueId . '">' . $value . '</option>';
+    }
+    echo "</select><br>";
+}
+?>
         <input type="submit" name="submit">
     </form>
 </div>
-    
+
 </body>
 </html>
