@@ -15,22 +15,26 @@ function getForm(pmId) {
 //$time1 = strtotime($string);
 
 </script>
-</head>
+</ head>
 
 </html>
 
 <?php
 require_once('connection.php');
+require_once("checkout_model.php");
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
-$DB = new DbConnection();
-$sql = 'SELECT * from paymentmethod WHERE isDeleted = "0"';
-$result = mysqli_query($DB->getdbconnect(), $sql);
 
+$DB = new DbConnection();
 echo '<form id = "checkout" action = "" method = "POST">'
     .'<label>Payment Method</label><br>'
     .'<select name = "paymentmethod" onchange = "getForm(this.value)">'
     .'<option>Choose</option>';
-while($row = mysqli_fetch_array($result))
+
+    
+    //var_dump($data);
+    $model=new checkoutmodel();
+    $data=$model->Display();
+ foreach($data as $row)
 {
     echo $row['name'].'<br>';
     echo '<option value = "'.$row['id'].'">'.$row['name'].'</option>';
