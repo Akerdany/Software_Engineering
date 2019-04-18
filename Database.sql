@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 18, 2019 at 11:53 PM
+-- Generation Time: Apr 18, 2019 at 11:30 AM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -179,7 +179,7 @@ INSERT INTO `features` (`id`, `feature`, `file`) VALUES
 (1, 'Users', 'displayUsers.php'),
 (2, 'Events', 'displayEvents.php'),
 (3, 'Courts', 'displayCourts.php'),
-(4, 'PaymentMethod', 'displayPm.php'),
+(4, 'PaymentMethod', 'PmController.php'),
 (5, 'Reserve', 'addRe.php'),
 (6, 'ManageAccount', 'editUser.php'),
 (7, 'Reservation', 'displayRe.php'),
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `options` (
   `name` varchar(100) NOT NULL,
   `type` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `options`
@@ -209,7 +209,8 @@ INSERT INTO `options` (`id`, `name`, `type`) VALUES
 (3, 'number', 'int'),
 (4, 'cvv', 'int'),
 (5, 'email', 'text'),
-(6, 'phoneNo', 'int');
+(6, 'phoneNo', 'int'),
+(7, 'Gender', 'radio');
 
 -- --------------------------------------------------------
 
@@ -224,7 +225,14 @@ CREATE TABLE IF NOT EXISTS `pagecode` (
   `HTML` text NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `PageID` (`PageID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pagecode`
+--
+
+INSERT INTO `pagecode` (`ID`, `PageID`, `HTML`) VALUES
+(1, 4, '\r\n    <html><head>\r\n		<title>About Us</title>\r\n		<meta charset=\"utf-8\">\r\n		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n		<link rel=\"stylesheet\" href=\"../css/aboutUs.css\">\r\n		<script src=\"../CKEDITOR/ckeditor.js\"></script><style>.cke{visibility:hidden;}</style>\r\n		<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\r\n		<script type=\"text/javascript\" src=\"http://localhost/Software_Engineering/CKEDITOR/config.js?t=J1QB\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"http://localhost/Software_Engineering/CKEDITOR/skins/moono-lisa/editor.css?t=J1QB\"><script type=\"text/javascript\" src=\"http://localhost/Software_Engineering/CKEDITOR/lang/en.js?t=J1QB\"></script><script type=\"text/javascript\" src=\"http://localhost/Software_Engineering/CKEDITOR/styles.js?t=J1QB\"></script>\r\n</head>\r\n	<body cz-shortcut-listen=\"true\">\r\n\r\n		<!-- Header -->\r\n			<header id=\"header\">\r\n				<div class=\"logo\"><a href=\"#\">About Us</a></div>\r\n			</header>\r\n\r\n		<!-- Main -->\r\n			<section id=\"main\">\r\n				<div class=\"inner\">\r\n\r\n				<!-- One -->\r\n					<section id=\"one\" class=\"wrapper style1\">\r\n						<header class=\"special\">\r\n							<h2>About the ministry</h2>\r\n							<p>of youth</p>\r\n						</header>\r\n						<div class=\"content\">\r\n							<p id=\"originalText\" name=\"originalText\"><p>bhkhnjkjk</p></p>\r\n							\r\n					</div>\r\n					<form action=\"pagebuilder.php\" method=\"post\">\r\n							<input type=\"hidden\" id = \"paragraph\" name = \"paragraph\">\r\n							<input type=\"submit\" id=\"submitButton\" name=\"submit\" value=\"Edit Content\">\r\n						</form>\r\n					</section>\r\n</div>\r\n</section></body>\r\n<script>\r\n		var text = $(\"#originalText\").html();\r\n		$(\"#paragraph\").val(text);\r\n</script>\r\n</html>\r\n    ');
 
 -- --------------------------------------------------------
 
@@ -238,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `link` varchar(100) NOT NULL,
   `pageName` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pages`
@@ -247,7 +255,8 @@ CREATE TABLE IF NOT EXISTS `pages` (
 INSERT INTO `pages` (`id`, `link`, `pageName`) VALUES
 (1, '../php/logOut.php', 'Log Out'),
 (2, '../php/editUser.php', 'Edit Account'),
-(3, '../php/registration.php', 'Registration');
+(3, '../php/registration.php', 'Registration'),
+(4, '../php/aboutus.php', 'About Us');
 
 -- --------------------------------------------------------
 
@@ -302,7 +311,7 @@ INSERT INTO `permission` (`id`, `name`) VALUES
 (9, 'addPm'),
 (10, 'editPm'),
 (11, 'deletePm'),
-(12, 'displayPm');
+(12, 'PmController');
 
 -- --------------------------------------------------------
 
@@ -318,7 +327,7 @@ CREATE TABLE IF NOT EXISTS `previliges` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `optionId` (`featureId`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `previliges`
@@ -335,7 +344,8 @@ INSERT INTO `previliges` (`id`, `userTypeId`, `featureId`) VALUES
 (10, 1, 7),
 (11, 2, 6),
 (12, 1, 8),
-(13, 2, 8);
+(13, 2, 8),
+(14, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -351,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `p_method_option_value` (
   `reservationId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `reservationId` (`reservationId`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `p_method_option_value`
@@ -385,7 +395,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `reservationDetailsId` (`reservationDetailsId`),
   KEY `courtId` (`courtId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservation`
@@ -394,7 +404,10 @@ CREATE TABLE IF NOT EXISTS `reservation` (
 INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `isDeleted`, `creationDate`) VALUES
 (1, 3, 1, 1, 0, '2019-02-28 19:45:48'),
 (3, 11, 1, 7, 0, '2019-03-18 23:34:44'),
-(4, 11, 1, 8, 0, '2019-03-18 23:35:19');
+(4, 11, 1, 8, 0, '2019-03-18 23:35:19'),
+(5, 11, 1, 9, 0, '2019-03-19 07:59:56'),
+(6, 11, 1, 10, 0, '2019-04-12 20:32:55'),
+(7, 11, 1, 11, 0, '2019-04-12 21:56:10');
 
 -- --------------------------------------------------------
 
@@ -413,7 +426,7 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
   `cost` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `supervisorId` (`supervisorId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservationdetails`
@@ -426,7 +439,10 @@ INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervi
 (4, '2019-03-21', '8.00', '11.30', 4, 'normal', 15),
 (5, '2019-03-22', '8.00', '9.30', 1, 'normal', 128),
 (7, '2019-03-22', '8.00', '9.30', 1, 'normal', 128),
-(8, '2019-03-22', '9.30', '11.30', 1, 'normal', 128);
+(8, '2019-03-22', '9.30', '11.30', 1, 'normal', 128),
+(9, '2019-03-21', '10.00', '13.00', 1, 'normal', 128),
+(10, '2019-04-18', '11.00', '14.00', 1, 'normal', 128),
+(11, '2019-04-14', '8.30', '10.30', 1, 'normal', 128);
 
 -- --------------------------------------------------------
 
@@ -443,7 +459,7 @@ CREATE TABLE IF NOT EXISTS `selectedoptions` (
   PRIMARY KEY (`id`),
   KEY `paymentId` (`paymentId`),
   KEY `optionId` (`optionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `selectedoptions`
@@ -451,11 +467,10 @@ CREATE TABLE IF NOT EXISTS `selectedoptions` (
 
 INSERT INTO `selectedoptions` (`id`, `paymentId`, `optionId`, `priority`) VALUES
 (1, 1, 1, 1),
-(2, 1, 3, 2),
-(3, 1, 4, 3),
-(4, 1, 2, 4),
+(4, 1, 2, 3),
 (9, 5, 1, 1),
-(10, 5, 3, 2);
+(49, 5, 3, 2),
+(52, 1, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -503,9 +518,6 @@ INSERT INTO `time` (`ID`, `hours`, `state`) VALUES
 (6, '10.00', 0),
 (7, '10.30', 0),
 (8, '11.00', 0),
-(9, '11.30', 0),
-(10, '12.00', 0),
-(11, '12.30', 0),
 (12, '13.00', 0),
 (13, '13.30', 0),
 (14, '14.00', 0),
@@ -571,7 +583,7 @@ INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfB
 (7, 'test', 'test', 'test', '$2y$10$kHbKqh/xTTd.rnrS08j3W.VuvqIAEQihtdvkWIHl9prEGc/PkO6c2', '0018-12-18', '81818', '18181', 3, 2, 0, '2019-03-09 21:09:58'),
 (8, 'ahmed', 'zeft', 'zeft', '$2y$10$BYXXQnkvwHvqO.PR89JAZ.LEkt4CU6qYgYtJAagJm6eqihd/xk5wS', '0017-12-17', '1717171', '1111111', 3, 1, 1, '2019-03-09 21:40:13'),
 (9, 'hussam', 'eldin', 'hussam@gmail.com', '$2y$10$uneyeYAhIXqnHWWEWqvDOedTOSYEFY7d78CxeAj6pA.e5lBcqjdzS', '2019-03-27', '123456234', '1242131243', 3, 2, 0, '2019-03-09 20:37:04'),
-(10, 'wageh', 'wego', 'wego@gmail.com', '$2y$10$CquEoUkFfh.G6YuwJ0zwAemlan87ebswYY/SODvg8nnHRcjefEGoW', '2019-03-22', '12345467', '123456', 3, 2, 1, '2019-03-09 18:46:51'),
+(10, 'wageh', 'wego', 'wego@gmail.com', '$2y$10$CquEoUkFfh.G6YuwJ0zwAemlan87ebswYY/SODvg8nnHRcjefEGoW', '2019-03-22', '12345467', '123456', 3, 3, 0, '2019-03-09 18:46:51'),
 (11, 'ahmed', 'ahmed', 'ahmed@gmail.com', '$2y$10$m/wQGt97ok84qgQvq64rZOb7noPiGsYl8yMI.7VLTqVJGaFbwmmna', '1919-12-19', '19919919', '199919919919', 3, 1, 0, '2019-03-18 11:15:15');
 
 -- --------------------------------------------------------
