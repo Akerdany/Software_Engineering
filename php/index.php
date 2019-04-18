@@ -64,7 +64,7 @@
   		<!--/.section -->
 
   		<!-- START SECTION -->
-  		<div class="section background-light">
+  		<!-- <div class="section background-light">
   			<div class="container">
   				<div class="row">
   					<div class="col-md-12 text-center">
@@ -77,7 +77,7 @@
   							<h3>Web Design</h3>
   							<p>Sed tempus feugiat adipiscing nisl cursus aliquam dolore.</p>
   							<a href="#" title="Learn More" class="btn btn-sm btn-primary">Learn More</a>
-  						</div><!--/.service-block-->
+  						</div>
   					</div>
   					<div class="col-md-4">
   						<div class="service-block text-center">
@@ -85,7 +85,7 @@
   							<h3>WordPress Development</h3>
   							<p>Sed tempus feugiat adipiscing nisl cursus aliquam dolore.</p>
   							<a href="#" title="Learn More" class="btn btn-sm btn-primary">Learn More</a>
-  						</div><!--/.service-block-->
+  						</div>
   					</div>
   					<div class="col-md-4">
   						<div class="service-block text-center">
@@ -93,15 +93,15 @@
   							<h3>Awesome Service Title</h3>
   							<p>Sed tempus feugiat adipiscing nisl cursus aliquam dolore.</p>
   							<a href="#" title="Learn More" class="btn btn-sm btn-primary">Learn More</a>
-  						</div><!--/.service-block-->
+  						</div>
   					</div>
   				</div>
   			</div>
-  		</div>
+  		</div> -->
   		<!--/.section -->
 
   		<!-- START SECTION -->
-  		<div class="section hero text-center background-primary dark-bg">
+  		<!-- <div class="section hero text-center background-primary dark-bg">
   			<div class="background-image" style="background: url(../images/hero.jpg) no-repeat fixed center center; background-size: cover; opacity: .2;"></div>
   			<div class="container">
   				<div class="row">
@@ -110,11 +110,11 @@
   					</div>
   				</div>
   			</div>
-  		</div>
+  		</div> -->
   		<!--/.section -->
 
   		<!-- START SECTION -->
-  		<div class="section">
+  		<!-- <div class="section">
   			<div class="container">
   				<div class="row">
   					<div class="col-md-12 text-center">
@@ -132,7 +132,7 @@
   							<h3 class="entry-title"><a href="#" title="Yelp Is Awful for Everyone Involved">Yelp Is Awful for Everyone Involved</a></h3>
   							<p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est.</p>
   							<a href="#" title="Learn More" class="btn read-more btn-sm btn-primary">Learn More</a>
-  						</div><!--/.entry-->
+  						</div>
   					</div>
   					<div class="col-md-4">
   						<div class="entry">
@@ -145,7 +145,7 @@
   							<h3 class="entry-title"><a href="#" title="2 Best Sites to Build Your Own Website">2 Best Sites to Build Your Own Website</a></h3>
   							<p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est.</p>
   							<a href="#" title="Learn More" class="btn read-more btn-sm btn-primary">Learn More</a>
-  						</div><!--/.entry-->
+  						</div>
   					</div>
   					<div class="col-md-4">
   						<div class="entry">
@@ -158,15 +158,15 @@
   							<h3 class="entry-title"><a href="#" title="2 Best Sites to Build Your Own Website">2 Best Sites to Build Your Own Website</a></h3>
   							<p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est.</p>
   							<a href="#" title="Learn More" class="btn read-more btn-sm btn-primary">Learn More</a>
-  						</div><!--/.entry-->
+  						</div>
   					</div>
-  				</div><!--/.row-->
-  			</div><!--/.container-->
-  		</div>
+  				</div>
+  			</div>
+  		</div> -->
   		<!--/.section -->
 
   		<!-- START SECTION -->
-  		<div class="section hero text-center background-dark dark-bg">
+  		<!-- <div class="section hero text-center background-dark dark-bg">
   			<div class="background-image" style="background: url(../images/hero.jpg) no-repeat fixed center center; background-size: cover; opacity: .2;"></div>
   			<div class="container">
   				<div class="row">
@@ -175,11 +175,11 @@
   					</div>
   				</div>
   			</div>
-  		</div>
+  		</div> -->
   		<!--/.section -->
 
   		<!-- START SECTION -->
-  		<div class="section">
+  		<!-- <div class="section">
   			<div class="container">
   				<div class="row">
   					<div class="col-md-12 text-center">
@@ -205,13 +205,13 @@
 							</div>
 						</form>
   					</div>
-  				</div><!--/.row-->
-  			</div><!--/.container-->
-  		</div>
+  				</div>
+  			</div>
+  		</div> -->
   		<!--/.section -->
 
   		<!-- START SECTION -->
-  		<div class="section hero text-center background-light">
+  		<!-- <div class="section hero text-center background-light">
   			<div class="background-image" style="background: url(../images/hero.jpg) no-repeat fixed center center; background-size: cover; opacity: .2;"></div>
   			<div class="container">
   				<div class="row">
@@ -220,11 +220,11 @@
   					</div>
   				</div>
   			</div>
-  		</div>
+  		</div> -->
   		<!--/.section -->
 
   		<!-- START SECTION -->
-  		<div class="section background-dark dark-bg">
+  		<!-- <div class="section background-dark dark-bg">
   			<div class="container">
   				<div class="row">
   					<div class="col-md-3">
@@ -266,7 +266,7 @@
   					</div>
   				</div>
   			</div>
-  		</div>
+  		</div> -->
   		<!--/.section -->
   
   		<!-- jQuery -->

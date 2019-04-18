@@ -56,8 +56,6 @@ class PmModel
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
-        $Q="DELETE FROM `selectedoptions` WHERE `paymentId` = '$paymentID'";
-        mysqli_query($conn,$Q);
         $Q="UPDATE `paymentmethod`  SET `isDeleted`= 1 WHERE `id` = '$paymentID'";
         mysqli_query($conn,$Q);
     }
