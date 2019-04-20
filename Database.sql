@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 18, 2019 at 11:30 AM
+-- Generation Time: Apr 20, 2019 at 11:11 AM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `features` (
   `feature` varchar(50) NOT NULL,
   `file` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `features`
@@ -183,7 +183,8 @@ INSERT INTO `features` (`id`, `feature`, `file`) VALUES
 (5, 'Reserve', 'addRe.php'),
 (6, 'ManageAccount', 'editUser.php'),
 (7, 'Reservation', 'displayRe.php'),
-(8, 'Signout', 'logOut.php');
+(8, 'Signout', 'logOut.php'),
+(9, 'Options', 'OptionsController.php');
 
 -- --------------------------------------------------------
 
@@ -196,21 +197,23 @@ CREATE TABLE IF NOT EXISTS `options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `type` varchar(100) NOT NULL,
+  `isDeleted` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `options`
 --
 
-INSERT INTO `options` (`id`, `name`, `type`) VALUES
-(1, 'Name', 'text'),
-(2, 'ExpiryDate', 'date'),
-(3, 'number', 'int'),
-(4, 'cvv', 'int'),
-(5, 'email', 'text'),
-(6, 'phoneNo', 'int'),
-(7, 'Gender', 'radio');
+INSERT INTO `options` (`id`, `name`, `type`, `isDeleted`) VALUES
+(1, 'Name', 'text', 0),
+(2, 'ExpiryDate', 'date', 0),
+(3, 'number', 'int', 0),
+(4, 'cvv', 'int', 0),
+(5, 'email', 'text', 0),
+(6, 'phoneNo', 'int', 0),
+(7, 'Gender', 'radio', 0),
+(8, 'address', 'text', 0);
 
 -- --------------------------------------------------------
 
@@ -271,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `paymentmethod` (
   `isDeleted` tinyint(1) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `paymentmethod`
@@ -280,7 +283,8 @@ CREATE TABLE IF NOT EXISTS `paymentmethod` (
 INSERT INTO `paymentmethod` (`id`, `name`, `isDeleted`, `creationDate`) VALUES
 (1, 'Visaa', 0, '2019-02-28 19:45:28'),
 (5, 'fawry', 0, '2019-03-14 13:00:25'),
-(6, 'abaS', 1, '2019-03-14 13:03:54');
+(15, 'QQCard', 0, '2019-04-18 13:51:46'),
+(16, 'vps', 1, '2019-04-19 13:14:34');
 
 -- --------------------------------------------------------
 
@@ -293,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `permission`
@@ -311,7 +315,8 @@ INSERT INTO `permission` (`id`, `name`) VALUES
 (9, 'addPm'),
 (10, 'editPm'),
 (11, 'deletePm'),
-(12, 'PmController');
+(12, 'PmController'),
+(17, 'OptionsController');
 
 -- --------------------------------------------------------
 
@@ -327,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `previliges` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `optionId` (`featureId`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `previliges`
@@ -345,7 +350,8 @@ INSERT INTO `previliges` (`id`, `userTypeId`, `featureId`) VALUES
 (11, 2, 6),
 (12, 1, 8),
 (13, 2, 8),
-(14, 1, 4);
+(14, 1, 4),
+(15, 3, 9);
 
 -- --------------------------------------------------------
 
@@ -459,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `selectedoptions` (
   PRIMARY KEY (`id`),
   KEY `paymentId` (`paymentId`),
   KEY `optionId` (`optionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `selectedoptions`
@@ -470,7 +476,14 @@ INSERT INTO `selectedoptions` (`id`, `paymentId`, `optionId`, `priority`) VALUES
 (4, 1, 2, 3),
 (9, 5, 1, 1),
 (49, 5, 3, 2),
-(52, 1, 3, 2);
+(52, 1, 3, 2),
+(82, 15, 1, 1),
+(83, 15, 3, 2),
+(84, 15, 4, 3),
+(85, 16, 1, 2),
+(86, 16, 3, 1),
+(88, 16, 2, 4),
+(89, 16, 6, 5);
 
 -- --------------------------------------------------------
 
@@ -568,7 +581,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `address_id` (`addressId`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -584,7 +597,11 @@ INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfB
 (8, 'ahmed', 'zeft', 'zeft', '$2y$10$BYXXQnkvwHvqO.PR89JAZ.LEkt4CU6qYgYtJAagJm6eqihd/xk5wS', '0017-12-17', '1717171', '1111111', 3, 1, 1, '2019-03-09 21:40:13'),
 (9, 'hussam', 'eldin', 'hussam@gmail.com', '$2y$10$uneyeYAhIXqnHWWEWqvDOedTOSYEFY7d78CxeAj6pA.e5lBcqjdzS', '2019-03-27', '123456234', '1242131243', 3, 2, 0, '2019-03-09 20:37:04'),
 (10, 'wageh', 'wego', 'wego@gmail.com', '$2y$10$CquEoUkFfh.G6YuwJ0zwAemlan87ebswYY/SODvg8nnHRcjefEGoW', '2019-03-22', '12345467', '123456', 3, 3, 0, '2019-03-09 18:46:51'),
-(11, 'ahmed', 'ahmed', 'ahmed@gmail.com', '$2y$10$m/wQGt97ok84qgQvq64rZOb7noPiGsYl8yMI.7VLTqVJGaFbwmmna', '1919-12-19', '19919919', '199919919919', 3, 1, 0, '2019-03-18 11:15:15');
+(11, 'ahmed', 'ahmed', 'ahmed@gmail.com', '$2y$10$m/wQGt97ok84qgQvq64rZOb7noPiGsYl8yMI.7VLTqVJGaFbwmmna', '1919-12-19', '19919919', '199919919919', 3, 1, 0, '2019-03-18 11:15:15'),
+(14, 'Omar', 'Anas', 'omaranas@yahoo.com', '$2y$10$xl8JB6q7f9qAvXM1x7tD2.Dp1QozVbNIiPqhxDkU2bHBshbfoxS2S', '2019-04-17', '1234567890', '1234567890', 3, 3, 0, '2019-04-20 08:30:43'),
+(15, 'John', 'Cena', 'JohnCena@gmail.com', '$2y$10$EpYIIrLaQnCGA26VERyq4uf/sndm08nn2KEWMUVzXHIvjM1YGvP5m', '2019-04-09', '12345678', '1234567878', 3, 2, 0, '2019-04-20 08:43:21'),
+(16, 'john', 'john', 'john@gmail.com', '$2y$10$zdceg54kuNEDv58VSODhO.AvpG2NZWAFKeBm3AKt3ngaOXxbvKgp6', '2019-04-11', '584887', '57854788', 3, 2, 0, '2019-04-20 08:44:14'),
+(17, 'h', 'h', 'h@h.com', '$2y$10$hywJsbjxLYN3DD0lI2bmQ.83JW5Gq58zEOOP35N44axr0TChZIPji', '2019-04-23', '1', '1', 3, 2, 0, '2019-04-20 08:46:34');
 
 -- --------------------------------------------------------
 

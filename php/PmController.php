@@ -1,6 +1,7 @@
 <?php
 include_once("PmModel.php");
 include_once("PmView.php");
+include_once("navbar.php");
 
 class PmController {
     public $Model;
@@ -29,14 +30,11 @@ class PmController {
     {
         $paymentM = new PmModel(0);
 
-    if(!empty(trim($_POST['methodName'])))
-    {
+     if(!empty($_POST['constraints']) && !empty(trim($_POST['methodName'])))
+     {
         $paymentM->methodName = trim($_POST['methodName']);    
         $paymentM->addMethodM($paymentM);
-    }
-
-     if(!empty($_POST['constraints']))
-     {
+        
          foreach($_POST['constraints'] as $selected)
          { 
              $isPriority=true;
@@ -60,9 +58,8 @@ class PmController {
                 $paymentM->insertSelectedoptions($paymentM);
             }
         }
-    header('Location: PmController.php');
     }
-    
+    header('Location: PmController.php');
 }
 
 public static function editMethodDisplay($id)
