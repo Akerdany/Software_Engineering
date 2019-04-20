@@ -30,6 +30,13 @@ a.sideNavLink:link, a.sideNavLink:visited{
       text-decoration: none;
       display: inline-block;
   }
+  .button{
+    background-color: #f44336 !important; 
+    color: black;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+}
   input[type=text],input[type=password], input[type=date], select, textarea {
     width: 100%;
     padding: 12px 20px;
