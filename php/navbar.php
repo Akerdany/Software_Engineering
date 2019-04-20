@@ -40,7 +40,7 @@ if((isset($_SESSION['userType']))){
 
 <div id="mySidenav1" class="sidenav1">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href='#' class='logo' class="sideNavLink"><img src="http://www.emss.gov.eg/assets/finle/images/logo-header.png" alt="" width="120px" height="100%"></a>
+  <a href='index.php' class='logo' class="sideNavLink"><img src="http://www.emss.gov.eg/assets/finle/images/logo-header.png" alt="" width="120px" height="100%"></a>
 
 <div id = "fields">
   <a href="logIn.php" class="sideNavLink">SignIn</a>

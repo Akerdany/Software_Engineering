@@ -15,7 +15,10 @@ function getForm(pmId) {
     xmlhttp.send();
    
 }
-
+var year = new Date().getFullYear();
+alert(year);
+document.getElementById('date').setAttribute("min", year + "-01-01");
+document.getElementById('date').setAttribute("max", year + "-12-31");
 
 </script>
 <?php
@@ -39,7 +42,8 @@ $resultoptions = mysqli_query($DB->getdbconnect(), $sqloptions);
                 echo '<option value = "'.$row['id'].'">Court '.$row['courtNumber'].' / '.$row['price'].' EGP</option>';
             }
             echo '</select> <br>';
-            echo'<input type="date" name="Rdate" >';
+            $date=date("Y-m-d");
+            echo'<input type="date" min="'.$date.'" name="Rdate" >';
             echo '<input type = "submit" name = "submit" value = "Next">
             ';
             echo'<div id = "fields"></div>';

@@ -27,17 +27,17 @@ if (isset($_POST['submit'])) {
     $DoB      = $_POST['DoB'];
     $tel      = $_POST['tel'];
     $ssn      = $_POST['ssn'];
-    $userType = $_POST['userType'];
+   // $userType = $_POST['userType'];
 
     if (!empty($_SESSION['userType']) && $_SESSION['userType'] == 1) {
         $userType = $userType;
     } else {
         $userType = 2;
     }
-
+    //
     if (!empty($fName) && !empty($lName) && !empty($email) && !empty($pass) && !empty($DoB) && !empty($tel) && !empty($ssn)) {
 
-        if (filter_var($tel, FILTER_VALIDATE_INT) && filter_var($ssn, FILTER_VALIDATE_INT) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($tel, FILTER_VALIDATE_INT) && filter_var($ssn, FILTER_VALIDATE_INT)&& filter_var($email, FILTER_VALIDATE_EMAIL) ) {
 
             $user = New User();
 

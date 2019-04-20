@@ -20,7 +20,8 @@ while($row = mysqli_fetch_array($result)){
     $formElements .= $button;    // appending label then input field to the empty string
    
 }
-
+$button = '<a href="logOut.php">Signout</a>';    
+    $formElements .= $button;
 echo $formElements; //return the string carrying the input fields html
 
 
