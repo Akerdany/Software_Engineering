@@ -16,7 +16,7 @@ class PmModel
           $Q = 'SELECT pm.id pmID, pm.name pmname, o.name constraints, so.id soid,so.priority prio FROM paymentmethod pm 
           INNER JOIN selectedoptions so ON so.paymentid=pm.id
           INNER JOIN options o ON o.id=so.optionId
-          WHERE  isDeleted=0 AND pm.id='.$id.'
+          WHERE  pm.isDeleted=0 AND o.isDeleted=0 AND pm.id='.$id.'
           ORDER BY so.priority ASC';
           $r=mysqli_query($conn,$Q);
           $r2=mysqli_query($conn,$Q);
@@ -101,7 +101,7 @@ class PmModel
     public static function selectAllOptions()
     {
         $DB = new DbConnection();
-        $sql = 'SELECT id ,name FROM options';
+        $sql = 'SELECT id ,name FROM options Where isDeleted=0';
         $result = mysqli_query($DB->getdbconnect(), $sql);
         $data=[];
         $i=0;
