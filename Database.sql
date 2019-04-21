@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 21, 2019 at 09:45 PM
+-- Generation Time: Apr 21, 2019 at 09:50 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -605,7 +605,7 @@ INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfB
 (20, 'IT', 'IT', 'IT@gmail.com', '$2y$10$6yaDeSnzAFWVrrvlUIMRxepqW3oYtJIugsgJkZJn7MVGtr3u0t56i', '2019-04-08', '1234', '123456789', 3, 3, 0, '2019-04-21 19:37:18'),
 (21, 'Employee', 'Employee', 'emp@gmail.com', '$2y$10$mNEqB4MKqFMSs8xMr5MnI.Ol5fIMh2IuBJQEx8B3lKffXyYqT.wNC', '2019-04-09', '1234', '1234567890', 3, 4, 0, '2019-04-21 19:39:39'),
 (22, 'Accountant', 'Accountant', 'Accountant@gmail.com', '$2y$10$d8XYLwASsp8PfGeN2zj0KOjrYuNGanLuFahz4rbxzfjxRfAkR5g1a', '2019-04-04', '1234', '123456789', 3, 5, 0, '2019-04-21 19:40:40'),
-(23, 'Sponsor', 'Sponsor', 'Sponsor@gmail.com', '$2y$10$3w05ZTU.nsGm5f0B8X/8lu3iYn6GkeWzSDWEgneeneMxhQNwzRMV2', '2019-04-16', '1234', '123456789', 3, 2, 0, '2019-04-21 19:42:07');
+(23, 'Sponsor', 'Sponsor', 'Sponsor@gmail.com', '$2y$10$3w05ZTU.nsGm5f0B8X/8lu3iYn6GkeWzSDWEgneeneMxhQNwzRMV2', '2019-04-16', '1234', '123456789', 3, 6, 0, '2019-04-21 19:42:07');
 
 -- --------------------------------------------------------
 
