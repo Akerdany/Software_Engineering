@@ -31,7 +31,7 @@ a.sideNavLink:link, a.sideNavLink:visited{
       display: inline-block;
   }
   .button{
-    background-color: #f44336 !important; 
+    
     color: black;
     padding: 14px 25px;
     text-align: center;

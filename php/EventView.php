@@ -5,6 +5,7 @@ class EventView
 {
     public function displayEvents($events)
     {
+        
         echo '<table class = "displaytables">';
             echo '<tr>'
                 .'<th>Event Name</th>'
@@ -23,23 +24,25 @@ class EventView
                     .'<button type = "submit" name = "editButton" value = "'.$events[$i]['id'].'">Edit</button>'
                     .'</form>'
                     .'<td> <form action = "EventController.php" method = "POST">'
-                    .'<button class = "button" type = "submit" name = "deleteButton" value = "'.$events[$i]['id'].'">Delete</button>'
+                    .'<button  type = "submit" name = "deleteButton" value = "'.$events[$i]['id'].'">Delete</button>'
+                   
                     .'</form>'
                     .'</tr>';
             }
             echo '</table>';
             echo '<br><form action = "EventController.php" method = "POST">'
-            .'<button type = "submit" name = "addButton">Add Court</button>'
+            .'<button type = "submit" name = "addButton">Add Event</button>'
             .'</form><br><br>';
             
     }
     public function addEventForm()
     {
+        $date=date("Y-m-d");
         echo '<form action = "EventController.php" method = "POST">'
             .'<label>Event Name</label>'
             .'<input type = "text" name = "eventName">'
             .'<label>Event Date</label>'
-            .'<input type = "date" name = "eventDate"><br>'
+            .'<input type = "date"min="'.$date.'" name = "eventDate"><br>'
             .'<label>Event Details</label><br>'
             .'<textarea name = "eventDetails" rows = "15" cols = "5"></textarea>';
         echo '<input type = "submit" name = "addEvent" value = "Add">'

@@ -50,7 +50,7 @@
     <input id="username" name="username" type="text" class="input" placeholder="Username"><br>
     <input id="password" name="password" type="password" class="input" placeholder="Password" data-type="password"><br><br>
     <a href="registration.php">Register</a><br>
-    <input type="submit" class="button" value="Sign In" name="submit">
+    <input type="submit"  value="Sign In" name="submit">
   </form>  
 </div>  
 

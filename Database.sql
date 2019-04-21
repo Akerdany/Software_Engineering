@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 20, 2019 at 04:53 PM
+-- Generation Time: Apr 21, 2019 at 12:10 AM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `court` (
   `isDeleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sportId` (`sportId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `court`
@@ -110,7 +110,8 @@ CREATE TABLE IF NOT EXISTS `court` (
 INSERT INTO `court` (`id`, `courtNumber`, `sportId`, `price`, `creationDate`, `isDeleted`) VALUES
 (1, '34', 1, 64, '2019-02-28 19:43:57', 0),
 (3, '142', 1, 12, '2019-03-08 14:02:31', 0),
-(4, '12', 1, 15, '2019-03-08 14:03:08', 0);
+(4, '12', 1, 30, '2019-03-08 14:03:08', 0),
+(5, '1', 1, 13, '2019-04-20 23:37:49', 1);
 
 -- --------------------------------------------------------
 
@@ -177,8 +178,8 @@ CREATE TABLE IF NOT EXISTS `features` (
 
 INSERT INTO `features` (`id`, `feature`, `file`) VALUES
 (1, 'Users', 'displayUsers.php'),
-(2, 'Events', 'displayEvents.php'),
-(3, 'Courts', 'displayCourts.php'),
+(2, 'Events', 'EventController.php'),
+(3, 'Courts', 'CourtController.php'),
 (4, 'PaymentMethod', 'PmController.php'),
 (5, 'Reserve', 'addRe.php'),
 (6, 'ManageAccount', 'editUser.php'),
@@ -198,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `options` (
   `type` varchar(100) NOT NULL,
   `isDeleted` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `options`
@@ -213,7 +214,8 @@ INSERT INTO `options` (`id`, `name`, `type`, `isDeleted`) VALUES
 (6, 'phoneNo', 'int', 0),
 (7, 'Gender', 'radio', 0),
 (8, 'Address', 'text', 0),
-(13, 'Loan', 'text', 0);
+(13, 'Loan', 'text', 0),
+(14, 'banana', 'bananass', 1);
 
 -- --------------------------------------------------------
 
@@ -401,18 +403,6 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `userId` (`userId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `reservation`
---
-
-INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `isDeleted`, `creationDate`) VALUES
-(1, 3, 1, 1, 0, '2019-02-28 19:45:48'),
-(3, 11, 1, 7, 0, '2019-03-18 23:34:44'),
-(4, 11, 1, 8, 0, '2019-03-18 23:35:19'),
-(5, 11, 1, 9, 0, '2019-03-19 07:59:56'),
-(6, 11, 1, 10, 0, '2019-04-12 20:32:55'),
-(7, 11, 1, 11, 0, '2019-04-12 21:56:10');
-
 -- --------------------------------------------------------
 
 --
@@ -579,7 +569,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `address_id` (`addressId`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -599,7 +589,11 @@ INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfB
 (14, 'Omar', 'Anas', 'omaranas@yahoo.com', '$2y$10$xl8JB6q7f9qAvXM1x7tD2.Dp1QozVbNIiPqhxDkU2bHBshbfoxS2S', '2019-04-17', '1234567890', '1234567890', 3, 3, 0, '2019-04-20 08:30:43'),
 (15, 'John', 'Cena', 'JohnCena@gmail.com', '$2y$10$EpYIIrLaQnCGA26VERyq4uf/sndm08nn2KEWMUVzXHIvjM1YGvP5m', '2019-04-09', '12345678', '1234567878', 3, 2, 0, '2019-04-20 08:43:21'),
 (16, 'john', 'john', 'john@gmail.com', '$2y$10$zdceg54kuNEDv58VSODhO.AvpG2NZWAFKeBm3AKt3ngaOXxbvKgp6', '2019-04-11', '584887', '57854788', 3, 2, 0, '2019-04-20 08:44:14'),
-(17, 'h', 'h', 'h@h.com', '$2y$10$hywJsbjxLYN3DD0lI2bmQ.83JW5Gq58zEOOP35N44axr0TChZIPji', '2019-04-23', '1', '1', 3, 3, 0, '2019-04-20 08:46:34');
+(17, 'h', 'h', 'h@h.com', '$2y$10$hywJsbjxLYN3DD0lI2bmQ.83JW5Gq58zEOOP35N44axr0TChZIPji', '2019-04-23', '1', '1', 3, 3, 0, '2019-04-20 08:46:34'),
+(18, 'omar', 'anos', 'anas@gmail.com', '$2y$10$/cKs8uFGFypcCfF8tmTKle8FFXpUds.hqN./tU/Ahqb9E6x.20I2i', '2019-04-08', '1241234123', '1', 3, 4, 0, '2019-04-20 21:48:46'),
+(19, 'wagaha', 'wagih', 'IT@gmail.com', '$2y$10$DCIjJUAsvZ4hUwfXnRbyYuvGqHhplcRGOBcDaVOsZ69TnCeovDdsa', '2019-04-15', '1234567', '1', 3, 3, 0, '2019-04-20 21:53:50'),
+(20, 'ewfwefwe', 'wefwerfwef', 'admin@gmail.com', '$2y$10$Pms5fk9I0wkBQw.xr4TwLeQEQHVmmk2l6I9aspO.4tdHCEK5vpXK6', '2019-04-02', '1234567', '1', 3, 1, 0, '2019-04-20 21:55:51'),
+(21, 'asrdasas', 'sadasdas', 'emp@gmail.com', '$2y$10$5Sw2VyIPR6LzjlhqQLoRWe17zhtk08TRi/De4sdLAI6BIPo5.rROC', '2019-04-01', '1234567', '1', 3, 4, 0, '2019-04-20 21:56:29');
 
 -- --------------------------------------------------------
 
@@ -702,38 +696,10 @@ ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `address` (`id`);
 
 --
--- Constraints for table `ccd`
---
-ALTER TABLE `ccd`
-  ADD CONSTRAINT `ccd_ibfk_1` FOREIGN KEY (`courtDetailsId`) REFERENCES `courtdetails` (`id`),
-  ADD CONSTRAINT `ccd_ibfk_2` FOREIGN KEY (`courtId`) REFERENCES `court` (`id`);
-
---
 -- Constraints for table `court`
 --
 ALTER TABLE `court`
   ADD CONSTRAINT `court_ibfk_1` FOREIGN KEY (`sportId`) REFERENCES `sports` (`id`);
-
---
--- Constraints for table `previliges`
---
-ALTER TABLE `previliges`
-  ADD CONSTRAINT `previliges_ibfk_1` FOREIGN KEY (`userTypeId`) REFERENCES `usertype` (`id`),
-  ADD CONSTRAINT `previliges_ibfk_2` FOREIGN KEY (`featureId`) REFERENCES `features` (`id`);
-
---
--- Constraints for table `p_method_option_value`
---
-ALTER TABLE `p_method_option_value`
-  ADD CONSTRAINT `P_Method_Option_Value_ibfk_1` FOREIGN KEY (`reservationId`) REFERENCES `reservation` (`id`);
-
---
--- Constraints for table `reservation`
---
-ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`courtId`) REFERENCES `court` (`id`),
-  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`reservationDetailsId`) REFERENCES `reservationdetails` (`id`);
 
 --
 -- Constraints for table `reservationdetails`
