@@ -16,7 +16,7 @@ require_once("Reservation_view.php");
     public $cost;
     public $supervisorId;
     function __construct($ID)
-    {
+    {       
              $model=new Reservationmodel();
             $row=$model->constructorR($ID);
             if(isset($row)){
@@ -60,6 +60,20 @@ require_once("Reservation_view.php");
       
       $model=new Reservationmodel();
       $array=$model->Display();
+      $view = new Reservationview() ;
+      $view->Display($array);
+      
+         
+     }
+     public static function DisplayPR()
+     {
+      if (session_status() == PHP_SESSION_NONE) {
+         session_start();
+         $ID =  $_SESSION['id'];
+     }
+      
+      $model=new Reservationmodel();
+      $array=$model->personalR($ID);
       $view = new Reservationview() ;
       $view->Display($array);
       

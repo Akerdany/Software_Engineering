@@ -14,7 +14,7 @@
         if(isset($_POST['submit'])){
             require("connection.php");
             require("classes.php");
-
+            include('navbar.php');
             $email = $_POST['username'];
             $pass = $_POST['password'];
     

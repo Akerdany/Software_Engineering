@@ -15,10 +15,7 @@ function getForm(pmId) {
     xmlhttp.send();
    
 }
-var year = new Date().getFullYear();
-alert(year);
-document.getElementById('date').setAttribute("min", year + "-01-01");
-document.getElementById('date').setAttribute("max", year + "-12-31");
+
 
 </script>
 <?php
@@ -30,9 +27,6 @@ $DB = new DbConnection();
 
 $sqlcourt = 'SELECT * FROM `court`WHERE isDeleted=0 ';
 $resultcourt = mysqli_query($DB->getdbconnect(), $sqlcourt);
-            
-$sqloptions = 'SELECT * from courtdetails';
-$resultoptions = mysqli_query($DB->getdbconnect(), $sqloptions);
 
             echo '<form action = "table.php" method = "POST">
                     <label>Choose court </label>

@@ -30,7 +30,7 @@ class Reservationmodel
     {
         $DB = new DbConnection();
       $conn=$DB->getdbconnect();
-      $Q="SELECT court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId,reservationdetails.date
+      $Q="SELECT reservation.id,court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId,reservationdetails.date
       FROM reservation 
       INNER JOIN user ON reservation.userId=user.id 
       INNER JOIN court ON reservation.courtId=court.id 
@@ -69,6 +69,35 @@ class Reservationmodel
         mysqli_query($conn,$Q);
         mysqli_query($conn,$Q1);
         
+     }
+     public static function fetchSV($ID)
+     {
+      $DB = new DbConnection();
+      $conn=$DB->getdbconnect();
+      $Q1="SELECT `firstName`,`lastName` FROM `user` WHERE `id`=".$ID;
+      $result1 = mysqli_query( $conn, $Q1);
+      $row1 = mysqli_fetch_array($result1);
+      return $row1;
+
+     }
+     public static function personalR($ID)
+     {
+      $DB = new DbConnection();
+      $conn=$DB->getdbconnect();
+      $Q="SELECT reservation.id,court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId,reservationdetails.date
+      FROM reservation 
+      INNER JOIN user ON reservation.userId=".$ID." 
+      INNER JOIN court ON reservation.courtId=court.id 
+      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id";
+         $result = mysqli_query( $conn, $Q);
+        $array=array();
+         while($row = mysqli_fetch_array($result))
+         {
+            
+            array_push($array,$row);
+         }
+         return $array;
+
      }
  }
 

@@ -1,14 +1,15 @@
 <?php
 require_once("connection.php");
+require_once("Reservation_model.php");
+
 class Reservationview 
  {
     function __construct()
     {
     }
     public static function Display($array)
-    {
-        $DB = new DbConnection();
-        $conn=$DB->getdbconnect();
+    { 
+      
         echo '<table class = "displaytables">';
          echo '<tr>'
              .'<th>Court Number</th>'
@@ -22,9 +23,10 @@ class Reservationview
              .'</tr>';
          foreach($array as  $row)
          {
-            $Q1="SELECT `firstName`,`lastName` FROM `user` WHERE `id`=".$row['supervisorId'];
-            $result1 = mysqli_query( $conn, $Q1);
-            $row1 = mysqli_fetch_array($result1);
+            
+            $model=new Reservationmodel();
+
+            $row1 =$model->fetchSV($row['supervisorId']);
             echo '<tr>'
                 .'<td>'.$row['courtNumber'].'</td>'
                 .'<td>'.$row['date'].'</td>'
@@ -33,15 +35,17 @@ class Reservationview
                 .'<td>'.$row['startTime'].'</td>'
                 .'<td>'.$row['endTime'].'</td>'
                 .'<td>'.$row1['firstName'].'</td>'
-                .'<td>'.$row1['lastName'].'</td>'
-                .'<td> <form action = "editCourt.php" method = "POST">'
-                .'<button type = "submit" name = "editButton" value = "1">Edit</button>'
+                .'<td>'.$row1['lastName'].'</td>';
+               
+            echo '<td> <form action = "editR.php" method = "POST">'
+                .'<button type = "submit" name = "editButton" value = "'.$row['id'].'">Edit</button>'
                 .'</form>'
                 .'</tr>';
         }
         echo '</table>';
 
     }
+    
 } 
         
 ?>
