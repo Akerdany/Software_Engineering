@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 21, 2019 at 09:50 PM
+-- Generation Time: Apr 22, 2019 at 11:49 AM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -428,6 +428,7 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
   `supervisorId` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
   `cost` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `supervisorId` (`supervisorId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
@@ -436,17 +437,17 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
 -- Dumping data for table `reservationdetails`
 --
 
-INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervisorId`, `type`, `cost`) VALUES
-(1, '2019-02-11', '2.00', '4.00', 4, 'player', 50),
-(2, '2019-03-21', '4.00', '6.00', 4, 'normal', 15),
-(3, '2019-03-21', '1.30', '3.00', 4, 'normal', 15),
-(4, '2019-03-21', '8.00', '11.30', 4, 'normal', 15),
-(5, '2019-03-22', '8.00', '9.30', 1, 'normal', 128),
-(7, '2019-03-22', '8.00', '9.30', 1, 'normal', 128),
-(8, '2019-03-22', '9.30', '11.30', 1, 'normal', 128),
-(9, '2019-03-21', '10.00', '13.00', 1, 'normal', 128),
-(10, '2019-04-18', '11.00', '14.00', 1, 'normal', 128),
-(11, '2019-04-14', '8.30', '10.30', 1, 'normal', 128);
+INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervisorId`, `type`, `cost`, `status`) VALUES
+(1, '2019-02-11', '2.00', '4.00', 4, 'player', 50, 0),
+(2, '2019-03-21', '4.00', '6.00', 4, 'normal', 15, 0),
+(3, '2019-03-21', '1.30', '3.00', 4, 'normal', 15, 0),
+(4, '2019-03-21', '8.00', '11.30', 4, 'normal', 15, 0),
+(5, '2019-03-22', '8.00', '9.30', 1, 'normal', 128, 0),
+(7, '2019-03-22', '8.00', '9.30', 1, 'normal', 128, 0),
+(8, '2019-03-22', '9.30', '11.30', 1, 'normal', 128, 0),
+(9, '2019-03-21', '10.00', '13.00', 1, 'normal', 128, 0),
+(10, '2019-04-18', '11.00', '14.00', 1, 'normal', 128, 0),
+(11, '2019-04-14', '8.30', '10.30', 1, 'normal', 128, 0);
 
 -- --------------------------------------------------------
 
