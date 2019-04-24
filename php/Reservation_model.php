@@ -8,7 +8,8 @@ class Reservationmodel
     }
     public static function constructorR($id)
     {
-        $DB = new DbConnection();
+      $DB = DbConnection::getInstance();
+
         $conn=$DB->getdbconnect();
          $Q = "SELECT * FROM reservation WHERE id='".$id."'";
          $r=mysqli_query($conn,$Q);
@@ -18,7 +19,8 @@ class Reservationmodel
     }
     public static function constructorRD($ID)
     {
-        $DB = new DbConnection();
+      $DB = DbConnection::getInstance();
+
         $conn=$DB->getdbconnect();
         $Q2 = "SELECT * FROM reservationdetails WHERE id='".$ID."'";
         $r=mysqli_query($conn,$Q2);
@@ -28,7 +30,8 @@ class Reservationmodel
     }
     public static function Display()
     {
-        $DB = new DbConnection();
+      $DB = DbConnection::getInstance();
+
       $conn=$DB->getdbconnect();
       $Q="SELECT reservation.id,court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId,reservationdetails.date
       FROM reservation 
@@ -46,7 +49,8 @@ class Reservationmodel
     }
     public static function insertReserve($R)
      {
-        $DB = new DbConnection();
+      $DB = DbConnection::getInstance();
+
         $conn=$DB->getdbconnect();
 
          $Q1 = "INSERT INTO `reservationdetails` (`date`, `startTime`, `endTime`, `supervisorId`, `type`, `cost`) VALUES ( '$R->date', '$R->startTime', '$R->endTime', '$R->supervisorId', '$R->type', '$R->cost') ";
@@ -62,7 +66,8 @@ class Reservationmodel
      }
      public static function Delete($ID,$RDID)
      {
-        $DB = new DbConnection();
+      $DB = DbConnection::getInstance();
+
         $conn=$DB->getdbconnect();
         $Q="DELETE FROM `reservation` WHERE `ID` = '$ID'";
         $Q1="DELETE FROM `reservationdetails` WHERE `ID` = '$RDID'";
@@ -72,7 +77,8 @@ class Reservationmodel
      }
      public static function fetchSV($ID)
      {
-      $DB = new DbConnection();
+      $DB = DbConnection::getInstance();
+
       $conn=$DB->getdbconnect();
       $Q1="SELECT `firstName`,`lastName` FROM `user` WHERE `id`=".$ID;
       $result1 = mysqli_query( $conn, $Q1);
@@ -82,7 +88,8 @@ class Reservationmodel
      }
      public static function personalR($ID)
      {
-      $DB = new DbConnection();
+      $DB = DbConnection::getInstance();
+
       $conn=$DB->getdbconnect();
       $Q="SELECT reservation.id,court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId,reservationdetails.date
       FROM reservation 

@@ -43,7 +43,8 @@ require_once("Reservation_view.php");
      }
      public static function updateR()
      {
-        $DB = new DbConnection();
+      $DB = DbConnection::getInstance();
+
         $conn=$DB->getdbconnect();
 
         $Q1="UPDATE `users` SET `userId` = '$this->UID', `courtId` = '$this->courtID', `reservationDetailsId` = '$this->RDID' WHERE `ID` = '$this->ID' ";
@@ -65,13 +66,8 @@ require_once("Reservation_view.php");
       
          
      }
-     public static function DisplayPR()
+     public static function DisplayPR($ID)
      {
-      if (session_status() == PHP_SESSION_NONE) {
-         session_start();
-         $ID =  $_SESSION['id'];
-     }
-      
       $model=new Reservationmodel();
       $array=$model->personalR($ID);
       $view = new Reservationview() ;

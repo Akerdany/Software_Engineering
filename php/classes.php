@@ -164,7 +164,7 @@ class User {
     }
 
     public function logIn($email, $pass) {
-        $DB = new DbConnection();
+       # $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $sql    = "SELECT * FROM user WHERE email='" . $email . "'";

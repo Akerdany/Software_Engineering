@@ -19,11 +19,13 @@ function getForm(pmId) {
 
 </script>
 <?php
-include('navbar.php');
+
 require_once('connection.php');
 require('Resevationclass.php');
+include('navbar.php');
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 $DB = new DbConnection();
+$DB = DbConnection::getInstance();
 
 $sqlcourt = 'SELECT * FROM `court`WHERE isDeleted=0 ';
 $resultcourt = mysqli_query($DB->getdbconnect(), $sqlcourt);
