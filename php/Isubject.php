@@ -35,11 +35,11 @@ class subject implements Isubject
         // $this->obs->notify();
     }
 }
-  $h = new subject();
-  $n = new notifier();
-  $l = new not();
+//   $h = new subject();
+//   $n = new SMS();
+//   $l = new Email();
 
-  $h->AddObserver($n);
-  $h->AddObserver($l);
-  $h->fireobserver();
+//   $h->AddObserver($n);
+//   $h->AddObserver($l);
+//   $h->fireobserver();
 ?> 

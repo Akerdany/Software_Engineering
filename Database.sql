@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 24, 2019 at 04:47 PM
+-- Generation Time: Apr 24, 2019 at 06:16 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -742,10 +742,10 @@ CREATE TABLE IF NOT EXISTS `user_notifiers` (
 --
 
 INSERT INTO `user_notifiers` (`id`, `UserId`, `notifiersID`, `details`) VALUES
-(1, 20, 1, ''),
-(2, 22, 1, ''),
-(3, 21, 2, ''),
-(4, 14, 2, '');
+(1, 20, 1, '12345678'),
+(2, 22, 1, '123456789'),
+(3, 21, 2, 'emp@gmail.com'),
+(4, 14, 2, 'omaranas@yahoo.com');
 
 --
 -- Constraints for dumped tables

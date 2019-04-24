@@ -1,26 +1,28 @@
 <?php
 require('Iobserver.php');
-class notifier implements Iobserve
+class SMS implements Iobserve
 {
-    function __construct()
+    public $numbers;
+    function __construct($n)
     {
-
+        $this->numbers=$n;
     }
     public  function notify()
     {
-        echo "hello world 1";
+        echo "SMS to ".$this->numbers."<br>";
     }
 
 } 
-class not implements Iobserve
+class Email implements Iobserve
 {
-    function __construct()
+    public $em;
+    function __construct($e)
     {
-
+        $this->em=$e;
     }
     public  function notify()
     {
-        echo "hello world 2";
+        echo "email to ".$this->em."<br>";
     }
 
 }
