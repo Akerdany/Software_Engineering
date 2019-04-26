@@ -9,17 +9,17 @@ interface Isubject {
 }  
 class subject implements Isubject 
 {
-    #public $observers = array();
+    
     public $obs;
     function __construct()
     {
         $this->obs=array();
-        // $this->obs = new Iobserve();
+        
     }
     public  function AddObserver(Iobserve $o)
     {
         array_push($this->obs, $o);
-        // $this->obs=$o;
+        
     }
     public  function deleteobserver(Iobserve $o)
     {
@@ -32,7 +32,7 @@ class subject implements Isubject
         foreach ($this->obs as $o) {
             $o->notify();
         }
-        // $this->obs->notify();
+        
     }
 }
 //   $h = new subject();
