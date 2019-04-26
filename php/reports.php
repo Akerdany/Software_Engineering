@@ -1,16 +1,139 @@
+
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+  <body>
+  <form method="POST" action="">
+  <select name="chart">
+  <option name="barChart" value="barChart"> Bar Chart </option>
+  <option name="pieChart" value="pieChart"> Pie Chart </option>
+  <input name="month" id="monthID" type="month"> 
+  <input type=submit value=ok>
+  </select>
+  
+  </form>
+    <div id="top_x_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
+
 <?php
 require_once('connection.php');
+require_once('Ireports.php');
 
-function getTotalUsers(){
-    $DB = new DbConnection();
-    $sql = 'SELECT COUNT(id) from user where userTypeId = 2 AND isDeleted = 0';
-    $result = mysqli_query($DB->getdbconnect(), $sql);
-    $userCount = mysqli_fetch_array($result);
-
-    return $userCount['COUNT(id)'];
+abstract class absreports
+{
+    public $reports;
+    public $js;
+    function  __construct()
+    {
+        $this->reports = new Ireports();
+        $this->js="";
+    }
+    function display()
+    {
+        $this->reports->displayReports($this->js);
+    }
+    function setDisplayMethod($obj)
+    {
+        $this->reports=$obj;
+    }
+}
+class countUserType extends absreports
+{
+    function  __construct()
+    {
+      $this->js=$this->getusersCount();
+      $this->reports= new displayBarCharts();
+    }
+    function getusersCount()
+    {
+      $DB = new DbConnection();
+      $sql = 'SELECT COUNT(user.id) ucount, ut.userTypeName utname from user
+      Inner join usertype ut ON ut.id = user.userTypeId
+      WHERE isDeleted = 0
+      GROUP BY user.userTypeId
+      ORDER BY  ucount asc';
+      $result = mysqli_query($DB->getdbconnect(), $sql);
+      $str='';
+      while ($row= mysqli_fetch_assoc($result))
+      {
+        $str.=', ["'.$row['utname'].'", '.$row['ucount'].'] ';
+      } 
+    
+    $js='
+      var data = new google.visualization.arrayToDataTable([
+      ["User Type", "Number of Users"] '.$str. '
+    ]); ';
+return $js;
+    }
+}
+class countReservation extends absreports
+{
+    function  __construct()
+    {
+      $this->js=$this->getReservationCount();
+      $this->reports= new displayBarCharts();
+    }
+    function getReservationCount()
+    {
+      $DB = DbConnection::getInstance();
+      $month="";
+      $month= substr($_POST['month'],5);
+      $year= substr($_POST['month'],0,4);
+      $Days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+      $str='';
+      for ($i=1;$i<$Days+1;$i++)
+      {
+        $sql = 'SELECT COUNT(id) FROM `reservationdetails` Where Day(date)='.$i.' AND Month(date)='.$month;
+        $result = mysqli_query($DB->getdbconnect(), $sql);
+       
+        while ($row= mysqli_fetch_assoc($result))
+        {
+          $str.=', ["Day '.$i.'", '.$row['COUNT(id)'].'] ';
+        } 
+      }
+      $monthName=date('F', strtotime("2012-$month-01"));
+    $js='
+      var data = new google.visualization.arrayToDataTable([
+      ["'.$monthName.' '.$year.'", "Number of Reservations"] '.$str. '
+    ]); ';
+return $js;
+    }
 }
 
-function getCourtReservations($courtId){
+$CountUsers=new countUserType();
+$CountUsers->display();
+if(isset($_POST['chart']))
+{
+  if($_POST['chart']=="pieChart")
+  {
+    $CountUsers->setDisplayMethod(new displayPieCharts());
+    $CountUsers->display();
+
+    if (isset($_POST['month']) && !empty($_POST['month']))
+    {
+      $CountReservations=new countReservation();
+      $CountReservations->setDisplayMethod(new displayPieCharts());
+      $CountReservations->display();
+    }
+    
+  }
+  else if ($_POST['chart']=="barChart")
+  {
+    $CountUsers->setDisplayMethod(new displayBarCharts());
+    $CountUsers->display();
+    if (isset($_POST['month']) && !empty($_POST['month']))
+    {
+      $CountReservations=new countReservation();
+      $CountReservations->setDisplayMethod(new displayBarCharts());
+      $CountReservations->display();
+    }
+  }
+}
+?>
+<!-- function getCourtReservations($courtId){
     $DB = new DbConnection();
     $sql = 'SELECT COUNT(id) from reservation where courtId = "'.$courtId.'" AND isDeleted = 0';
     $result = mysqli_query($DB->getdbconnect(), $sql);
@@ -66,87 +189,4 @@ function getTotalCourtEarnings($courtId){
     $totalCourtEarnings = mysqli_fetch_array($result);
 
     return $totalCourtEarnings['SUM(cost)'];
-}
-
-echo getCourtReservations(1);
-echo getTotalCourts();
-echo getCourtPrice(1);
-echo getAveragePrice();
-echo getTotalEarnings();
-echo getTotalCourtEarnings(1);
-echo getTotalUsers();
-
-
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        // Load google charts
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawPriceChart);
-        google.charts.setOnLoadCallback(drawReservationChart);
-
-        
-        // Draw the chart and set the chart values
-        function drawPriceChart() {
-          var data = google.visualization.arrayToDataTable([
-          ["Court No.", "Price Per Hour"],
-
-          <?php
-          $DB = new DbConnection();
-          $sql = 'select * from court where isDeleted = 0';
-          $result = mysqli_query($DB->getdbconnect(), $sql);
-          while($row = mysqli_fetch_array($result)){
-              echo '["Court No. '.$row['courtNumber'].'", '.getCourtPrice($row['id']).'],';
-          }
-          ?>
-        ]);
-        
-          // Optional; add a title and set the width and height of the chart
-          var options = {'title':'Court Prices', 'width':550, 'height':400};
-        
-          // Display the chart inside the <div> element with id="piechart"
-          var chart = new google.visualization.PieChart(document.getElementById('courtprices'));
-          chart.draw(data, options);
-        }
-
-        function drawReservationChart() {
-          var data2 = google.visualization.arrayToDataTable([
-          ["Court No.", "Reservations"],
-
-          <?php
-          $DB = new DbConnection();
-          $sql = 'select * from court where isDeleted = 0';
-          $result = mysqli_query($DB->getdbconnect(), $sql);
-          while($row = mysqli_fetch_array($result)){
-              echo '["Court No. '.$row['courtNumber'].'", '.getCourtReservations($row['id']).'],';
-          }
-          ?>
-        ]);
-        
-          // Optional; add a title and set the width and height of the chart
-          var options2 = {'title':'Court Reservations', 'width':550, 'height':400};
-        
-          // Display the chart inside the <div> element with id="piechart"
-          var reservationchart = new google.visualization.PieChart(document.getElementById('courtres'));
-          reservationchart.draw(data2, options2);
-        }
-        </script>
-</head>
-<body>
-
-<div id = 'courtprices'></div>
-<div id = 'courtres'></div>
-
-
-</body>
-</html>
-
-
+} -->

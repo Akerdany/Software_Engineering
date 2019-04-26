@@ -11,7 +11,7 @@ class PmModel
     
     public function __construct($id)
     {
-          $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
           $conn=$DB->getdbconnect();
           $Q = 'SELECT pm.id pmID, pm.name pmname, o.name constraints, so.id soid,so.priority prio FROM paymentmethod pm 
           INNER JOIN selectedoptions so ON so.paymentid=pm.id
@@ -37,7 +37,7 @@ class PmModel
     }
     public static function displayMethodsM()
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn = $DB->getdbconnect();
         $sql='SELECT pm.id,pm.name FROM paymentmethod pm Where isDeleted=0';
         $result = mysqli_query($conn, $sql);
@@ -54,7 +54,7 @@ class PmModel
 
     public static function deleteMethodM($paymentID)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $Q="UPDATE `paymentmethod`  SET `isDeleted`= 1 WHERE `id` = '$paymentID'";
         mysqli_query($conn,$Q);
@@ -62,7 +62,7 @@ class PmModel
 
     public static function addMethodM($PM)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
 
         $sql="INSERT INTO `paymentmethod` (`name`, `isDeleted`) VALUES ('$PM->methodName', 0)";
@@ -71,7 +71,7 @@ class PmModel
 
     public static function insertSelectedoptions($PM)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $sql="INSERT INTO `selectedoptions` ( `paymentId`, `optionId`, `priority`) VALUES ( '$PM->pmID', '$PM->optionsID', '$PM->priority')";
         mysqli_query($conn,$sql);
@@ -79,28 +79,28 @@ class PmModel
 
     public static function updateMethod($PM)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $Q="UPDATE `paymentmethod` SET `name` = '$PM->methodName' WHERE `id` = '$PM->pmID' ";
         mysqli_query($conn,$Q);
     }
     public static function updateSelectedoptions($PM)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $sql="UPDATE `selectedoptions` SET `priority` = '$PM->priority' WHERE  `paymentId` = '$PM->pmID' AND `id` = '$PM->selectedOptionsId'";
         mysqli_query($conn,$sql);
     }
     public static function DeleteSelectedoptions($PM)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $Q="DELETE FROM `selectedoptions` WHERE `paymentId` = '$PM->pmID' AND `id` = '$PM->selectedOptionsId' ";
         mysqli_query($conn,$Q);
     }
     public static function selectAllOptions()
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $sql = 'SELECT id ,name FROM options Where isDeleted=0';
         $result = mysqli_query($DB->getdbconnect(), $sql);
         $data=[];
@@ -115,7 +115,7 @@ class PmModel
 
     public static function getMaxPMid()
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $sql="Select Max(id) id from paymentmethod";
         $pmID;
@@ -127,7 +127,7 @@ class PmModel
     }
     public static function selectAllselectedOptions($soID)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $sql = "SELECT * FROM `selectedoptions` WHERE `id` = '$soID'";
         $result = mysqli_query($DB->getdbconnect(), $sql);
         $data=[];

@@ -28,7 +28,7 @@ $DB = new DbConnection();
 echo '<form id = "checkout" action = "" method = "POST">'
     .'<label>Payment Method</label><br>'
     .'<select name = "paymentmethod" onchange = "getForm(this.value)">'
-    .'<option>Choose</option>';
+    .'<option disabled selected> -- Choose -- </option>';
 
     
     //var_dump($data);
