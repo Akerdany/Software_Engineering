@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 22, 2019 at 11:49 AM
+-- Generation Time: Apr 24, 2019 at 06:16 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -184,6 +184,27 @@ INSERT INTO `features` (`id`, `feature`, `file`) VALUES
 (6, 'ManageAccount', 'editUser.php'),
 (7, 'Reservation', 'displayRe.php'),
 (9, 'Options', 'OptionsController.php');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifiers`
+--
+
+DROP TABLE IF EXISTS `notifiers`;
+CREATE TABLE IF NOT EXISTS `notifiers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notifiers`
+--
+
+INSERT INTO `notifiers` (`id`, `type`) VALUES
+(1, 'SMS'),
+(2, 'Email');
 
 -- --------------------------------------------------------
 
@@ -399,7 +420,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `reservationDetailsId` (`reservationDetailsId`),
   KEY `courtId` (`courtId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservation`
@@ -411,7 +432,8 @@ INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `i
 (4, 11, 1, 8, 0, '2019-03-18 23:35:19'),
 (5, 11, 1, 9, 0, '2019-03-19 07:59:56'),
 (6, 11, 1, 10, 0, '2019-04-12 20:32:55'),
-(7, 11, 1, 11, 0, '2019-04-12 21:56:10');
+(7, 11, 1, 11, 0, '2019-04-12 21:56:10'),
+(8, 20, 3, 12, 0, '2019-04-22 18:44:12');
 
 -- --------------------------------------------------------
 
@@ -431,7 +453,7 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `supervisorId` (`supervisorId`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservationdetails`
@@ -447,7 +469,8 @@ INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervi
 (8, '2019-03-22', '9.30', '11.30', 1, 'normal', 128, 0),
 (9, '2019-03-21', '10.00', '13.00', 1, 'normal', 128, 0),
 (10, '2019-04-18', '11.00', '14.00', 1, 'normal', 128, 0),
-(11, '2019-04-14', '8.30', '10.30', 1, 'normal', 128, 0);
+(11, '2019-04-14', '8.30', '10.30', 1, 'normal', 128, 0),
+(12, '2019-04-23', '9.00', '16.00', 1, 'normal', 72, 0);
 
 -- --------------------------------------------------------
 
@@ -674,7 +697,7 @@ CREATE TABLE IF NOT EXISTS `usertype_permission` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `permissionId` (`permissionId`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usertype_permission`
@@ -697,6 +720,32 @@ CREATE TABLE IF NOT EXISTS `user_company` (
   `UserId` int(11) NOT NULL,
   `CompanyID` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_notifiers`
+--
+
+DROP TABLE IF EXISTS `user_notifiers`;
+CREATE TABLE IF NOT EXISTS `user_notifiers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `UserId` int(11) NOT NULL,
+  `notifiersID` int(11) NOT NULL,
+  `details` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Forign` (`UserId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_notifiers`
+--
+
+INSERT INTO `user_notifiers` (`id`, `UserId`, `notifiersID`, `details`) VALUES
+(1, 20, 1, '12345678'),
+(2, 22, 1, '123456789'),
+(3, 21, 2, 'emp@gmail.com'),
+(4, 14, 2, 'omaranas@yahoo.com');
 
 --
 -- Constraints for dumped tables
@@ -768,6 +817,12 @@ ALTER TABLE `user`
 ALTER TABLE `usertype_pages`
   ADD CONSTRAINT `userType_Pages_ibfk_1` FOREIGN KEY (`pageId`) REFERENCES `pages` (`id`),
   ADD CONSTRAINT `userType_Pages_ibfk_2` FOREIGN KEY (`userTypeId`) REFERENCES `usertype` (`id`);
+
+--
+-- Constraints for table `user_notifiers`
+--
+ALTER TABLE `user_notifiers`
+  ADD CONSTRAINT `user_notifiers_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

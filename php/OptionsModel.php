@@ -8,7 +8,7 @@ class optionsModel
     
     public function __construct($id)
     {
-          $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
           $conn=$DB->getdbconnect();
           $Q = 'SELECT * From options Where isDeleted=0 AND id='.$id;
           $r=mysqli_query($conn,$Q);
@@ -21,7 +21,7 @@ class optionsModel
     }
     public static function displayOptionsM()
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn = $DB->getdbconnect();
         $sql='SELECT id FROM options Where isDeleted=0';
         $result = mysqli_query($conn, $sql);
@@ -38,7 +38,7 @@ class optionsModel
 
     public static function addOptionM($O)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $sql="INSERT INTO `options` (`name`, `type`,`isDeleted`) VALUES ('$O->optionsName', '$O->optionsType',0)";
         mysqli_query($conn,$sql);
@@ -46,7 +46,7 @@ class optionsModel
 
     public static function deleteOptionM($optionID)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $Q="UPDATE `options` SET `isDeleted`= 1 WHERE `id` = '$optionID'";
         mysqli_query($conn,$Q);
@@ -54,7 +54,7 @@ class optionsModel
 
     public static function updateOption($O)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $Q="UPDATE `options` SET `name` = '$O->optionsName' , `type`='$O->optionsType' WHERE `id` = '$O->optionsID' ";
         mysqli_query($conn,$Q);
