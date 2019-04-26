@@ -63,15 +63,24 @@ class User {
 
         $date = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `addressId`, `userTypeId`, `telephone`, `ssn`, `creationDate`)
-                        VALUES (NULL,'" . $tempUser->firstName . "','" . $tempUser->lastName . "','" . $tempUser->email . "','" . $tempUser->password . "',
-                        '" . $tempUser->dateOfBirth . "','" . $tempUser->addressId . "','" . $tempUser->userTypeId . "','" . $tempUser->telephone . "','" . $tempUser->ssn . "','" . $date . "')";
+        $query      = "SELECT * FROM user WHERE email='$tempUser->email'";
+        $result     = mysqli_query($DB->getdbconnect(), $query);
+        $user_count = mysqli_num_rows($result);
 
-        if ($result = mysqli_query($DB->getdbconnect(), $sql)) {
-            return true;
-        } else {
-            echo "ERROR: Could not able to execute $sql. " . mysqli_error($DB->getdbconnect());
+        if ($user_count > 0) {
             return false;
+        } else {
+
+            $sql = "INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `addressId`, `userTypeId`, `telephone`, `ssn`, `creationDate`)
+            VALUES (NULL,'" . $tempUser->firstName . "','" . $tempUser->lastName . "','" . $tempUser->email . "','" . $tempUser->password . "',
+            '" . $tempUser->dateOfBirth . "','" . $tempUser->addressId . "','" . $tempUser->userTypeId . "','" . $tempUser->telephone . "','" . $tempUser->ssn . "','" . $date . "')";
+
+            if ($result = mysqli_query($DB->getdbconnect(), $sql)) {
+                return true;
+            } else {
+                echo "ERROR: Could not able to execute $sql. " . mysqli_error($DB->getdbconnect());
+                return false;
+            }
         }
     }
 
