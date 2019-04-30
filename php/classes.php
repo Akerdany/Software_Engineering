@@ -173,7 +173,7 @@ class User {
     }
 
     public function logIn($email, $pass) {
-       # $DB = new DbConnection();
+        # $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $sql    = "SELECT * FROM user WHERE email='" . $email . "'";
@@ -184,7 +184,9 @@ class User {
             $password_hash = $row['password'];
 
             if (password_verify($pass, $password_hash) && $row['isDeleted'] == 0) {
-                session_start();
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
 
                 $_SESSION['id']        = $row['id'];
                 $_SESSION['email']     = $row['email'];
