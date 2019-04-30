@@ -1,11 +1,11 @@
 <?php
-    require('classes.php');
+require_once 'factoryClass.php';
 
-    if (isset($_POST['activateUserButton'])){
-        $tempUser = new User();
-        $tempUser->activateUser($_POST['activateUserButton']);
+if (isset($_POST['activateUserButton'])) {
+    $tempUser = factoryClass::create("Model", "User", null);
+    $tempUser->activateUser($_POST['activateUserButton']);
 
-        header('Location: displayUsers.php');
-    }
+    header('Location: displayUsers.php');
+}
 
 ?>

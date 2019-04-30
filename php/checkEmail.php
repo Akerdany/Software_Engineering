@@ -2,7 +2,7 @@
 require_once 'connection.php';
 
 if (!empty($_POST["email"])) {
-    $DB = new DbConnection();
+    // $DB = new DbConnection();
     $DB = DbConnection::getInstance();
 
     $query      = "SELECT * FROM user WHERE email='" . $_POST["email"] . "'";

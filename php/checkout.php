@@ -21,10 +21,12 @@ function getForm(pmId) {
 
 <?php
 require_once 'connection.php';
-require_once "checkout_model.php";
+require_once "factoryClass.php";
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 
-$DB = new DbConnection();
+// $DB = new DbConnection();
+$DB = DbConnection::getInstance();
+
 echo '<form id = "checkout" action = "" method = "POST">'
     . '<label>Payment Method</label><br>'
     . '<select name = "paymentmethod" onchange = "getForm(this.value)">'
