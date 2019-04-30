@@ -16,8 +16,7 @@ class EventModel implements Icrud
         $result = mysqli_query($DB->getdbconnect(), $sql);
         $event;
         $i = 0;
-        while($row = mysqli_fetch_array($result))
-        {
+        while ($row = mysqli_fetch_array($result)) {
             $event[$i] = $row;
             $i++;
         }
@@ -41,7 +40,7 @@ class EventModel implements Icrud
         $event->Name = $row['name'];
         $event->Date = $row['date'];
         $event->Details = $row['details'];
-        $event->ID = $row['id'];
+        $event->ID      = $row['id'];
         return $event;
     }
     public static function edit($E)

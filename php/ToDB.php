@@ -13,7 +13,7 @@ mysqli_query($DB->getdbconnect(), $sql);
 $RDsql="SELECT MAX(id) FROM reservationdetails ";
 $r=mysqli_query($DB->getdbconnect(), $RDsql);
 $RDID=mysqli_fetch_assoc($r);
-$sql1="INSERT INTO `reservation` (`userId`, `courtId`, `reservationDetailsId`) VALUES ( '".$_SESSION["id"]."', '".$_SESSION["cID"]."', '".$RDID["MAX(id)"]."')";
+$sql1="INSERT INTO `reservation` (`userId`, `courtId`, `reservationDetailsId`,`code`) VALUES ( '".$_SESSION["id"]."', '".$_SESSION["cID"]."', '".$RDID["MAX(id)"]."', '".$_SESSION["code"]."')";
 echo $sql1;
 mysqli_query($DB->getdbconnect(), $sql1);
 header('Location: index.php');

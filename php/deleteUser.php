@@ -1,11 +1,12 @@
 <?php
-    require('classes.php');
+require_once 'factoryClass.php';
 
-    if (isset($_POST['deleteUserButton'])){
-        $tempUser = new User();
-        $tempUser->deleteUser($_POST['deleteUserButton']);
+if (isset($_POST['deleteUserButton'])) {
+    $tempUser = factoryClass::create("Model", "User", null);
 
-        header('Location: displayUsers.php');
-    }
+    $tempUser->deleteUser($_POST['deleteUserButton']);
+
+    header('Location: displayUsers.php');
+}
 
 ?>

@@ -9,8 +9,7 @@ $crud = new crudfacade();
 $display = $crud->displayEvents();
 $view->displayEvents($display);
 
-if(isset($_POST['addButton']))
-{
+if (isset($_POST['addButton'])) {
     $view->addEventForm();
 }
 if(isset($_POST['addEvent']))

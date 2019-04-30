@@ -13,9 +13,9 @@
 <body>
     <form action="" method="POST">
         <textarea name = "content" id = "editor">
-            <?php if(isset($_POST['submit'])){
-                echo $_POST['paragraph'];
-            }?>
+            <?php if (isset($_POST['submit'])) {
+    echo $_POST['paragraph'];
+}?>
         </textarea>
         <input type="submit" name = "save" value = "Submit Edits">
     </form>
@@ -26,9 +26,9 @@ CKEDITOR.replace('editor');
     </script>
 </html>
 <?php
-require_once('connection.php');
+require_once 'connection.php';
 $DB = new DbConnection();
-if(isset($_POST['save'])){
+if (isset($_POST['save'])) {
     $html = addslashes('
     <html><head>
 		<title>About Us</title>
@@ -57,8 +57,8 @@ if(isset($_POST['save'])){
 							<p>of youth</p>
 						</header>
 						<div class="content">
-							<p id="originalText" name="originalText">'.$_POST['content'].'</p>
-							
+							<p id="originalText" name="originalText">' . $_POST['content'] . '</p>
+
 					</div>
 					<form action="pagebuilder.php" method="post">
 							<input type="hidden" id = "paragraph" name = "paragraph">
@@ -73,10 +73,9 @@ if(isset($_POST['save'])){
 </script>
 </html>
     ');
-    $sql = 'UPDATE pagecode SET HTML = "'.$html.'" WHERE ID = 1';
+    $sql = 'UPDATE pagecode SET HTML = "' . $html . '" WHERE ID = 1';
     mysqli_query($DB->getdbconnect(), $sql);
     Header('Location: aboutUs.php');
 }
-
 
 ?>

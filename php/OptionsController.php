@@ -1,89 +1,82 @@
 <?php
-include_once("OptionsModel.php");
-include_once("OptionsView.php");
-include_once("navbar.php");
+// include_once "OptionsModel.php";
+// include_once "OptionsView.php";
+require_once 'factoryClass.php';
+include_once "navbar.php";
 
-class optionsController 
-{
+class optionsController {
     public $Model;
     public $View;
-    public function __construct(){
-       $this->Model= new optionsModel(0);
-       $this->View= new optionsView();
+    public function __construct() {
+        // $this->Model = new optionsModel(0);
+        // $this->View  = new optionsView();
+        $this->Model = factoryClass::create("Model", "Options", 0);
+        $this->View  = factoryClass::create("View", "Options", null);
+
     }
 
-    public static function displayOptionsC()
-    {
-        $data=optionsModel::displayOptionsM();
+    public static function displayOptionsC() {
+        $data = optionsModel::displayOptionsM();
         optionsView::displayOptionsV($data);
     }
 
-    public static function deleteOptionC($id)
-    {
+    public static function deleteOptionC($id) {
         optionsModel::deleteOptionM($id);
         echo '<meta http-equiv="refresh" content="0">';
     }
-    public static function addOptionC()
-    {
-        $opModel= new optionsModel(0);
-        if(!empty(trim($_POST['optionType'])) && !empty(trim($_POST['optionName']))
-          && ctype_alpha($_POST['optionType']) && ctype_alpha($_POST['optionName']) )
-        {
-            $opModel->optionsName=trim($_POST['optionName']);
-            $opModel->optionsType=trim($_POST['optionType']);
+    public static function addOptionC() {
+        // $opModel = new optionsModel(0);
+        $opModel = factoryClass::create("Model", "Options", 0);
+        if (!empty(trim($_POST['optionType'])) && !empty(trim($_POST['optionName']))
+            && ctype_alpha($_POST['optionType']) && ctype_alpha($_POST['optionName'])) {
+            $opModel->optionsName = trim($_POST['optionName']);
+            $opModel->optionsType = trim($_POST['optionType']);
             $opModel->addOptionM($opModel);
         }
         echo '<meta http-equiv="refresh" content="0">';
     }
 
-
-    public static function editOptionDisplay($id)
-    {
-    $data= new optionsModel($id);
-    optionsView::editOptionV($data);
+    public static function editOptionDisplay($id) {
+        // $data = new optionsModel($id);
+        $data = factoryClass::create("Model", "Options", $id);
+        optionsView::editOptionV($data);
     }
 
-    public static function editOptionC()
-    {
-        $opModel= new optionsModel(0);
-        if(!empty(trim($_POST['optionType'])) && !empty(trim($_POST['optionName']))
-        && ctype_alpha($_POST['optionType']) && ctype_alpha($_POST['optionName']) )
-      {
-          $opModel->optionsName=trim($_POST['optionName']);
-          $opModel->optionsType=trim($_POST['optionType']);
-          $opModel->optionsID=$_POST['editBtnSubmit'];
-          $opModel->updateOption($opModel);
-      }
-      echo '<meta http-equiv="refresh" content="0">';
-    } 
+    public static function editOptionC() {
+        // $opModel = new optionsModel(0);
+        $opModel = factoryClass::create("Model", "Options", 0);
+        if (!empty(trim($_POST['optionType'])) && !empty(trim($_POST['optionName']))
+            && ctype_alpha($_POST['optionType']) && ctype_alpha($_POST['optionName'])) {
+            $opModel->optionsName = trim($_POST['optionName']);
+            $opModel->optionsType = trim($_POST['optionType']);
+            $opModel->optionsID   = $_POST['editBtnSubmit'];
+            $opModel->updateOption($opModel);
+        }
+        echo '<meta http-equiv="refresh" content="0">';
+    }
 }
-$optionsC=new optionsController();
+$optionsC = new optionsController();
 $optionsC->displayOptionsC();
 
-if (isset($_POST['deleteButton']))
-{
+if (isset($_POST['deleteButton'])) {
     $ID = $_POST['deleteButton'];
     $optionsC->deleteOptionC($ID);
 }
 
-if (isset($_POST['addBtn']))
-{
+if (isset($_POST['addBtn'])) {
     optionsView::Undisplay();
     optionsView::addMethodV();
 }
 
-if (isset($_POST['addOptionSubmit']))
-{
- $optionsC->addOptionC();
+if (isset($_POST['addOptionSubmit'])) {
+    $optionsC->addOptionC();
 }
 
-if(isset($_POST["editButton"]))
-{
+if (isset($_POST["editButton"])) {
     optionsView::Undisplay();
-   $optionsC->editOptionDisplay($_POST["editButton"]);
+    $optionsC->editOptionDisplay($_POST["editButton"]);
 }
-if (isset($_POST['editBtnSubmit']))
-{
-  $optionsC->editOptionC();
+if (isset($_POST['editBtnSubmit'])) {
+    $optionsC->editOptionC();
 }
 ?>

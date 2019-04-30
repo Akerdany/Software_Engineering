@@ -10,13 +10,13 @@
 </head>
 <body>
     <?php
-        require("connection.php");
-        require("classes.php");
-        include("navbar.php");
-        
-        $myUser = new User();
+require "connection.php";
+require_once "factoryClass.php";
+include "navbar.php";
 
-        $myUser->displayAllUsers();
-    ?>
+$myUser = factoryClass::create("Model", "User", null);
+
+$myUser->displayAllUsers();
+?>
 </body>
 </html>

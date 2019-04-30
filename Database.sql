@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 24, 2019 at 06:16 PM
+-- Generation Time: Apr 30, 2019 at 03:40 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `court` (
 --
 
 INSERT INTO `court` (`id`, `courtNumber`, `sportId`, `price`, `creationDate`, `isDeleted`) VALUES
-(1, '34', 1, 64, '2019-02-28 19:43:57', 0),
+(1, '34', 1, 64, '2019-02-28 19:43:57', 1),
 (3, '142', 1, 12, '2019-03-08 14:02:31', 0),
 (4, '12', 1, 15, '2019-03-08 14:03:08', 0);
 
@@ -386,7 +386,7 @@ CREATE TABLE IF NOT EXISTS `p_method_option_value` (
   `reservationId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `reservationId` (`reservationId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `p_method_option_value`
@@ -414,26 +414,28 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `userId` int(11) NOT NULL,
   `courtId` int(11) NOT NULL,
   `reservationDetailsId` int(11) NOT NULL,
+  `code` varchar(100) NOT NULL,
   `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `reservationDetailsId` (`reservationDetailsId`),
   KEY `courtId` (`courtId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservation`
 --
 
-INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `isDeleted`, `creationDate`) VALUES
-(1, 3, 1, 1, 0, '2019-02-28 19:45:48'),
-(3, 11, 1, 7, 0, '2019-03-18 23:34:44'),
-(4, 11, 1, 8, 0, '2019-03-18 23:35:19'),
-(5, 11, 1, 9, 0, '2019-03-19 07:59:56'),
-(6, 11, 1, 10, 0, '2019-04-12 20:32:55'),
-(7, 11, 1, 11, 0, '2019-04-12 21:56:10'),
-(8, 20, 3, 12, 0, '2019-04-22 18:44:12');
+INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `code`, `isDeleted`, `creationDate`) VALUES
+(1, 3, 1, 1, '1', 0, '2019-02-28 19:45:48'),
+(3, 11, 1, 7, '2', 0, '2019-03-18 23:34:44'),
+(4, 11, 1, 8, '3', 0, '2019-03-18 23:35:19'),
+(5, 11, 1, 9, '4', 0, '2019-03-19 07:59:56'),
+(6, 11, 1, 10, '5', 0, '2019-04-12 20:32:55'),
+(7, 11, 1, 11, '6', 0, '2019-04-12 21:56:10'),
+(8, 20, 3, 12, '7', 0, '2019-04-22 18:44:12'),
+(9, 11, 3, 13, 'e77fce1cc82b0b6d06fb0e9d9fcb0ce577965e31', 0, '2019-04-30 15:27:12');
 
 -- --------------------------------------------------------
 
@@ -453,7 +455,7 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `supervisorId` (`supervisorId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservationdetails`
@@ -470,7 +472,8 @@ INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervi
 (9, '2019-03-21', '10.00', '13.00', 1, 'normal', 128, 0),
 (10, '2019-04-18', '11.00', '14.00', 1, 'normal', 128, 0),
 (11, '2019-04-14', '8.30', '10.30', 1, 'normal', 128, 0),
-(12, '2019-04-23', '9.00', '16.00', 1, 'normal', 72, 0);
+(12, '2019-04-23', '9.00', '16.00', 1, 'normal', 72, 0),
+(13, '2019-05-01', '9.00', '14.00', 1, 'normal', 48, 0);
 
 -- --------------------------------------------------------
 

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        
+        <title>Collapsible sidebar using Bootstrap 3</title>
 
          <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -36,21 +36,14 @@
                     </script>";
                 }
                 ?>
-    
+    <body>
 
 
-    <button type="button" id="sidebarCollapse" class="navbar-btn">
-        
-        <span ></span>
-        <span ></span>
-        <span ></span>
-    </button>     
+
         <div class="wrapper">
-        
+            <!-- Sidebar Holder -->
             <nav id="sidebar">
-           
                 <div class="sidebar-header">
-               
                         <a href='index.php' class='logo' class="sideNavLink"><img src="http://www.emss.gov.eg/assets/finle/images/logo-header.png" alt="" width="120px" height="120px"></a>
                 </div>
 
@@ -69,7 +62,19 @@
             <!-- Page Content Holder -->
             <div id="content">
 
-                
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+
+                        
+                </nav>
 
                 
             </div>
@@ -92,5 +97,5 @@
                  });
              });
          </script>
-    
+    </body>
 </html>
