@@ -7,7 +7,7 @@
         public $specs;
         public $sports;
         public static function getAllCourts(){
-            $DB = new DBConnection();
+            $DB = DbConnection::getInstance();
             $sql = 'SELECT court.id, sports.name, court.courtNumber, court.price, courtdetails.specs 
             FROM court
             INNER JOIN sports ON court.sportId = sports.id

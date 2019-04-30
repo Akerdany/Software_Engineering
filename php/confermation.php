@@ -39,6 +39,12 @@
     <h2>Payment Method: </h2>
     <?php if (session_status() == PHP_SESSION_NONE) {session_start();}  echo " <h3>". $_SESSION["Method"]."</h3>";?>
     <div >
+    <?php 
+      $code=sha1($_SESSION["date"].$_SESSION["STime"].$_SESSION["ETime"].$_SESSION["CN"]);
+      echo $code;
+      $_SESSION["code"]=$code;
+      echo '<img src=https://api.qrserver.com/v1/create-qr-code/?data=http://localhost/Software_Engineering/php/tester.php?c='.$code.'&amp;size=100x100" alt="" title="" />';
+    ?>
     <a href="ToDB.php">
     <button class="button">confirm</button>
     </a>
