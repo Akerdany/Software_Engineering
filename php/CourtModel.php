@@ -8,7 +8,7 @@
         public $specs;
         public $sports;
         public static function display(){
-            $DB = new DBConnection();
+            $DB = DbConnection::getInstance();
             $sql = 'SELECT court.id, sports.name, court.courtNumber, court.price, courtdetails.specs 
             FROM court
             INNER JOIN sports ON court.sportId = sports.id
@@ -27,7 +27,7 @@
         }
         public static function getAllSports()
         {
-            $DB = new DBConnection();
+            $DB = DbConnection::getInstance();
             $sql = 'SELECT * from sports';
             $result = mysqli_query($DB->getdbconnect(), $sql);
             $sports;
@@ -41,13 +41,13 @@
         }
         public static function delete($id)
         {
-            $DB = new DbConnection();
+            $DB = DbConnection::getInstance();
             $sql = 'UPDATE court SET isDeleted = "1" WHERE id = "'.$id.'"';
             mysqli_query($DB->getdbconnect(), $sql);
         }
         public static function getCourtSpecs()
         {
-            $DB = new DBConnection();
+            $DB = DbConnection::getInstance();
             $sql = 'SELECT * from courtdetails';
             $result = mysqli_query($DB->getdbconnect(), $sql);
             $specs;
@@ -60,7 +60,7 @@
             return $specs;
         }
         public static function add($court){
-            $DB = new DbConnection();
+            $DB = DbConnection::getInstance();
             $sql = 'INSERT INTO court (courtNumber, sportId, price, isDeleted) VALUES ( "'.$court->courtNumber.'","'.$court->sportid.'","'.$court->pricePerHour.'", 0)';
             mysqli_query($DB->getdbconnect(), $sql);
             $lastIdSQL = 'SELECT MAX(id) from court';
@@ -76,7 +76,7 @@
         }
 
         public static function edit($court){
-            $DB = new DbConnection();
+            $DB = DbConnection::getInstance();
             $sql = 'UPDATE court 
                     SET courtNumber = "'.$court->courtNumber.'", 
                     sportId = "'.$court->sportid.'",
@@ -92,7 +92,7 @@
         }
         public static function getCourtDetails($id)
         {
-            $DB = new DbConnection();
+            $DB = DbConnection::getInstance();
             $sql = 'SELECT court.id, sports.name, court.courtNumber, court.price, courtdetails.specs 
             FROM court
             INNER JOIN sports ON court.sportId = sports.id

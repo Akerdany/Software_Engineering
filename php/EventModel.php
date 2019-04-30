@@ -10,7 +10,7 @@ class EventModel implements Icrud
     public $isDeleted;
     public static function display()
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn = $DB->getdbconnect();
         $sql = 'SELECT id, name, date, details FROM events WHERE `isDeleted`= 0';
         $result = mysqli_query($DB->getdbconnect(), $sql);
@@ -24,14 +24,14 @@ class EventModel implements Icrud
     }
     public static function add($E)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $Q="INSERT INTO `events` (`name`, `date`, `details`, `isDeleted`) VALUES ('$E->Name', '$E->Date', '$E->Details', '0')";
         mysqli_query($conn,$Q);
     }
     public static function getEventDetails($id)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $q = 'SELECT * from events WHERE isDeleted=0 AND id = '.$id;
         $result = mysqli_query($conn, $q);
@@ -45,7 +45,7 @@ class EventModel implements Icrud
     }
     public static function edit($E)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $Q="UPDATE `events` SET `name` = '$E->Name', `Date` = '$E->Date', `Details` = '$E->Details' WHERE `ID` = '$E->ID' ";
         mysqli_query($conn,$Q);
@@ -53,7 +53,7 @@ class EventModel implements Icrud
     }
     public static function delete($ID)
     {
-        $DB = new DbConnection();
+        $DB = DbConnection::getInstance();
         $conn=$DB->getdbconnect();
         $Q="UPDATE `events` SET `isDeleted` = '1' WHERE `ID` = '$ID' ";
         mysqli_query($conn,$Q);
