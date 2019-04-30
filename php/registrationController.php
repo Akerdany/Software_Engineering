@@ -1,7 +1,7 @@
 <?php
 
 require "connection.php";
-include "classes.php";
+require_once "factoryClass.php";
 session_start();
 
 if (isset($_POST['submit'])) {
@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
 
         if (filter_var($tel, FILTER_VALIDATE_INT) && filter_var($ssn, FILTER_VALIDATE_INT) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-            $user = New User();
+            $tempUser = factoryClass::create("Model", "User", null);
 
             $fName           = $user->checkData($fName);
             $user->firstName = $fName;

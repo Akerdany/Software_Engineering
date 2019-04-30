@@ -1,12 +1,13 @@
 <?php
-    require('classes.php');
+require_once 'factoryClass.php';
 
-    if (isset($_POST['editUserButton'])){
-        $userType = $_POST['userType'];
-        $tempUser = new User();
-        $tempUser->editUserType($_POST['editUserButton'], $userType);
+if (isset($_POST['editUserButton'])) {
+    $userType = $_POST['userType'];
+    $tempUser = factoryClass::create("Model", "User", null);
 
-        header('Location: displayUsers.php');
-    }
+    $tempUser->editUserType($_POST['editUserButton'], $userType);
+
+    header('Location: displayUsers.php');
+}
 
 ?>

@@ -1,13 +1,15 @@
 <?php
 
 if (isset($_POST['submit'])) {
-    require "connection.php";
-    require "classes.php";
+    require_once "connection.php";
+    require_once "factoryClass.php";
     include 'navbar.php';
+
     $email = $_POST['username'];
     $pass  = $_POST['password'];
 
-    $tempUser = new User();
+    $tempUser = factoryClass::create("Model", "User", null);
+    echo print_r($tempUser);
 
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         //Security:

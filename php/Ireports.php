@@ -1,21 +1,18 @@
 <?php
-interface Ireport 
-{
+interface Ireport {
     public function displayReports($x);
 }
 
-class displayBarCharts implements Ireport
-{
-    public function displayReports($js)
-    {
-       echo '<script>
+class displayBarCharts implements Ireport {
+    public function displayReports($js) {
+        echo '<script>
        google.charts.load("current", {"packages":["bar"]});
        google.charts.setOnLoadCallback(drawStuff);
-  
+
        function drawStuff() {
-        '.$js.'
+        ' . $js . '
         var options = {
-          
+
           width: 900,
           legend: { position: "none" },
           bars: "vertical", // Required for Material Bar Charts.
@@ -27,7 +24,7 @@ class displayBarCharts implements Ireport
             }
           },
           bar: { groupWidth: "90%" }
-        };  
+        };
          var chart = new google.charts.Bar(document.getElementById("top_x_div"));
          chart.draw(data, options);
        };
@@ -35,21 +32,19 @@ class displayBarCharts implements Ireport
     }
 }
 
-class displayPieCharts implements Ireport 
-{
-    public function displayReports($js)
-    {
-       echo '<script >
+class displayPieCharts implements Ireport {
+    public function displayReports($js) {
+        echo '<script >
        google.charts.load("current", {"packages":["corechart"]});
        google.charts.setOnLoadCallback(drawChart);
- 
+
        function drawChart() {
-        '.$js.'
- 
+        ' . $js . '
+
          var options = {
            is3D: "true"
          };
- 
+
          var chart = new google.visualization.PieChart(document.getElementById("top_x_div"));
          chart.draw(data, options);
        }
