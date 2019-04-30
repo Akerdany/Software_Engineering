@@ -33,7 +33,7 @@ while($row = mysqli_fetch_array($result)){
     $formElements .= '<br>';
     $formElements .= $field;
 }
-
+}
 echo $formElements; //return the string carrying the input fields html
 
 ?>
