@@ -1,13 +1,14 @@
 <?php
 require("connection.php");
-class EventModel 
+include_once('Icrud.php');
+class EventModel implements Icrud
 {
     public $ID;
     public $Name;
     public $Date;
     public $Details;
     public $isDeleted;
-    public static function getAllEvents()
+    public static function display()
     {
         $DB = new DbConnection();
         $conn = $DB->getdbconnect();
@@ -22,14 +23,14 @@ class EventModel
         }
         return $event;
     }
-    public static function AddEvent($E)
+    public static function add($E)
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
         $Q="INSERT INTO `events` (`name`, `date`, `details`, `isDeleted`) VALUES ('$E->Name', '$E->Date', '$E->Details', '0')";
         mysqli_query($conn,$Q);
     }
-    public function getEventDetails($id)
+    public static function getEventDetails($id)
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
@@ -43,7 +44,7 @@ class EventModel
         $event->ID = $row['id'];
         return $event;
     }
-    public static function Update($E)
+    public static function edit($E)
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();
@@ -51,7 +52,7 @@ class EventModel
         mysqli_query($conn,$Q);
         header('Location: displayEvents.php');
     }
-    public static function Delete($ID)
+    public static function delete($ID)
     {
         $DB = new DbConnection();
         $conn=$DB->getdbconnect();

@@ -1,12 +1,13 @@
 <?php
 require_once('EventView.php');
-require_once('EventModel.php');
+require_once('crudfacade.php');
 include('navbar.php');
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 
 $view = new EventView();
-$model = new EventModel();
-$view->displayEvents($model->getAllEvents());
+$crud = new crudfacade();
+$display = $crud->displayEvents();
+$view->displayEvents($display);
 
 if(isset($_POST['addButton']))
 {
@@ -14,33 +15,34 @@ if(isset($_POST['addButton']))
 }
 if(isset($_POST['addEvent']))
 {
-    $event = new EventModel();
-    $event->Name = $_POST['eventName'];
-    $event->Date = $_POST['eventDate'];
-    $event->Details = $_POST['eventDetails'];
-    $event->AddEvent($event);
+    $crud = new crudfacade();
+    $crud->event->Name = $_POST['eventName'];
+    $crud->event->Date = $_POST['eventDate'];
+    $crud->event->Details = $_POST['eventDetails'];
+    $crud->addEvent($crud->event);
     header('Location: EventController.php');
 }
 if(isset($_POST['editButton']))
 {
+    $crud = new crudfacade();
     $id = $_POST['editButton'];
-    $view->editEventForm($model->getEventDetails($id));
+    $view->editEventForm($crud->event->getEventDetails($id));
 }
 if(isset($_POST['editEvent']))
 {
-    $event = new EventModel();
-    $event->ID = $_POST['eventid'];
-    $event->Name = $_POST['eventName'];
-    $event->Date = $_POST['eventDate'];
-    $event->Details = $_POST['eventDetails'];
-    $event->Update($event);
+    $crud = new crudfacade();
+    $crud->event->ID = $_POST['eventid'];
+    $crud->event->Name = $_POST['eventName'];
+    $crud->event->Date = $_POST['eventDate'];
+    $crud->event->Details = $_POST['eventDetails'];
+    $crud->editEvent($crud->event);
     header('Location: EventController.php');
 }
 if(isset($_POST['deleteButton']))
 {
+    $crud = new crudfacade();
     $id = $_POST['deleteButton'];
-    $event = new EventModel();
-    $event->Delete($id);
+    $crud->deleteEvent($id);
     header('Location: EventController.php');
 }
 ?>

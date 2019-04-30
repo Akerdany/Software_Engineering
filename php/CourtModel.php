@@ -1,12 +1,13 @@
 <?php
     require_once("connection.php");
-    class CourtModel {
+    require_once('Icrud.php');
+    class CourtModel implements Icrud {
         public $id;
         public $courtNumber;
         public $pricePerHour;
         public $specs;
         public $sports;
-        public static function getAllCourts(){
+        public static function display(){
             $DB = new DBConnection();
             $sql = 'SELECT court.id, sports.name, court.courtNumber, court.price, courtdetails.specs 
             FROM court
@@ -38,7 +39,7 @@
             }
             return $sports;
         }
-        public static function deleteCourt($id)
+        public static function delete($id)
         {
             $DB = new DbConnection();
             $sql = 'UPDATE court SET isDeleted = "1" WHERE id = "'.$id.'"';
@@ -58,7 +59,7 @@
             }
             return $specs;
         }
-        public static function addCourt($court){
+        public static function add($court){
             $DB = new DbConnection();
             $sql = 'INSERT INTO court (courtNumber, sportId, price, isDeleted) VALUES ( "'.$court->courtNumber.'","'.$court->sportid.'","'.$court->pricePerHour.'", 0)';
             mysqli_query($DB->getdbconnect(), $sql);
@@ -74,7 +75,7 @@
             mysqli_close($DB->getdbconnect());
         }
 
-        public static function editCourt($court){
+        public static function edit($court){
             $DB = new DbConnection();
             $sql = 'UPDATE court 
                     SET courtNumber = "'.$court->courtNumber.'", 

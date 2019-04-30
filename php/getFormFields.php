@@ -17,7 +17,7 @@ $result = mysqli_query($DB->getdbconnect(), $sql);    //get options of the chose
 
 $formElements = "";    //empty string where html code for the fields will be stored and sent back to the AJAX call
 while($row = mysqli_fetch_array($result)){
-    $q = 'SELECT * from options WHERE id = "'.$row['optionId'].'"'; 
+    $q = 'SELECT * from options WHERE id = "'.$row['optionId'].'" AND isDeleted = 0'; 
     $r = mysqli_query($DB->getdbconnect(), $q);
     $optionRow = mysqli_fetch_array($r);   //get option names of the payment method's options
     
