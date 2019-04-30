@@ -1,8 +1,7 @@
 <?php
-require("connection.php");
-include_once('Icrud.php');
-class EventModel implements Icrud
-{
+require_once "connection.php";
+include_once 'Icrud.php';
+class EventModel implements Icrud {
     public $ID;
     public $Name;
     public $Date;

@@ -1,6 +1,6 @@
 <?php
 require_once "connection.php";
-require_once "factroyClass.php";
+require_once "factoryClass.php";
 
 class Reservationview {
     function __construct() {

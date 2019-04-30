@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_POST['submit'])) {
-    require_once "connection.php";
+    // require_once "connection.php";
     require_once "factoryClass.php";
     include 'navbar.php';
 

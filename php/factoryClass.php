@@ -9,14 +9,14 @@ require_once "OptionsModel.php";
 require_once "OptionsView.php";
 require_once "PmModel.php";
 require_once "PmView.php";
-require_once "Reservation_model.php";
 require_once 'Resevationclass.php';
+require_once "Reservation_model.php";
 
 class factoryClass {
     public function __construct() {
     }
 
-    public function create($type, $className, $attribute) {
+    public static function create($type, $className, $attribute) {
         if ($type == "Model") {
             if ($className == "User") {
                 return new User();

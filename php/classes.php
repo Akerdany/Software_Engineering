@@ -29,7 +29,7 @@ class User {
     }
 
     public function userQuery($id) {
-        $DB = new DbConnection();
+        // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $sql    = "SELECT * FROM user WHERE id='" . $id . "'";
@@ -58,7 +58,7 @@ class User {
     }
 
     public function insertUser($tempUser) {
-        $DB = new DbConnection();
+        // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $date = date('Y-m-d H:i:s');
@@ -115,7 +115,7 @@ class User {
     }
 
     public function updateUser($tempUser) {
-        $DB = new DbConnection();
+        // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $sql = "UPDATE user SET firstName='$tempUser->firstName', lastName='$tempUser->lastName', email='$tempUser->email',
@@ -131,7 +131,7 @@ class User {
     }
 
     public function deleteUser($id) {
-        $DB = new DbConnection();
+        // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $sql = "UPDATE user SET isDeleted=1 WHERE id=$id";
@@ -145,7 +145,7 @@ class User {
     }
 
     public function activateUser($id) {
-        $DB = new DbConnection();
+        // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $sql = "UPDATE user SET isDeleted=0 WHERE id=$id";
@@ -159,7 +159,7 @@ class User {
     }
 
     public function editUserType($id, $newUserType) {
-        $DB = new DbConnection();
+        // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $sql = "UPDATE user SET userTypeId=$newUserType WHERE id=$id";
@@ -173,7 +173,7 @@ class User {
     }
 
     public function logIn($email, $pass) {
-       # $DB = new DbConnection();
+        // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $sql    = "SELECT * FROM user WHERE email='" . $email . "'";
@@ -184,7 +184,9 @@ class User {
             $password_hash = $row['password'];
 
             if (password_verify($pass, $password_hash) && $row['isDeleted'] == 0) {
-                session_start();
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
 
                 $_SESSION['id']        = $row['id'];
                 $_SESSION['email']     = $row['email'];
@@ -201,7 +203,7 @@ class User {
     }
 
     public function checkData($data) {
-        $DB = new DbConnection();
+        // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $data = strip_tags(mysqli_real_escape_string($DB->getdbconnect(), trim($data)));
@@ -227,7 +229,7 @@ class User {
     }
 
     public function displayAllUsers() {
-        $DB = new DbConnection();
+        // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
         $sql          = "SELECT * FROM user";
