@@ -21,7 +21,7 @@ class PmController {
     }
     public static function deleteMethodC($id) {
         PmModel::deleteMethodM($id);
-        header('Location: PmController.php');
+        echo '<meta http-equiv="refresh" content="0">';
     }
     public static function addMethodDisplay() {
         $data = PmModel::selectAllOptions();
@@ -54,7 +54,7 @@ class PmController {
                 }
             }
         }
-        header('Location: PmController.php');
+        echo '<meta http-equiv="refresh" content="0">';
     }
 
     public static function editMethodDisplay($id) {
@@ -121,9 +121,8 @@ class PmController {
                 }
             }
         }
-        header('Location: PmController.php');
+        echo '<meta http-equiv="refresh" content="0">';    
     }
-
 }
 
 $pm = new PmController();

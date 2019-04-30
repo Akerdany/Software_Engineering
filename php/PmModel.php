@@ -40,7 +40,7 @@ class PmModel {
         $i      = 0;
         $data   = [];
         while ($row = mysqli_fetch_assoc($result)) {
-            $obj      = new PmModel($row['id']);
+            $obj = new PmModel($row['id']);
             $data[$i] = $obj;
             $i++;
         }
