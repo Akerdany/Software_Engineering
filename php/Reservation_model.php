@@ -29,7 +29,7 @@ class Reservationmodel {
         $DB = DbConnection::getInstance();
 
         $conn = $DB->getdbconnect();
-        $Q    = "SELECT reservation.id,court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId,reservationdetails.date
+        $Q    = "SELECT reservation.id,court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId,reservationdetails.date,reservationdetails.status
       FROM reservation
       INNER JOIN user ON reservation.userId=user.id
       INNER JOIN court ON reservation.courtId=court.id
@@ -94,6 +94,24 @@ class Reservationmodel {
         }
         return $array;
 
+    }
+    public function approveReservation($id) {
+        $DB = DbConnection::getInstance();
+
+        $reservationDetailsId = "SELECT * FROM reservation WHERE id='$id'";
+        $result               = mysqli_query($DB->getdbconnect(), $reservationDetailsId);
+        $row                  = mysqli_fetch_assoc($result);
+        $query                = "UPDATE reservationdetails SET status=1 WHERE id='" . $row['reservationDetailsId'] . "'";
+        $result2              = mysqli_query($DB->getdbconnect(), $query);
+    }
+    public function declineReservation($id) {
+        $DB = DbConnection::getInstance();
+
+        $reservationDetailsId = "SELECT * FROM reservation WHERE id='$id'";
+        $result               = mysqli_query($DB->getdbconnect(), $reservationDetailsId);
+        $row                  = mysqli_fetch_assoc($result);
+        $query                = "UPDATE reservationdetails SET status=0 WHERE id='" . $row['reservationDetailsId'] . "'";
+        $result2              = mysqli_query($DB->getdbconnect(), $query);
     }
 }
 

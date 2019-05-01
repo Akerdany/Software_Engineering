@@ -7,6 +7,11 @@ class Reservationview {
     }
     public static function Display($array) {
 
+        if (!empty($_SESSION['userType']) && $_SESSION['userType'] == 1) {
+            $action = true;
+        } else {
+            $action = false;
+        }
         echo '<table class = "displaytables">';
         echo '<tr>'
             . '<th>Court Number</th>'
@@ -16,7 +21,12 @@ class Reservationview {
             . '<th>Start time</th>'
             . '<th>End time</th>'
             . '<th>Suppervisor first name</th>'
-            . '<th>Suppervisor Lastname name</th>'
+            . '<th>Suppervisor Last name</th>'
+            . '<th>Reservation Status</th>';
+        if ($action) {
+            echo '<th>Action</th>';
+        }
+        echo '<th>Edit</th>'
             . '</tr>';
         foreach ($array as $row) {
 
@@ -33,7 +43,22 @@ class Reservationview {
                 . '<td>' . $row['endTime'] . '</td>'
                 . '<td>' . $row1['firstName'] . '</td>'
                 . '<td>' . $row1['lastName'] . '</td>';
-
+            if ($row['status'] == 0) {
+                echo '<td>Pending</td>';
+            } else {
+                echo '<td>Approved</td>';
+            }
+            if ($action) {
+                if ($row['status'] == 0) {
+                    echo '<td> <form action = "Reservation_controller.php" method = "POST">'
+                        . '<button type = "submit" name = "approve" value = "' . $row['id'] . '">Approve</button>'
+                        . '</form>';
+                } else {
+                    echo '<td> <form action = "Reservation_controller.php" method = "POST">'
+                        . '<button type = "submit" name = "decline" value = "' . $row['id'] . '">Decline</button>'
+                        . '</form>';
+                }
+            }
             echo '<td> <form action = "editR.php" method = "POST">'
                 . '<button type = "submit" name = "editButton" value = "' . $row['id'] . '">Edit</button>'
                 . '</form>'
