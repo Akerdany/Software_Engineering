@@ -132,7 +132,7 @@
 
         function checkEmail() {
             document.getElementById("emailError").innerHTML = null;
-            var ssn = document.getElementById("email");
+            var email = document.getElementById("email");
             var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
             if (!email.value.match(mailformat)) {
@@ -203,10 +203,10 @@
         }
 
         function registrationValidate() {
-
             if (fcheck && lcheck && pcheck && scheck && echeck && dcheck && pacheck && ccheck) {
                 return true;
             } else {
+                alert(echeck);
                 return false;
             }
         }
@@ -266,8 +266,8 @@
 
                             <div class="form-group">
                                 <label>FIRST NAME</label>
-                                <input type="text" class="form-control" placeholder="First Name" id="fName"
-                                    name="firstName" onblur="checkFName()" required>
+                                <input type="text" class="form-control" placeholder="First Name" id="firstName"
+                                    name="fName" onblur="checkFName()" required>
                                 <p id="fNameError"></p>
                             </div>
                             <div class="form-group">

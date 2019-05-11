@@ -6,7 +6,6 @@ session_start();
 
 if (isset($_POST['register'])) {
 
-    //Security:
     $fName    = $_POST['fName'];
     $lName    = $_POST['lName'];
     $email    = $_POST['email'];
@@ -16,7 +15,7 @@ if (isset($_POST['register'])) {
     $ssn      = $_POST['ssn'];
     $userType = $_POST['userType'];
 
-    $tempUser = factoryClass::create("Model", "User", null);
+    $user = factoryClass::create("Model", "User", null);
 
     //SQL Injection:
     $fName = $user->checkData($fName);
