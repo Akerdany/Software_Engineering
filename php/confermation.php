@@ -36,20 +36,36 @@ echo " <h3>" . $_SESSION["ETime"] . "</h3>";?>
     <?php if (session_status() == PHP_SESSION_NONE) {session_start();}
 echo " <h3>" . $_SESSION["CN"] . "</h3>";?>
     <h2>Total Cost:</h2>
-    <?php if (session_status() == PHP_SESSION_NONE) {session_start();}
-$p     = (int) $_SESSION["price"];
-$hours = (int) $_SESSION["NH"];
-echo "<h3>" . $p * $hours . "</h3>";?>
+    <?php
+    include_once('total.php');
+    include_once('price.php');
+    if (session_status() == PHP_SESSION_NONE) {session_start();}
+        $p     = (float) $_SESSION["price"];
+        $hours = (float) $_SESSION["NH"];
+        $price = new total($p * $hours);
+        echo "<h3>". $price->getDesc() . "</h3>";
+        echo "<h3>". $price->cost() . "</h3>";
+        echo "<br>";
+        if(!empty($_SESSION["promov"])){
+            $price = new promo($price,(float)$_SESSION["promov"]);
+        }
+        echo "<h3>".$price->getDesc() . "</h3>";
+        echo "<h3>". $price->cost() . "</h3>";
+        $_SESSION["sum"]=$price->cost();
+        // echo "<h3>" .  . "</h3>";
+
+?>
     <h2>Payment Method: </h2>
     <?php if (session_status() == PHP_SESSION_NONE) {session_start();}
 echo " <h3>" . $_SESSION["Method"] . "</h3>";?>
     <div >
     <?php 
       $code=sha1($_SESSION["date"].$_SESSION["STime"].$_SESSION["ETime"].$_SESSION["CN"]);
-      echo $code;
+      
       $_SESSION["code"]=$code;
       echo '<img src=https://api.qrserver.com/v1/create-qr-code/?data=http://localhost/Software_Engineering/php/tester.php?c='.$code.'&amp;size=100x100" alt="" title="" />';
-    ?>
+        echo "<br>";
+   ?>
     <a href="ToDB.php">
     <button class="button">confirm</button>
     </a>

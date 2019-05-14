@@ -12,16 +12,11 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 $_SESSION["Method"] = $m['name'];
+
 $sql                = 'SELECT * from selectedoptions WHERE paymentId = "' . $paymentMethodId . '" ORDER BY priority ASC';
 $result             = mysqli_query($DB->getdbconnect(), $sql); //get options of the chosen payment method sorted by priority of appearance
 
 $formElements = ""; //empty string where html code for the fields will be stored and sent back to the AJAX call
-while ($row = mysqli_fetch_array($result)) {
-    $q         = 'SELECT * from options WHERE id = "' . $row['optionId'] . '"';
-    $r         = mysqli_query($DB->getdbconnect(), $q);
-    $optionRow = mysqli_fetch_array($r); //get option names of the payment method's options
-
-$formElements = "";    //empty string where html code for the fields will be stored and sent back to the AJAX call
 while($row = mysqli_fetch_array($result)){
     $q = 'SELECT * from options WHERE id = "'.$row['optionId'].'" AND isDeleted = 0'; 
     $r = mysqli_query($DB->getdbconnect(), $q);
@@ -33,7 +28,12 @@ while($row = mysqli_fetch_array($result)){
     $formElements .= '<br>';
     $formElements .= $field;
 }
-}
+    $label = '<label> promo code </label>';    //label of each field by the option name
+    $field = '<input type = "text" name = "promo" ><br>';   // input field type from type column and name attribute based on option name
+    $formElements .= $label;    // appending label then input field to the empty string
+    $formElements .= '<br>';
+    $formElements .= $field;
+
 echo $formElements; //return the string carrying the input fields html
 
 ?>

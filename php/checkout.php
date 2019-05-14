@@ -15,7 +15,7 @@ function getForm(pmId) {
 //$time1 = strtotime($string);
 
 </script>
-</ head>
+</head>
 
 </html>
 
@@ -66,7 +66,21 @@ if (isset($_POST['submit'])) {
         $insertSQL = 'INSERT INTO p_method_option_value (`selectedoptionsId`, `value`, `reservationId`) VALUES ( "' . $soId . '","' . $fieldname . '","-1")';
         mysqli_query($DB->getdbconnect(), $insertSQL);
     }
-    header('Location: confermation.php');
+    if(isset($_POST['promo'])){
+        $sql1 = 'SELECT * FROM `promo` WHERE `code`="'.$_POST['promo'].'" ';
+       
+        $result= mysqli_query($DB->getdbconnect(), $sql1);
+        $r= mysqli_fetch_array($result);
+        
+        if(mysqli_num_rows($result)!=0){
+            
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $_SESSION["promov"] = $r['value'];
+        }
+    }
+     header('Location: confermation.php');
 }
 
 ?>

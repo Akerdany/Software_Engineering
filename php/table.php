@@ -141,12 +141,20 @@ for ($i=0; $i < count($H) ; $i++) {
   
  ?>
  </ol>
- <form action = "main.php" method = "POST">
- <input style="Display:none" type="text" id="output" name="output">
+ <form action = "main.php" onsubmit="return validateForm()"  method = "POST">
+ <input style="Display:none" value="" type="text" id="output" name="output">
   <input type = "submit" name = "submit" value = "Next">
  </form>
  </div>
- 
+ <script>
+ function validateForm() {
+  var x =  document.getElementById("output").value;
+  if (x == "") {
+    alert("No time selected");
+    return false;
+  }
+} 
+ </script>
 
 
 
