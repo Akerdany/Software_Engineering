@@ -26,8 +26,8 @@ class Reservationview {
         if ($action) {
             echo '<th>Action</th>';
         }
-        echo '<th>Edit</th>'
-            . '</tr>';
+        
+            echo '</tr>';
         foreach ($array as $row) {
 
             // $model = new Reservationmodel();
@@ -59,9 +59,7 @@ class Reservationview {
                         . '</form>';
                 }
             }
-            echo '<td> <form action = "editR.php" method = "POST">'
-                . '<button type = "submit" name = "editButton" value = "' . $row['id'] . '">Edit</button>'
-                . '</form>'
+            echo '</form>'
                 . '</tr>';
         }
         echo '</table>';

@@ -45,11 +45,12 @@ class EventView {
             . '</form>';
     }
     public function editEventForm($event) {
+        $date = date("Y-m-d");
         echo '<form action = "EventController.php" method = "POST">'
         . '<label>Event Name</label>'
         . '<input type = "text" name = "eventName" value = "' . $event->Name . '">'
         . '<label>Event Date</label>'
-        . '<input type = "date" name = "eventDate" value = "' . $event->Date . '"><br>'
+        . '<input type = "date"min="' . $date . '" name = "eventDate" value = "' . $event->Date . '"><br>'
         . '<label>Event Details</label><br>'
         . '<textarea name = "eventDetails" rows = "15" cols = "5">' . $event->Details . '</textarea>';
         echo '<input type = "submit" name = "editEvent" value = "Submit Edits">

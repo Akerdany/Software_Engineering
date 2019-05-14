@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 30, 2019 at 03:40 PM
+-- Generation Time: May 14, 2019 at 11:06 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `ccd` (
   PRIMARY KEY (`id`),
   KEY `courtId` (`courtId`),
   KEY `courtDetailsId` (`courtDetailsId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ccd`
@@ -70,7 +70,15 @@ CREATE TABLE IF NOT EXISTS `ccd` (
 
 INSERT INTO `ccd` (`id`, `courtId`, `courtDetailsId`) VALUES
 (4, 3, 2),
-(5, 4, 1);
+(5, 4, 1),
+(6, 4, 1),
+(7, 4, 1),
+(8, 5, 2),
+(9, 6, 2),
+(10, 7, 1),
+(11, 8, 2),
+(12, 8, 1),
+(13, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -83,6 +91,20 @@ CREATE TABLE IF NOT EXISTS `company` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `constants`
+--
+
+DROP TABLE IF EXISTS `constants`;
+CREATE TABLE IF NOT EXISTS `constants` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `value` decimal(20,0) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -101,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `court` (
   `isDeleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sportId` (`sportId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `court`
@@ -109,8 +131,12 @@ CREATE TABLE IF NOT EXISTS `court` (
 
 INSERT INTO `court` (`id`, `courtNumber`, `sportId`, `price`, `creationDate`, `isDeleted`) VALUES
 (1, '34', 1, 64, '2019-02-28 19:43:57', 1),
-(3, '142', 1, 12, '2019-03-08 14:02:31', 0),
-(4, '12', 1, 15, '2019-03-08 14:03:08', 0);
+(3, '142', 1, 12, '2019-03-08 14:02:31', 1),
+(4, '12', 1, 15, '2019-03-08 14:03:08', 1),
+(5, '12', 2, 13, '2019-05-14 22:31:13', 0),
+(6, '12', 2, 13, '2019-05-14 22:31:18', 1),
+(7, '111', 1, 92, '2019-05-14 22:35:18', 0),
+(8, '13', 2, 1232, '2019-05-14 22:38:42', 0);
 
 -- --------------------------------------------------------
 
@@ -148,14 +174,15 @@ CREATE TABLE IF NOT EXISTS `events` (
   `isDeleted` tinyint(1) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `events`
 --
 
 INSERT INTO `events` (`id`, `name`, `date`, `details`, `isDeleted`, `creationDate`) VALUES
-(1, 'hhhh', '2010-11-10', 'hanel3aab koora', 0, '2019-02-28 19:44:55');
+(1, 'hhhh', '2010-11-10', 'hanel3aab koora', 0, '2019-02-28 19:44:55'),
+(2, 'fefr', '2019-05-15', 'fefefefsum', 1, '2019-05-14 22:45:48');
 
 -- --------------------------------------------------------
 
@@ -219,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `options` (
   `type` varchar(100) NOT NULL,
   `isDeleted` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `options`
@@ -228,13 +255,14 @@ CREATE TABLE IF NOT EXISTS `options` (
 INSERT INTO `options` (`id`, `name`, `type`, `isDeleted`) VALUES
 (1, 'Name', 'text', 0),
 (2, 'ExpiryDate', 'date', 0),
-(3, 'number', 'int', 0),
+(3, 'number', 'number', 0),
 (4, 'cvv', 'int', 0),
 (5, 'email', 'text', 0),
 (6, 'phoneNo', 'int', 0),
 (7, 'Gender', 'radio', 0),
 (8, 'Address', 'text', 0),
-(13, 'Loan', 'text', 0);
+(13, 'Loan', 'text', 0),
+(14, 'fara', 'number', 1);
 
 -- --------------------------------------------------------
 
@@ -295,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `paymentmethod` (
   `isDeleted` tinyint(1) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `paymentmethod`
@@ -305,7 +333,8 @@ INSERT INTO `paymentmethod` (`id`, `name`, `isDeleted`, `creationDate`) VALUES
 (1, 'Visaa', 0, '2019-02-28 19:45:28'),
 (5, 'fawry', 0, '2019-03-14 13:00:25'),
 (15, 'QQCard', 0, '2019-04-18 13:51:46'),
-(16, 'vps', 1, '2019-04-19 13:14:34');
+(16, 'vps', 1, '2019-04-19 13:14:34'),
+(17, 'asdasdas', 1, '2019-05-14 22:57:27');
 
 -- --------------------------------------------------------
 
@@ -375,6 +404,29 @@ INSERT INTO `previliges` (`id`, `userTypeId`, `featureId`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `promo`
+--
+
+DROP TABLE IF EXISTS `promo`;
+CREATE TABLE IF NOT EXISTS `promo` (
+  `id` int(100) NOT NULL AUTO_INCREMENT,
+  `code` varchar(100) NOT NULL,
+  `value` decimal(10,2) NOT NULL,
+  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `end` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `promo`
+--
+
+INSERT INTO `promo` (`id`, `code`, `value`, `start`, `end`) VALUES
+(1, 'hi', '0.50', '2019-05-14 21:15:31', '2019-05-22 22:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `p_method_option_value`
 --
 
@@ -386,7 +438,7 @@ CREATE TABLE IF NOT EXISTS `p_method_option_value` (
   `reservationId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `reservationId` (`reservationId`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `p_method_option_value`
@@ -421,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `reservationDetailsId` (`reservationDetailsId`),
   KEY `courtId` (`courtId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservation`
@@ -435,7 +487,8 @@ INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `c
 (6, 11, 1, 10, '5', 0, '2019-04-12 20:32:55'),
 (7, 11, 1, 11, '6', 0, '2019-04-12 21:56:10'),
 (8, 20, 3, 12, '7', 0, '2019-04-22 18:44:12'),
-(9, 11, 3, 13, 'e77fce1cc82b0b6d06fb0e9d9fcb0ce577965e31', 0, '2019-04-30 15:27:12');
+(9, 11, 3, 13, 'e77fce1cc82b0b6d06fb0e9d9fcb0ce577965e31', 0, '2019-04-30 15:27:12'),
+(10, 11, 3, 14, 'e0b88743b07e7cb38aaacf869fd56c15a465b2fa', 0, '2019-05-14 22:03:30');
 
 -- --------------------------------------------------------
 
@@ -455,14 +508,14 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `supervisorId` (`supervisorId`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservationdetails`
 --
 
 INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervisorId`, `type`, `cost`, `status`) VALUES
-(1, '2019-02-11', '2.00', '4.00', 4, 'player', 50, 0),
+(1, '2019-02-11', '2.00', '4.00', 4, 'player', 50, 1),
 (2, '2019-03-21', '4.00', '6.00', 4, 'normal', 15, 0),
 (3, '2019-03-21', '1.30', '3.00', 4, 'normal', 15, 0),
 (4, '2019-03-21', '8.00', '11.30', 4, 'normal', 15, 0),
@@ -473,7 +526,8 @@ INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervi
 (10, '2019-04-18', '11.00', '14.00', 1, 'normal', 128, 0),
 (11, '2019-04-14', '8.30', '10.30', 1, 'normal', 128, 0),
 (12, '2019-04-23', '9.00', '16.00', 1, 'normal', 72, 0),
-(13, '2019-05-01', '9.00', '14.00', 1, 'normal', 48, 0);
+(13, '2019-05-01', '9.00', '14.00', 1, 'normal', 48, 0),
+(14, '2019-05-15', '10.00', '14.00', 1, 'normal', 24, 0);
 
 -- --------------------------------------------------------
 
@@ -490,7 +544,7 @@ CREATE TABLE IF NOT EXISTS `selectedoptions` (
   PRIMARY KEY (`id`),
   KEY `paymentId` (`paymentId`),
   KEY `optionId` (`optionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `selectedoptions`
@@ -504,11 +558,12 @@ INSERT INTO `selectedoptions` (`id`, `paymentId`, `optionId`, `priority`) VALUES
 (52, 1, 3, 2),
 (82, 15, 1, 1),
 (83, 15, 3, 2),
-(84, 15, 4, 3),
 (85, 16, 1, 2),
 (86, 16, 3, 1),
 (88, 16, 2, 4),
-(89, 16, 6, 5);
+(89, 16, 6, 5),
+(90, 17, 1, 1),
+(91, 15, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -521,14 +576,15 @@ CREATE TABLE IF NOT EXISTS `sports` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sports`
 --
 
 INSERT INTO `sports` (`id`, `name`) VALUES
-(1, 'Tennis');
+(1, 'Tennis'),
+(2, 'Football');
 
 -- --------------------------------------------------------
 
@@ -578,10 +634,10 @@ INSERT INTO `time` (`ID`, `hours`, `state`) VALUES
 (31, '22.30', 0),
 (32, '23.00', 0),
 (33, '23.30', 0),
-(34, '24.00', 0),
-(35, '24.30', 0),
-(36, '25.00', 0),
-(37, '25.30', 0);
+(34, '0.00', 0),
+(35, '0.30', 0),
+(36, '1.00', 0),
+(37, '1.30', 0);
 
 -- --------------------------------------------------------
 
@@ -614,7 +670,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `telephone`, `ssn`, `addressId`, `userTypeId`, `isDeleted`, `creationDate`) VALUES
 (1, 'test1', 'test1', 'test', 'pass', '0111-11-11', '010', '111', 2, 3, 0, '2019-02-28 19:46:28'),
-(3, 'hello', 'hello', 'hello', '$2y$10$Zm.1tm4yXUlitqpvwY//yeGnbXeEqA8hyLw/OrwYIXyHpZy2ILjQ6', '1111-11-11', '011', '123', 2, 4, 0, '2019-02-28 19:46:28'),
+(3, 'hello', 'hello', 'hello', '$2y$10$Zm.1tm4yXUlitqpvwY//yeGnbXeEqA8hyLw/OrwYIXyHpZy2ILjQ6', '1111-11-11', '011', '123', 2, 4, 1, '2019-02-28 19:46:28'),
 (4, 'admin', 'admin', 'admin', '$2y$10$EVyYxauio/qK6uysFBjtO.n7a1wf6NeBdzjsOEOiIzo1DYGEVQiQe', '1111-11-11', '012', '124', 2, 1, 0, '2019-02-28 19:46:28'),
 (5, 'aa', 'aa', 'aa', '$2y$10$piv8sfS2caynSYamyO70b.jv78RwdUbIfK0XUPz1DSBLZGwBz0n62', '0000-00-00', '01010', '125', 3, 3, 0, '2019-02-28 19:46:28'),
 (6, 'test', 'test', 'test', '$2y$10$RzrBPRj5SDpfd3YvU1GscuxEAERmVruNhOhvZTEi443oo8mS5Hu5G', '0066-06-16', '6616', '661616', 3, 2, 0, '2019-03-09 21:09:03'),

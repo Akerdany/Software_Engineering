@@ -14,7 +14,7 @@ class CourtView
                 .'<th>Edit Court</th>'
                 .'<th>Delete Court</th>'
                 .'</tr>';
-        $i = 0;
+        
         for($i = 0; $i < count($courtsArray); $i++)
         {
             echo '<tr>'
