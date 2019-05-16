@@ -39,6 +39,18 @@ echo " <h3>" . $_SESSION["CN"] . "</h3>";?>
     <?php
     include_once('total.php');
     include_once('price.php');
+    $pdfcontent = "<h1>Checkout</h1>
+    <h2>xxxxxxxxxx</h2>
+    <h2>Date:</h2>
+    <h3>" . $_SESSION["date"] . "</h3>"
+    . "<h2>From:</h2>"
+    . " <h3>" . $_SESSION["STime"] . "</h3>"
+    . "<h2>To:</h2>"
+    . " <h3>" . $_SESSION["ETime"] . "</h3>"
+    . "<h2>Reserved Court:</h2>"
+    . " <h3>" . $_SESSION["CN"] . "</h3>"
+    . "<h2>Total Cost:</h2>";
+
     if (session_status() == PHP_SESSION_NONE) {session_start();}
         $p     = (float) $_SESSION["price"];
         $hours = (float) $_SESSION["NH"];
@@ -46,6 +58,9 @@ echo " <h3>" . $_SESSION["CN"] . "</h3>";?>
         echo "<h3>". $price->getDesc() . "</h3>";
         echo "<h3>". $price->cost() . "</h3>";
         echo "<br>";
+        $pdfcontent.= "<h3>". $price->getDesc() . "</h3>"
+                    . "<h3>". $price->cost() . "</h3>"
+                    ."<br>";
         if(!empty($_SESSION["promov"])){
             $price = new promo($price,(float)$_SESSION["promov"]);
         }
@@ -53,6 +68,10 @@ echo " <h3>" . $_SESSION["CN"] . "</h3>";?>
         echo "<h3>". $price->cost() . "</h3>";
         $_SESSION["sum"]=$price->cost();
         // echo "<h3>" .  . "</h3>";
+
+        
+        $pdfcontent.= "<h3>".$price->getDesc() . "</h3>"
+                    . "<h3>". $price->cost() . "</h3>";
 
 ?>
     <h2>Payment Method: </h2>
@@ -65,6 +84,13 @@ echo " <h3>" . $_SESSION["Method"] . "</h3>";?>
       $_SESSION["code"]=$code;
       echo '<img src=https://api.qrserver.com/v1/create-qr-code/?data=http://localhost/Software_Engineering/php/tester.php?c='.$code.'&amp;size=100x100" alt="" title="" />';
         echo "<br>";
+        
+        $pdfcontent.= "<h2>Payment Method: </h2>"
+                    ." <h3>" . $_SESSION["Method"] . "</h3> <br>"
+                    .'<img src="https://api.qrserver.com/v1/create-qr-code/?data=http://localhost/Software_Engineering/php/tester.php?c='.$code.'&amp;size=100x100.jpg"  title="" />'
+                    ."<br>";
+
+        $_SESSION["pdfcontent"] = $pdfcontent;
    ?>
     <a href="ToDB.php">
     <button class="button">confirm</button>

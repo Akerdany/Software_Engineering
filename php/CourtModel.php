@@ -7,14 +7,17 @@
         public $pricePerHour;
         public $specs;
         public $sports;
-        public static function display(){
+        public static function display($this_page_first_result, $results_per_page){
             $DB = DbConnection::getInstance();
             $sql = 'SELECT court.id, sports.name, court.courtNumber, court.price, courtdetails.specs 
             FROM court
             INNER JOIN sports ON court.sportId = sports.id
             INNER JOIN ccd ON court.id = ccd.courtId
             INNER JOIN courtdetails ON courtdetails.id = ccd.courtDetailsId
-            WHERE court.isDeleted = "0"';
+            WHERE court.isDeleted = "0"
+            LIMIT '. $this_page_first_result . ',' . $results_per_page;
+
+
             $result = mysqli_query($DB->getdbconnect(), $sql);
             $courtObjects;
             $i = 0;
@@ -22,6 +25,10 @@
             {
                 $courtObjects[$i]= $row;
                 $i++;
+            }
+            if(empty($courtObjects))
+            {
+                return 0;
             }
             return $courtObjects;
         }
@@ -39,6 +46,21 @@
             }
             return $sports;
         }
+
+        public static function getNumberOfResults()
+        {
+            $DB = DbConnection::getInstance();
+            $sql = 'SELECT court.id, sports.name, court.courtNumber, court.price, courtdetails.specs 
+            FROM court
+            INNER JOIN sports ON court.sportId = sports.id
+            INNER JOIN ccd ON court.id = ccd.courtId
+            INNER JOIN courtdetails ON courtdetails.id = ccd.courtDetailsId
+            WHERE court.isDeleted = "0"';
+            $result = mysqli_query($DB->getdbconnect(), $sql);
+            $number_of_results = mysqli_num_rows($result);
+            return $number_of_results;
+        }
+
         public static function delete($id)
         {
             $DB = DbConnection::getInstance();

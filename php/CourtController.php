@@ -2,12 +2,30 @@
 require_once('crudfacade.php');
 require_once('CourtView.php');
 include('navbar.php');
+//include('../ElaAdmin-master/navtest.html');
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 
 $view = new CourtView();
 $crud = new crudfacade();
-$courts = $crud->court->display();
-$view->displayCourts($courts);
+
+$number_of_results = $crud->numberOfCourts();
+$results_per_page = 2;
+
+$number_of_pages = ceil($number_of_results/$results_per_page);
+
+if (!isset($_GET['p'])) {
+    $page = 1;
+}else {
+    $page = $_GET['p'];
+}
+
+$this_page_first_result = ($page-1)*$results_per_page;
+
+$courts = $crud->displayCourts($this_page_first_result, $results_per_page);
+$view->displayCourts($courts, $number_of_pages, $page);
+
+
+
 if(isset($_POST['deleteButton']))
 {
     $crud = new crudfacade();
@@ -49,4 +67,6 @@ if(isset($_POST['editCourt']))
     $crud->editCourt($crud->court);
     header('Location: CourtController.php');
 }
+//include('../ElaAdmin-master/footertest.html');
+
 ?>

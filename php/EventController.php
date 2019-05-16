@@ -6,8 +6,22 @@ echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 
 $view = new EventView();
 $crud = new crudfacade();
-$display = $crud->displayEvents();
-$view->displayEvents($display);
+
+$number_of_results = $crud->numberOfEvents();
+$results_per_page = 10;
+
+$number_of_pages = ceil($number_of_results/$results_per_page);
+
+if (!isset($_GET['p'])) {
+    $page = 1;
+}else {
+    $page = $_GET['p'];
+}
+
+$this_page_first_result = ($page-1)*$results_per_page;
+
+$display = $crud->displayEvents($this_page_first_result, $results_per_page);
+$view->displayEvents($display, $number_of_pages, $page);
 
 if (isset($_POST['addButton'])) {
     $view->addEventForm();
