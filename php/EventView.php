@@ -2,7 +2,7 @@
 require_once 'EventModel.php';
 
 class EventView {
-    public function displayEvents($events) {
+    public function displayEvents($events, $numOfPages, $currentPage) {
 
         echo '<table class = "displaytables">';
         echo '<tr>'
@@ -12,6 +12,8 @@ class EventView {
             . '<th>Edit Event</th>'
             . '<th>Delete Event</th>'
             . '</tr>';
+    if(!empty($events))
+    {
         for ($i = 0; $i < count($events); $i++) {
             echo '<tr>'
                 . '<td>' . $events[$i]['name'] . '</td>'
@@ -26,6 +28,23 @@ class EventView {
                 . '</form>'
                 . '</tr>';
         }
+        echo '<tr style = "background-color: white;">';
+        echo '<td align = "center" colspan = "6">';
+        echo '<div class = "pagination">';
+        for($page=1; $page<=$numOfPages; $page++) {
+            if($page == $currentPage)
+            {
+                echo '<a href="EventController.php?p=' . $page . '" class = "active">' . $page . '</a> ';
+            }
+            else
+            {
+                echo '<a href="EventController.php?p=' . $page . '">' . $page . '</a> ';
+            }
+        }
+        echo '</div>';
+        echo '</td>';
+        echo '</tr>';
+    }
         echo '</table>';
         echo '<br><form action = "EventController.php" method = "POST">'
             . '<button type = "submit" name = "addButton">Add Event</button>'
