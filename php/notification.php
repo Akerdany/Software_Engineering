@@ -23,8 +23,5 @@ $gun = new subject();
 
          }
     $gun->fireobserver();
-    // $msg = "First line of text\nSecond line of text";
-    // $msg = wordwrap($msg,70);
-
-    // mail("hussam0eldin@gmail.com","My subject",$msg);
+    echo("<script>window.location = 'index.php';</script>");
 ?>

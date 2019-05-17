@@ -20,9 +20,9 @@ echo '<link rel="stylesheet"href="../css/style5.css">';
         $_SESSION['promoc']=$code;
         $_SESSION['promov']=$value;
         mysqli_query($DB->getdbconnect(), $sql1);
-        echo '<button onclick="location.href='."'notification.php'".'">Notyify users</button>';
+        echo '<button style="margin:auto;" onclick="location.href='."'notification.php'".'">Notyify users</button>';
         echo "     ";
-        echo '<button onclick="location.href='."'Index.php'".'">home</button>';
+        echo '<button  onclick="location.href='."'Index.php'".'">home</button>';
       }else {
         echo "<script> alert(' Code already exist in this time interval'); </script>";
         echo("<script>window.location = 'addpromo.php';</script>");

@@ -62,7 +62,8 @@ echo " <h3>" . $_SESSION["CN"] . "</h3>";?>
                     . "<h3>". $price->cost() . "</h3>"
                     ."<br>";
         if(!empty($_SESSION["promov"])){
-            $price = new promo($price,(float)$_SESSION["promov"]);
+            $total=(float)$_SESSION["promov"]/100;
+            $price = new promo($price,$total);
         }
         echo "<h3>".$price->getDesc() . "</h3>";
         echo "<h3>". $price->cost() . "</h3>";

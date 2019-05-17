@@ -2,13 +2,14 @@
     <?php
     echo '<link rel="stylesheet"href="../css/style5.css">';
     echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
+    
     ?>
     <form name="fpromo" action="promo_model.php" method = "post">
         <label>Code</label>
         <input type="text" name="code" >
         <br>
         <label>percent</label>
-        <input type="number" step="any" name="value" max=1  >
+        <input type="number" step="any" name="value" max=100 min=1  >
         <br>
         <label>End Date</label>
         <?php
