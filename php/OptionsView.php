@@ -10,7 +10,7 @@ class optionsView {
 
     }
 
-    public static function displayOptionsV($data) {
+    public static function displayOptionsV($data,$numOfPages, $currentPage) {
         echo '<table id=pmtable class = "displaytables">';
         echo '<tr>'
             . '<th>Option Name</th>'
@@ -31,6 +31,22 @@ class optionsView {
                 . '</form>'
                 . '</tr>';
         }
+        echo '<tr style = "background-color: white;">';
+        echo '<td align = "center" colspan = "6">';
+        echo '<div class = "pagination">';
+        for($page=1; $page<=$numOfPages; $page++) {
+            if($page == $currentPage)
+            {
+                echo '<a href="OptionsController.php?p=' . $page . '" class = "active">' . $page . '</a> ';
+            }
+            else
+            {
+                echo '<a href="OptionsController.php?p=' . $page . '">' . $page . '</a> ';
+            }
+        }
+        echo '</div>';
+        echo '</td>';
+        echo '</tr>';
         echo '<tr> <td> <form method=POST> <button type=submit name= "addBtn" class="button"> Add New Option </button> </form> </td> </tr>'
             . '</table>';
     }

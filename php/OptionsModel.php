@@ -17,10 +17,10 @@ class optionsModel {
             $this->optionsType = $row['type'];
         }
     }
-    public static function displayOptionsM() {
+    public static function displayOptionsM($this_page_first_result,$results_per_page) {
         $DB     = DbConnection::getInstance();
         $conn   = $DB->getdbconnect();
-        $sql    = 'SELECT id FROM options Where isDeleted=0';
+        $sql    = 'SELECT id FROM options Where isDeleted=0 LIMIT '.$this_page_first_result.','.$results_per_page.'';
         $result = mysqli_query($conn, $sql);
         $i      = 0;
         $data   = [];
@@ -55,6 +55,13 @@ class optionsModel {
     public static function getIdenticalName($oName) {
         $DB     = DbConnection::getInstance();
         $sql    = "SELECT id FROM `options` WHERE `name`= '$oName'";
+        $result = mysqli_query($DB->getdbconnect(), $sql);
+        $rowcount = mysqli_num_rows($result);
+        return $rowcount;
+    }
+    public static function getNumberofOptions() {
+        $DB     = DbConnection::getInstance();
+        $sql    = "SELECT id FROM `options` Where isDeleted=0";
         $result = mysqli_query($DB->getdbconnect(), $sql);
         $rowcount = mysqli_num_rows($result);
         return $rowcount;
