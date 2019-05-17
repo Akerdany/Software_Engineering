@@ -11,8 +11,7 @@ class EventModel implements Icrud {
     {
         $DB = DbConnection::getInstance();
         $conn = $DB->getdbconnect();
-        $sql = 'SELECT id, name, date, details FROM events WHERE `isDeleted`= 0
-                LIMIT '. $this_page_first_result . ',' . $results_per_page;
+        $sql = 'CALL getEvents('.$this_page_first_result.','.$results_per_page.')';
         $result = mysqli_query($DB->getdbconnect(), $sql);
         $event;
         $i = 0;

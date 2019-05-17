@@ -228,6 +228,50 @@ class User {
         }
     }
 
+    public function getPrivilege() {
+        $DB     = DbConnection::getInstance();
+        $sql    = "SELECT * FROM priviliges";
+        $result = mysqli_query($DB->getdbconnect(), $sql);
+        $array  = array();
+
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            array_push($array, $row);
+        }
+
+        //free the memory is important with large data !!
+        mysqli_free_result($result);
+
+        return $array;
+    }
+
+    public function getUserTypes() {
+        $DB     = DbConnection::getInstance();
+        $sql    = "SELECT * FROM usertype";
+        $result = mysqli_query($DB->getdbconnect(), $sql);
+        $array  = array();
+
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            array_push($array, $row);
+        }
+
+        //free the memory is important with large data !!
+        mysqli_free_result($result);
+
+        return $array;
+    }
+
+    public function addUserType($name) {
+        $DB  = DbConnection::getInstance();
+        $sql = "INSERT INTO `usertype` VALUES (NULL,'$name')";
+
+        if ($result = mysqli_query($DB->getdbconnect(), $sql)) {
+            return true;
+        } else {
+            echo "ERROR: Could not able to execute $sql. " . mysqli_error($DB->getdbconnect());
+            return false;
+        }
+    }
+
     public function displayAllUsers() {
         // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
@@ -293,7 +337,7 @@ class User {
                 if ($editAccess && $row['userTypeId'] == 1) {
                     echo "<td>No Actions</td>";
                 } else if ($editAccess) {
-                    echo '<form action="editUserType.php" method="POST">';
+                    echo '<form action="userController.php" method="POST">';
 
                     echo "<td><select name='userType'>";
                     echo "<option value=0>Choose</option>";
@@ -313,7 +357,7 @@ class User {
                 if ($deleteAccess) {
                     if ($row['isDeleted'] == 0) {
                         echo "<td>Active</td>";
-                        echo '<td> <form action="deleteUser.php" method="POST">'
+                        echo '<td> <form action="userController.php" method="POST">'
                             . '<button type="submit" name="deleteUserButton" value="' . $row['id'] . '">Delete User</button>'
                             . '</form></td>';
                     } else if ($row['isDeleted']) {
@@ -332,7 +376,6 @@ class User {
         if ($addAccess) {
             echo '<a href= "registration.php" class="button">Add User</a><br><br>';
         }
-        mysqli_close($DB->getdbconnect());
     }
 }
 

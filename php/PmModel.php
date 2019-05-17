@@ -124,6 +124,13 @@ class PmModel {
 
         return $data;
     }
+    public static function getIdenticalName($PmName) {
+        $DB     = DbConnection::getInstance();
+        $sql    = "SELECT id FROM `paymentmethod` WHERE `name`= '$PmName'";
+        $result = mysqli_query($DB->getdbconnect(), $sql);
+        $rowcount = mysqli_num_rows($result);
+        return $rowcount;
+    }
 
 }
 
