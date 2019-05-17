@@ -27,11 +27,27 @@ class optionsController {
     public static function addOptionC() {
         // $opModel = new optionsModel(0);
         $opModel = factoryClass::create("Model", "Options", 0);
-        if (!empty(trim($_POST['optionType'])) && !empty(trim($_POST['optionName']))
-            && ctype_alpha($_POST['optionType']) && ctype_alpha($_POST['optionName'])) {
-            $opModel->optionsName = trim($_POST['optionName']);
-            $opModel->optionsType = trim($_POST['optionType']);
-            $opModel->addOptionM($opModel);
+       
+        if (empty(trim($_POST['optionType'])) || empty(trim($_POST['optionName'])))
+        {
+            echo "<script> alert('Fill Empty Fields'); </script>";
+        }
+        else if (!ctype_alpha($_POST['optionType']))
+        {
+            echo "<script> alert('Only letters are allowed in Option Type'); </script>";
+        }
+        else if (!empty(trim($_POST['optionType'])) && !empty(trim($_POST['optionName']))
+            && ctype_alpha($_POST['optionType']) ) 
+        {
+            if ($opModel->getIdenticalName(trim($_POST['optionName'])) > 0)
+                echo "<script> alert('Option already exists'); </script>";
+            else 
+            {
+                $opModel->optionsName = optionsController::checkData(trim($_POST['optionName']));
+                $opModel->optionsType = optionsController::checkData(trim($_POST['optionType']));
+                $opModel->addOptionM($opModel);
+            }
+
         }
         echo '<meta http-equiv="refresh" content="0">';
     }
@@ -45,14 +61,35 @@ class optionsController {
     public static function editOptionC() {
         // $opModel = new optionsModel(0);
         $opModel = factoryClass::create("Model", "Options", 0);
-        if (!empty(trim($_POST['optionType'])) && !empty(trim($_POST['optionName']))
-            && ctype_alpha($_POST['optionType']) && ctype_alpha($_POST['optionName'])) {
-            $opModel->optionsName = trim($_POST['optionName']);
-            $opModel->optionsType = trim($_POST['optionType']);
+        if (empty(trim($_POST['optionType'])) || empty(trim($_POST['optionName'])))
+        {
+            echo "<script> alert('Fill Empty Fields'); </script>";
+        }
+        else if (!ctype_alpha($_POST['optionType']))
+        {
+            echo "<script> alert('Only letters are allowed in Option Type'); </script>";
+        }
+        else if (!empty(trim($_POST['optionType'])) && !empty(trim($_POST['optionName']))
+            && ctype_alpha($_POST['optionType']) && isset($_POST['editBtnSubmit'])) 
+        {
+            if ($opModel->getIdenticalName(trim($_POST['optionName'])) > 0)
+                {// echo "<script> alert('Option already exists'); </script>";
+                }
+            else {
+            $opModel->optionsName = optionsController::checkData(trim($_POST['optionName']));
+            $opModel->optionsType = optionsController::checkData(trim($_POST['optionType']));
             $opModel->optionsID   = $_POST['editBtnSubmit'];
             $opModel->updateOption($opModel);
         }
+        }
         echo '<meta http-equiv="refresh" content="0">';
+    }
+    public static function checkData($data) {
+        $DB = DbConnection::getInstance();
+        $data = strip_tags(mysqli_real_escape_string($DB->getdbconnect(), trim($data)));
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 }
 $optionsC = new optionsController();

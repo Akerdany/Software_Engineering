@@ -13,9 +13,9 @@ class crudfacade
         $this->event = new EventModel();
     }
 
-    function displayEvents()
+    function displayEvents($this_page_first_result, $results_per_page)
     {
-        return $this->event->display();
+        return $this->event->display($this_page_first_result, $results_per_page);
     }
 
     function addEvent($event)
@@ -33,9 +33,19 @@ class crudfacade
         $this->event->delete($id);
     }
 
-    function displayCourts()
+    function numberOfEvents()
     {
-        return $this->court->display();
+        return $this->event->getNumberOfResults();
+    }
+
+    function numberOfCourts()
+    {
+        return $this->court->getNumberOfResults();
+    }
+
+    function displayCourts($this_page_first_result, $results_per_page)
+    {
+        return $this->court->display($this_page_first_result, $results_per_page);
     }
 
     function addCourt($court)

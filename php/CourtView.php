@@ -3,7 +3,7 @@ require_once('CourtModel.php');
 
 class CourtView
 {
-    public function displayCourts($courtsArray)
+    public function displayCourts($courtsArray, $numOfPages, $currentPage)
     {
         echo '<table class = "displaytables">';
             echo '<tr>'
@@ -14,7 +14,8 @@ class CourtView
                 .'<th>Edit Court</th>'
                 .'<th>Delete Court</th>'
                 .'</tr>';
-        
+    if(!empty($courtsArray))
+    {
         for($i = 0; $i < count($courtsArray); $i++)
         {
             echo '<tr>'
@@ -30,6 +31,23 @@ class CourtView
                     .'</form></td>'
                     .'</tr>';
         }
+        echo '<tr style = "background-color: white;">';
+        echo '<td align = "center" colspan = "6">';
+        echo '<div class = "pagination">';
+        for($page=1; $page<=$numOfPages; $page++) {
+            if($page == $currentPage)
+            {
+                echo '<a href="CourtController.php?p=' . $page . '" class = "active">' . $page . '</a> ';
+            }
+            else
+            {
+                echo '<a href="CourtController.php?p=' . $page . '">' . $page . '</a> ';
+            }
+        }
+        echo '</div>';
+        echo '</td>';
+        echo '</tr>';
+    }
             echo '</table>';
             echo '<br><br><form action = "CourtController.php" method = "POST">';
             echo '<button type= "submit" name = "addButton">Add Court</button>'
@@ -47,9 +65,9 @@ class CourtView
             }
             echo '</select> <br>';
             echo '<label>Court Number </label>
-                <input type = "text" name = "courtnumber"><br>
+                <input type = "text" name = "courtnumber" required><br>
                 <label>Hourly Price</label>
-                <input type = "text" name = "courtprice"> <br>
+                <input type = "text" name = "courtprice" required> <br>
                 <label>Court Specs </label>
                 <select name = "specs">';
 

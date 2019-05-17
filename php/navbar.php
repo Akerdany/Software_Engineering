@@ -39,7 +39,7 @@
     
 
 
-    <button type="button" id="sidebarCollapse" class="navbar-btn">
+    <button type="button" id="sidebarCollapse" class="navbar-btn active">
         
         <span ></span>
         <span ></span>
@@ -47,7 +47,7 @@
     </button>     
         <div class="wrapper">
         
-            <nav id="sidebar">
+            <nav id="sidebar" class = "active">
            
                 <div class="sidebar-header">
                

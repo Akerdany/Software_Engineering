@@ -7,11 +7,11 @@ class EventModel implements Icrud {
     public $Date;
     public $Details;
     public $isDeleted;
-    public static function display()
+    public static function display($this_page_first_result, $results_per_page)
     {
         $DB = DbConnection::getInstance();
         $conn = $DB->getdbconnect();
-        $sql = 'SELECT id, name, date, details FROM events WHERE `isDeleted`= 0';
+        $sql = 'CALL getEvents('.$this_page_first_result.','.$results_per_page.')';
         $result = mysqli_query($DB->getdbconnect(), $sql);
         $event;
         $i = 0;
@@ -19,8 +19,23 @@ class EventModel implements Icrud {
             $event[$i] = $row;
             $i++;
         }
+        if(empty($event))
+        {
+            return 0;
+        }
         return $event;
     }
+
+    public static function getNumberOfResults()
+    {
+        $DB = DbConnection::getInstance();
+        $conn = $DB->getdbconnect();
+        $sql = 'SELECT id, name, date, details FROM events WHERE `isDeleted`= 0';
+        $result = mysqli_query($DB->getdbconnect(), $sql);
+        $number_of_results = mysqli_num_rows($result);
+        return $number_of_results;
+    }
+
     public static function add($E)
     {
         $DB = DbConnection::getInstance();
