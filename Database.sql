@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 14, 2019 at 11:06 PM
+-- Generation Time: May 17, 2019 at 03:51 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -415,14 +415,18 @@ CREATE TABLE IF NOT EXISTS `promo` (
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `promo`
 --
 
 INSERT INTO `promo` (`id`, `code`, `value`, `start`, `end`) VALUES
-(1, 'hi', '0.50', '2019-05-14 21:15:31', '2019-05-22 22:00:00');
+(1, 'hi', '0.50', '2019-05-14 21:15:31', '2019-05-22 22:00:00'),
+(2, 'test', '0.50', '2019-05-17 14:23:12', '2019-05-24 22:00:00'),
+(3, 'test1', '0.75', '2019-05-17 15:40:16', '2019-05-23 22:00:00'),
+(4, 'test2', '1.00', '2019-05-17 15:41:20', '2019-05-23 22:00:00'),
+(5, 'test23', '0.90', '2019-05-17 15:42:02', '2019-05-24 22:00:00');
 
 -- --------------------------------------------------------
 
@@ -473,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `reservationDetailsId` (`reservationDetailsId`),
   KEY `courtId` (`courtId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservation`
@@ -488,7 +492,9 @@ INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `c
 (7, 11, 1, 11, '6', 0, '2019-04-12 21:56:10'),
 (8, 20, 3, 12, '7', 0, '2019-04-22 18:44:12'),
 (9, 11, 3, 13, 'e77fce1cc82b0b6d06fb0e9d9fcb0ce577965e31', 0, '2019-04-30 15:27:12'),
-(10, 11, 3, 14, 'e0b88743b07e7cb38aaacf869fd56c15a465b2fa', 0, '2019-05-14 22:03:30');
+(10, 11, 3, 14, 'e0b88743b07e7cb38aaacf869fd56c15a465b2fa', 0, '2019-05-14 22:03:30'),
+(11, 11, 5, 15, '8bc176e6a3e56ea4ca33746ba481caeb806b2b62', 0, '2019-05-16 08:08:53'),
+(12, 11, 5, 16, '8bc176e6a3e56ea4ca33746ba481caeb806b2b62', 0, '2019-05-16 08:09:25');
 
 -- --------------------------------------------------------
 
@@ -508,7 +514,7 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `supervisorId` (`supervisorId`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservationdetails`
@@ -527,7 +533,9 @@ INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervi
 (11, '2019-04-14', '8.30', '10.30', 1, 'normal', 128, 0),
 (12, '2019-04-23', '9.00', '16.00', 1, 'normal', 72, 0),
 (13, '2019-05-01', '9.00', '14.00', 1, 'normal', 48, 0),
-(14, '2019-05-15', '10.00', '14.00', 1, 'normal', 24, 0);
+(14, '2019-05-15', '10.00', '14.00', 1, 'normal', 24, 0),
+(15, '2019-05-17', '9.30', '11.30', 1, 'normal', 26, 0),
+(16, '2019-05-17', '9.30', '11.30', 1, 'normal', 26, 0);
 
 -- --------------------------------------------------------
 

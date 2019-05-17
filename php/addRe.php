@@ -1,3 +1,4 @@
+
 <script>
 function getForm(pmId) {
 
@@ -40,8 +41,7 @@ while ($row = mysqli_fetch_array($resultcourt)) {
 echo '</select> <br>';
 $date = date("Y-m-d");
 echo '<input type="date" min="' . $date . '" name="Rdate" >';
-echo '<input type = "submit" name = "submit" value = "Next">
-            ';
+echo '<input type = "submit" name = "submit" value = "Next">';
 echo '<div id = "fields"></div>';
 
 ?>
