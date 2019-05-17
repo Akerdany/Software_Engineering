@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    
     <style>
 .button {
   background-color: #4CAF50;
@@ -40,7 +40,7 @@ echo " <h3>" . $_SESSION["CN"] . "</h3>";?>
     include_once('total.php');
     include_once('price.php');
     $pdfcontent = "<h1>Checkout</h1>
-    <h2>xxxxxxxxxx</h2>
+   
     <h2>Date:</h2>
     <h3>" . $_SESSION["date"] . "</h3>"
     . "<h2>From:</h2>"
