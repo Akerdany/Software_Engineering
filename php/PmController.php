@@ -14,7 +14,7 @@ class PmController {
         $this->Model = factoryClass::create("Model", "Pm", 0);
         $this->View  = factoryClass::create("View", "Pm", null);
     }
-
+ 
     public static function displayMethodsC() {
         $data = PmModel::displayMethodsM();
         PmView::displayMethodsV($data);
@@ -30,27 +30,50 @@ class PmController {
     public static function addMethodC() {
         // $paymentM = new PmModel(0);
         $paymentM = factoryClass::create("Model", "Pm", 0);
-
-        if (!empty($_POST['constraints']) && !empty(trim($_POST['methodName']))) {
-            $paymentM->methodName = trim($_POST['methodName']);
-            $paymentM->addMethodM($paymentM);
-
-            foreach ($_POST['constraints'] as $selected) {
-                $isPriority = true;
-                if (isset($_POST['priority' . $selected])) {
-                    foreach ($_POST['constraints'] as $compared) {
-
-                        if ($_POST['priority' . $selected] == $_POST['priority' . $compared] && $selected != $compared) {
-                            $isPriority = false;
-                            break;
+       
+        if (empty(trim($_POST['methodName'])))
+        {
+            echo "<script> alert('Fill method Name'); </script>";
+        }
+        else if (empty($_POST['constraints']))
+        {
+            echo "<script> alert('choose options'); </script>";
+        }
+        else if (!empty(trim($_POST['methodName'])) && !empty($_POST['constraints']))
+         {
+           
+            $isnotIdentical=true;
+            if ($paymentM->getIdenticalName(trim($_POST['methodName'])) > 0)
+            {
+                $isnotIdentical=false;
+                echo "<script> alert('Method already exists'); </script>";
+            }
+            else if ($isnotIdentical)
+            {
+                $count=0; 
+                foreach ($_POST['constraints'] as $selected) {
+                    $isPriority = true;
+                    if (isset($_POST['priority' . $selected])) {
+                        foreach ($_POST['constraints'] as $compared) {
+    
+                            if ($_POST['priority' . $selected] == $_POST['priority' . $compared] && $selected != $compared) {
+                                $isPriority = false;
+                                break;
+                            }
                         }
                     }
-                }
-                if ($isPriority) {
-                    $paymentM->priority  = $_POST['priority' . $selected];
-                    $paymentM->optionsID = $selected;
-                    $paymentM->pmID      = $paymentM->getMaxPMid();
-                    $paymentM->insertSelectedoptions($paymentM);
+                    if ($isPriority) {
+                        $count++;
+                        if($count==1)
+                        {
+                            $paymentM->methodName = PmController::checkData(trim($_POST['methodName']));
+                            $paymentM->addMethodM($paymentM);
+                        }
+                        $paymentM->priority  = $_POST['priority' . $selected];
+                        $paymentM->optionsID = $selected;
+                        $paymentM->pmID      = $paymentM->getMaxPMid();
+                        $paymentM->insertSelectedoptions($paymentM);
+                    }
                 }
             }
         }
@@ -72,25 +95,38 @@ class PmController {
         $paymentM->pmID = $_POST['editBtnSubmit'];
 
         if (!empty(trim($_POST['methodName']))) {
-            $paymentM->methodName = trim($_POST['methodName']);
-            $paymentM->updateMethod($paymentM);
-        }
 
+            $isnotIdentical=true;
+            if ($paymentM->getIdenticalName(trim($_POST['methodName'])) > 0)
+            {
+                $isnotIdentical=false;
+                // echo "<script> alert('Cannot update Method Name it already exists'); </script>";
+            }
+            else if ($isnotIdentical)
+            {
+                $paymentM->methodName = PmController::checkData(trim($_POST['methodName']));
+                $paymentM->updateMethod($paymentM);
+            }
+          
+        }
+        if (empty(trim($_POST['methodName']))) {
+            echo "<script> alert('Fill method Name'); </script>";
+        }
         if (!empty($_POST['Checkedconstraints'])) {
             foreach ($_POST['Checkedconstraints'] as $selected) {
                 $isPriority = true;
                 if (isset($_POST['priority' . $selected])) {
                     foreach ($_POST['Checkedconstraints'] as $compared) {
                         if ($_POST['priority' . $selected] == $_POST['priority' . $compared] && $selected != $compared) {
-                            $isPriority                    = false;
-                            $data                          = $paymentM->selectAllselectedOptions($selected);
+                            $isPriority = false;
+                            $data = $paymentM->selectAllselectedOptions($selected);
                             $_POST['priority' . $selected] = $data[0]['priority'];
                             break;
                         }
                     }
                 }
                 if ($isPriority) {
-                    $paymentM->priority          = $_POST['priority' . $selected];
+                    $paymentM->priority = $_POST['priority' . $selected];
                     $paymentM->selectedOptionsId = $selected;
                     $paymentM->updateSelectedoptions($paymentM);
                 }
@@ -122,6 +158,13 @@ class PmController {
             }
         }
         echo '<meta http-equiv="refresh" content="0">';    
+    }
+    public static function checkData($data) {
+        $DB = DbConnection::getInstance();
+        $data = strip_tags(mysqli_real_escape_string($DB->getdbconnect(), trim($data)));
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 }
 
@@ -161,7 +204,7 @@ function addoption()
   newOp.style.display="inline-table";
   var selectedVal=Addselect.options[Addselect.selectedIndex].value;
   Addhtml= '<tr> <td>'+Addselect.options[Addselect.selectedIndex].text+'</td>'
-    +'<td> <input type = "text" name=priority'+selectedVal+' style="width:15%"> </td> </tr>'
+    +'<td> <input type = "number" name=priority'+selectedVal+' style="width:15%" min=1> </td> </tr>'
     +'<input style="display:none" type = "checkbox" name = "constraints[]" value='+selectedVal+' checked>';
  newOp.innerHTML+= Addhtml;
  $("#Optionsdrpdwn option[value='"+selectedVal+"']").remove();
@@ -175,7 +218,13 @@ function onselection()
 {
     editHtml= '<input type=checkbox name = "unCheckedconstraints[]" style="display:none" value='+Editselect.options[Editselect.selectedIndex].value+' checked >'
     +'<label> Option: '+Editselect.options[Editselect.selectedIndex].text+ '</label> <br>'
-    +'<label> Priority: </label> <input type="text" name=priority'+Editselect.options[Editselect.selectedIndex].value+' style="width:15%"> <br>';
+    +'<label> Priority: </label> <input type="number" min=1 name=priority'+Editselect.options[Editselect.selectedIndex].value+' style="width:15%"> <br>';
     editOp.innerHTML= editHtml;
 }
+var limit = document.getElementById("editTable").getElementsByTagName("tr").length - 2;
+$('.single-checkbox').on('change', function() {
+   if($('.single-checkbox:checked').length > limit) {
+       this.checked = false;
+   }
+});
 </script>

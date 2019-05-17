@@ -74,7 +74,7 @@ class PmView {
         echo '<form action = "" method = "POST">
                   <label>Method Name</label>
                   <input type = "text" name = "methodName" value = "' . $data[0]->methodName . '">';
-        echo '<table class = "displaytables">
+        echo '<table id=editTable class = "displaytables">
                   <tr>
                   <th> Option</th> <th> Priority</th> <th> Delete </th> </tr>';
         $optionsName = $data[0]->optionsName;
@@ -91,8 +91,8 @@ class PmView {
             echo '<tr>';
             echo '<td> <label>' . $optionsName[$i] . '</label> </td> ';
             echo '<input type=checkbox name = "Checkedconstraints[]"  style="display:none" value=' . $soid[$i] . ' checked >';
-            echo '<td> <input type = "text" name=priority' . $soid[$i] . ' value=' . $priority[$i] . ' style="width:15%"> </td>
-                           <td> <input type=checkbox name = "delete[]"  value=' . $soid[$i] . ' > </td>';
+            echo '<td> <input type = "number" min=1 name=priority' . $soid[$i] . ' value=' . $priority[$i] . ' style="width:15%"> </td>
+                  <td> <input class="single-checkbox" type=checkbox name = "delete[]"  value=' . $soid[$i] . ' > </td>';
             echo '</tr>';
             $key = array_search($optionsName[$i], $allOptionsName);
             unset($options[$key]);

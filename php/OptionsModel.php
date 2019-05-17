@@ -52,5 +52,12 @@ class optionsModel {
         $Q    = "UPDATE `options` SET `name` = '$O->optionsName' , `type`='$O->optionsType' WHERE `id` = '$O->optionsID' ";
         mysqli_query($conn, $Q);
     }
+    public static function getIdenticalName($oName) {
+        $DB     = DbConnection::getInstance();
+        $sql    = "SELECT id FROM `options` WHERE `name`= '$oName'";
+        $result = mysqli_query($DB->getdbconnect(), $sql);
+        $rowcount = mysqli_num_rows($result);
+        return $rowcount;
+    }
 }
 ?>
