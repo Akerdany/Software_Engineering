@@ -15,9 +15,9 @@ class optionsController {
 
     }
 
-    public static function displayOptionsC() {
-        $data = optionsModel::displayOptionsM();
-        optionsView::displayOptionsV($data);
+    public static function displayOptionsC($this_page_first_result,$results_per_page,$page,$number_of_pages) {
+        $data = optionsModel::displayOptionsM($this_page_first_result,$results_per_page);
+        optionsView::displayOptionsV($data,$number_of_pages, $page);
     }
 
     public static function deleteOptionC($id) {
@@ -92,8 +92,22 @@ class optionsController {
         return $data;
     }
 }
+
+$number_of_results = optionsModel::getNumberofOptions();
+$results_per_page = 2;
+
+$number_of_pages = ceil($number_of_results/$results_per_page);
+
+if (!isset($_GET['p'])) {
+    $page = 1;
+}else {
+    $page = $_GET['p'];
+}
+
+$this_page_first_result = ($page-1)*$results_per_page;
+
 $optionsC = new optionsController();
-$optionsC->displayOptionsC();
+$optionsC->displayOptionsC($this_page_first_result,$results_per_page,$page,$number_of_pages);
 
 if (isset($_POST['deleteButton'])) {
     $ID = $_POST['deleteButton'];

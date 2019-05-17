@@ -32,10 +32,10 @@ class PmModel {
 
         }
     }
-    public static function displayMethodsM() {
+    public static function displayMethodsM($this_page_first_result,$results_per_page) {
         $DB     = DbConnection::getInstance();
         $conn   = $DB->getdbconnect();
-        $sql    = 'SELECT pm.id,pm.name FROM paymentmethod pm Where isDeleted=0';
+        $sql    = 'SELECT pm.id,pm.name FROM paymentmethod pm Where isDeleted=0 LIMIT '.$this_page_first_result.','.$results_per_page.'';
         $result = mysqli_query($conn, $sql);
         $i      = 0;
         $data   = [];
@@ -127,6 +127,13 @@ class PmModel {
     public static function getIdenticalName($PmName) {
         $DB     = DbConnection::getInstance();
         $sql    = "SELECT id FROM `paymentmethod` WHERE `name`= '$PmName'";
+        $result = mysqli_query($DB->getdbconnect(), $sql);
+        $rowcount = mysqli_num_rows($result);
+        return $rowcount;
+    }
+    public static function getNumberofPMs() {
+        $DB     = DbConnection::getInstance();
+        $sql    = "SELECT id FROM `paymentmethod` Where isDeleted=0";
         $result = mysqli_query($DB->getdbconnect(), $sql);
         $rowcount = mysqli_num_rows($result);
         return $rowcount;

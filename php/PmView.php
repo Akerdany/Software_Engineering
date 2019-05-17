@@ -11,7 +11,7 @@ class PmView {
 
     }
 
-    public static function displayMethodsV($data) {
+    public static function displayMethodsV($data,$numOfPages, $currentPage) {
         echo '<table id=pmtable class = "displaytables">';
         echo '<tr>'
             . '<th>Payment Method</th>'
@@ -39,6 +39,22 @@ class PmView {
                 . '</form>'
                 . '</tr>';
         }
+        echo '<tr style = "background-color: white;">';
+        echo '<td align = "center" colspan = "6">';
+        echo '<div class = "pagination">';
+        for($page=1; $page<=$numOfPages; $page++) {
+            if($page == $currentPage)
+            {
+                echo '<a href="PmController.php?p=' . $page . '" class = "active">' . $page . '</a> ';
+            }
+            else
+            {
+                echo '<a href="PmController.php?p=' . $page . '">' . $page . '</a> ';
+            }
+        }
+        echo '</div>';
+        echo '</td>';
+        echo '</tr>';
         echo '<tr> <td> <form method=POST> <button type=submit name= "addBtn" class="button"> Add New Method </button> </form> </td> </tr>';
         echo '</table>';
     }
