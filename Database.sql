@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 17, 2019 at 10:23 PM
+-- Generation Time: May 17, 2019 at 10:48 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -432,7 +432,7 @@ DROP TABLE IF EXISTS `promo`;
 CREATE TABLE IF NOT EXISTS `promo` (
   `id` int(100) NOT NULL AUTO_INCREMENT,
   `code` varchar(100) NOT NULL,
-  `value` decimal(10,2) NOT NULL,
+  `value` int(3) NOT NULL,
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL,
   PRIMARY KEY (`id`)
@@ -443,11 +443,8 @@ CREATE TABLE IF NOT EXISTS `promo` (
 --
 
 INSERT INTO `promo` (`id`, `code`, `value`, `start`, `end`) VALUES
-(1, 'hi', '0.50', '2019-05-14 21:15:31', '2019-05-22 22:00:00'),
-(2, 'test', '0.50', '2019-05-17 14:23:12', '2019-05-24 22:00:00'),
-(3, 'test1', '0.75', '2019-05-17 15:40:16', '2019-05-23 22:00:00'),
-(4, 'test2', '1.00', '2019-05-17 15:41:20', '2019-05-23 22:00:00'),
-(5, 'test23', '0.90', '2019-05-17 15:42:02', '2019-05-24 22:00:00');
+(1, 'hi', 50, '2019-05-14 21:15:31', '2019-05-22 22:00:00'),
+(2, 'test', 20, '2019-05-17 14:23:12', '2019-05-24 22:00:00');
 
 -- --------------------------------------------------------
 
@@ -818,10 +815,10 @@ CREATE TABLE IF NOT EXISTS `user_notifiers` (
 --
 
 INSERT INTO `user_notifiers` (`id`, `UserId`, `notifiersID`, `details`) VALUES
-(1, 20, 1, '12345678'),
-(2, 22, 1, '123456789'),
-(3, 21, 2, 'emp@gmail.com\r\n'),
-(4, 14, 2, 'omaranas@yahoo.com');
+(1, 20, 1, '+201027916660'),
+(2, 22, 1, '+201122511005'),
+(3, 21, 2, 'ma7md-159@hotmail.com\r\n'),
+(4, 14, 2, 'hussam0eldin@gmail.com');
 
 --
 -- Constraints for dumped tables
