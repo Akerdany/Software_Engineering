@@ -206,6 +206,7 @@ if (isset($_POST["editButton"])) {
 if (isset($_POST['editBtnSubmit'])) {
     $pm->editMethodC();
 }
+include('footer.html');
 ?>
 
 <script>

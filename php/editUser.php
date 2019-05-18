@@ -203,7 +203,7 @@ if ($editUser->userQuery($_SESSION['id'])) {
 } else {
     echo "We Might Have a Problem Right Now, Try Again Later";
 }
-
+include('footer.html');
 ?>
 
 </body>

@@ -1,4 +1,5 @@
 <?php
+include_once 'navbar.php';
 require_once('connection.php');
 echo '<link rel="stylesheet"href="../css/style5.css">';
     echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
@@ -29,5 +30,5 @@ echo '<link rel="stylesheet"href="../css/style5.css">';
       }
     } 
     
-
+    include('footer.html');
 ?>

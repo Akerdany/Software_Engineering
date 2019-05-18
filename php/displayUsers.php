@@ -17,6 +17,7 @@ include "navbar.php";
 $myUser = factoryClass::create("Model", "User", null);
 
 $myUser->displayAllUsers();
+include('footer.html');
 ?>
 </body>
 </html>

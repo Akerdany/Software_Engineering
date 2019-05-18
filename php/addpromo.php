@@ -18,5 +18,7 @@
         echo '<input type = "submit" name = "submit" value = "Confirm">';
         ?>
     </form>
-    
+    <?php
+include('footer.html');
+?>
 </html>

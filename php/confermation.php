@@ -124,3 +124,6 @@ download.style.display = 'none';
 
 </script>
 </html>
+<?php
+include('footer.html');
+?>

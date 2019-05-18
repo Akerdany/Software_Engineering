@@ -56,5 +56,5 @@ $date = date("Y-m-d");
 echo '<input type="date" min="' . $date . '" name="Rdate" required >';
 echo '<input type = "submit" name = "submit" value = "Next">';
 echo '<div id = "fields"></div>';
-
+include('footer.html');
 ?>

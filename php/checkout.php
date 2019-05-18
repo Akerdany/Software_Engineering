@@ -82,5 +82,5 @@ if (isset($_POST['submit'])) {
     }
      header('Location: confermation.php');
 }
-
+include('footer.html');
 ?>
