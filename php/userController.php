@@ -13,6 +13,7 @@ if (isset($_POST['register'])) {
     $tel      = $_POST['tel'];
     $ssn      = $_POST['ssn'];
     $userType = $_POST['userType'];
+    $notifier = $_POST['notifier'];
 
     $user = factoryClass::create("Model", "User", null);
 
@@ -24,17 +25,18 @@ if (isset($_POST['register'])) {
     $tel   = $user->checkData($tel);
     $ssn   = $user->checkData($ssn);
 
-    $user->firstName   = $fName;
-    $user->lastName    = $lName;
-    $user->email       = $email;
-    $pass              = $pass . $email;
-    $pass              = password_hash($pass, PASSWORD_DEFAULT);
-    $user->password    = $pass;
-    $user->dateOfBirth = $DoB;
-    $user->telephone   = $tel;
-    $user->ssn         = $ssn;
-    $user->addressId   = 3;
-    $user->userTypeId  = $userType;
+    $user->userData(null, $fName, $lName, $email, password_hash($pass, PASSWORD_DEFAULT), $DoB, $tel, $ssn, 3, $userType, $notifier);
+    // $user->firstName   = $fName;
+    // $user->lastName    = $lName;
+    // $user->email       = $email;
+    // $pass              = $pass . $email;
+    // $pass              = password_hash($pass, PASSWORD_DEFAULT);
+    // $user->password    = $pass;
+    // $user->dateOfBirth = $DoB;
+    // $user->telephone   = $tel;
+    // $user->ssn         = $ssn;
+    // $user->addressId   = 3;
+    // $user->userTypeId  = $userType;
 
     if ($user->insertUser($user)) {
 

@@ -1,3 +1,9 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -15,6 +21,8 @@
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -221,6 +229,18 @@
             });
         }
 
+        function getNotifiers(){
+            jQuery.ajax({
+                url: "getNotifiers.php",
+                data: "action=true",
+                type: "POST",
+
+                success: function (data) {
+                    $("#notifier").html(data);
+                }
+            });
+        }
+
         function checkEmailAvailabilty() {
             jQuery.ajax({
                 url: "checkEmail.php",
@@ -243,6 +263,7 @@
 
         $(document).ready(function () {
             getUserType();
+            getNotifiers();
         });
     </script>
 </head>
@@ -296,6 +317,10 @@
                                     onblur="checkSSN()" required>
                                 <p id="ssnError">
                                 </p>
+                            </div>
+                            <div class="form-group">
+                                <label>How would you like to be notified ?</label>
+                                <div id="notifier"></div>
                             </div>
                         </fieldset>
                         <hr>

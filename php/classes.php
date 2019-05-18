@@ -14,18 +14,20 @@ class User {
     public $addressId;
     public $userTypeId;
     public $isDeleted;
+    public $notifier;
 
-    public function userData($ID, $FIRSTNAME, $LASTNAME, $EMAIL, $PASSWORD, $DATEOFBIRTH, $TELEPHONE, $SSN, $ADDRESS, $USER) {
-        $id          = $ID;
-        $firstName   = $FIRSTNAME;
-        $lastName    = $LASTNAME;
-        $email       = $EMAIL;
-        $password    = $PASSWORD;
-        $dateOfBirth = $DATEOFBIRTH;
-        $telephone   = $TELEPHONE;
-        $ssn         = $SSN;
-        $addressId   = $ADDRESS;
-        $userTypeId  = $USER;
+    public function userData($ID, $FIRSTNAME, $LASTNAME, $EMAIL, $PASSWORD, $DATEOFBIRTH, $TELEPHONE, $SSN, $ADDRESS, $USER, $NOTIFIER) {
+        $this->id          = $ID;
+        $this->firstName   = $FIRSTNAME;
+        $this->lastName    = $LASTNAME;
+        $this->email       = $EMAIL;
+        $this->password    = $PASSWORD;
+        $this->dateOfBirth = $DATEOFBIRTH;
+        $this->telephone   = $TELEPHONE;
+        $this->ssn         = $SSN;
+        $this->addressId   = $ADDRESS;
+        $this->userTypeId  = $USER;
+        $this->notifier    = $NOTIFIER;
     }
 
     public function userQuery($id) {
@@ -76,7 +78,27 @@ class User {
             '" . $tempUser->dateOfBirth . "','" . $tempUser->addressId . "','" . $tempUser->userTypeId . "','" . $tempUser->telephone . "','" . $tempUser->ssn . "','" . $date . "')";
 
             if ($result = mysqli_query($DB->getdbconnect(), $sql)) {
-                return true;
+
+                $sql2    = "SELECT * FROM user WHERE email='$tempUser->email' AND creationDate='$date'";
+                $result2 = mysqli_query($DB->getdbconnect(), $sql2);
+
+                $userId = mysqli_fetch_assoc($result2);
+                $userId = $userId['id'];
+                print_r($userId);
+
+                if ($tempUser->notifier == 1) {
+                    $detail = "+2" . $tempUser->telephone;
+                } elseif ($tempUser->notifier == 2) {
+                    $detail = $tempUser->email;
+                }
+
+                $sql3 = "INSERT INTO `user_notifiers` VALUES(NULL, $userId,'$tempUser->notifier','$detail')";
+                if ($result3 = mysqli_query($DB->getdbconnect(), $sql3)) {
+                    return true;
+                } else {
+                    echo "ERROR: Could not able to execute $sql3. " . mysqli_error($DB->getdbconnect());
+                    return false;
+                }
             } else {
                 echo "ERROR: Could not able to execute $sql. " . mysqli_error($DB->getdbconnect());
                 return false;
