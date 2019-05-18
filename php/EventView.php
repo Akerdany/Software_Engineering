@@ -55,11 +55,11 @@ class EventView {
         $date = date("Y-m-d");
         echo '<form action = "EventController.php" method = "POST">'
             . '<label>Event Name</label>'
-            . '<input type = "text" name = "eventName">'
+            . '<input type = "text" minlength = "2" maxlength = "100" name = "eventName" required>'
             . '<label>Event Date</label>'
-            . '<input type = "date"min="' . $date . '" name = "eventDate"><br>'
+            . '<input type = "date"min="' . $date . '" name = "eventDate" required><br>'
             . '<label>Event Details</label><br>'
-            . '<textarea name = "eventDetails" rows = "15" cols = "5"></textarea>';
+            . '<textarea name = "eventDetails" minlength = "10" rows = "15" cols = "5" required></textarea>';
         echo '<input type = "submit" name = "addEvent" value = "Add">'
             . '</form>';
     }
@@ -67,11 +67,11 @@ class EventView {
         $date = date("Y-m-d");
         echo '<form action = "EventController.php" method = "POST">'
         . '<label>Event Name</label>'
-        . '<input type = "text" name = "eventName" value = "' . $event->Name . '">'
+        . '<input type = "text" minlength = "2" maxlength = "100" name = "eventName" value = "' . $event->Name . '" required>'
         . '<label>Event Date</label>'
-        . '<input type = "date"min="' . $date . '" name = "eventDate" value = "' . $event->Date . '"><br>'
+        . '<input type = "date"min="' . $date . '" name = "eventDate" value = "' . $event->Date . '" required><br>'
         . '<label>Event Details</label><br>'
-        . '<textarea name = "eventDetails" rows = "15" cols = "5">' . $event->Details . '</textarea>';
+        . '<textarea name = "eventDetails" minlength = "10" rows = "15" cols = "5" required>' . $event->Details . '</textarea>';
         echo '<input type = "submit" name = "editEvent" value = "Submit Edits">
             .<input type = "hidden" name = "eventid" value = "' . $event->ID . '">'
             . '</form>';

@@ -9,9 +9,13 @@
         public $sports;
         public static function display($this_page_first_result, $results_per_page){
             $DB = DbConnection::getInstance();
-            $sql = 'CALL getCourts('. $this_page_first_result . ',' . $results_per_page .')';
-
-
+            $sql = 'SELECT court.id, sports.name, court.courtNumber, court.price, courtdetails.specs 
+            FROM court
+            INNER JOIN sports ON court.sportId = sports.id
+            INNER JOIN ccd ON court.id = ccd.courtId
+            INNER JOIN courtdetails ON courtdetails.id = ccd.courtDetailsId
+            WHERE court.isDeleted = "0"
+            LIMIT '. $this_page_first_result . ',' . $results_per_page;
             $result = mysqli_query($DB->getdbconnect(), $sql);
             $courtObjects;
             $i = 0;
@@ -77,34 +81,53 @@
         }
         public static function add($court){
             $DB = DbConnection::getInstance();
-            $sql = 'INSERT INTO court (courtNumber, sportId, price, isDeleted) VALUES ( "'.$court->courtNumber.'","'.$court->sportid.'","'.$court->pricePerHour.'", 0)';
-            mysqli_query($DB->getdbconnect(), $sql);
-            $lastIdSQL = 'SELECT MAX(id) from court';
-            $lastIdResult = mysqli_query($DB->getdbconnect(), $lastIdSQL);
-            while($lastIdRow = mysqli_fetch_array($lastIdResult))
-            {
-                $court->id = $lastIdRow['MAX(id)'];
-            }
 
-            $ccdSQL = 'INSERT INTO ccd (courtId, courtDetailsId) VALUES ("'.$court->id.'","'.$court->specsid.'")';
-            mysqli_query($DB->getdbconnect(), $ccdSQL);
+            $validateSQL = 'SELECT * from court WHERE courtNumber = "'.$court->courtNumber.'" AND sportId = "'.$court->sportid.'" AND isDeleted = "0"';
+            $validateResult = mysqli_query($DB->getdbconnect(), $validateSQL);
+            if(mysqli_num_rows($validateResult) != 0)
+            {
+                echo '<meta http-equiv="refresh" content="0">';
+                echo '<script>alert("A court with the same number exists");</script>';
+            }
+            else {
+                $sql = 'INSERT INTO court (courtNumber, sportId, price, isDeleted) VALUES ( "'.$court->courtNumber.'","'.$court->sportid.'","'.$court->pricePerHour.'", 0)';
+                mysqli_query($DB->getdbconnect(), $sql);
+                $lastIdSQL = 'SELECT MAX(id) from court';
+                $lastIdResult = mysqli_query($DB->getdbconnect(), $lastIdSQL);
+                while($lastIdRow = mysqli_fetch_array($lastIdResult))
+                {
+                    $court->id = $lastIdRow['MAX(id)'];
+                }
+
+                $ccdSQL = 'INSERT INTO ccd (courtId, courtDetailsId) VALUES ("'.$court->id.'","'.$court->specsid.'")';
+                mysqli_query($DB->getdbconnect(), $ccdSQL);
+            }
             //mysqli_close($DB->getdbconnect());
         }
 
         public static function edit($court){
             $DB = DbConnection::getInstance();
-            $sql = 'UPDATE court 
-                    SET courtNumber = "'.$court->courtNumber.'", 
-                    sportId = "'.$court->sportid.'",
-                    price = "'.$court->pricePerHour.'"
-                    WHERE id = "'.$court->id.'"';
-            $ccdSQL = 'UPDATE ccd
-                       SET courtDetailsId = "'.$court->specsid.'"
-                       WHERE courtId = "'.$court->id.'"';
+            $validateSQL = 'SELECT * from court WHERE courtNumber = "'.$court->courtNumber.'" AND sportId = "'.$court->sportid.'" AND isDeleted = "0"';
+            $validateResult = mysqli_query($DB->getdbconnect(), $validateSQL);
+            if(mysqli_num_rows($validateResult) != 0)
+            {
+                echo '<meta http-equiv="refresh" content="0">';
+                echo '<script>alert("A court with the same number exists");</script>';
+            }
+            else{
+                $sql = 'UPDATE court 
+                        SET courtNumber = "'.$court->courtNumber.'", 
+                        sportId = "'.$court->sportid.'",
+                        price = "'.$court->pricePerHour.'"
+                        WHERE id = "'.$court->id.'"';
+                $ccdSQL = 'UPDATE ccd
+                        SET courtDetailsId = "'.$court->specsid.'"
+                        WHERE courtId = "'.$court->id.'"';
 
-            mysqli_query($DB->getdbconnect(), $ccdSQL);
-            mysqli_query($DB->getdbconnect(), $sql);
-            mysqli_close($DB->getdbconnect());
+                mysqli_query($DB->getdbconnect(), $ccdSQL);
+                mysqli_query($DB->getdbconnect(), $sql);
+                mysqli_close($DB->getdbconnect());
+            }
         }
         public static function getCourtDetails($id)
         {

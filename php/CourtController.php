@@ -9,7 +9,18 @@ $view = new CourtView();
 $crud = new crudfacade();
 
 $number_of_results = $crud->numberOfCourts();
-$results_per_page = 2;
+$results_per_page = 20;
+
+function checkData($data) {
+    // $DB = new DbConnection();
+    $DB = DbConnection::getInstance();
+
+    $data = strip_tags(mysqli_real_escape_string($DB->getdbconnect(), trim($data)));
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+
+    return $data;
+}
 
 $number_of_pages = ceil($number_of_results/$results_per_page);
 
@@ -31,7 +42,7 @@ if(isset($_POST['deleteButton']))
     $crud = new crudfacade();
     $id = $_POST['deleteButton'];
     $crud->deleteCourt($id);
-    header('Location: CourtController.php');
+    echo '<meta http-equiv="refresh" content="0">';
 }
 if(isset($_POST['addButton']))
 {
@@ -41,12 +52,12 @@ if(isset($_POST['addButton']))
 if(isset($_POST['addCourt']))
 {
     $crud = new crudfacade();
-    $crud->court->courtNumber = $_POST['courtnumber'];
-    $crud->court->pricePerHour = $_POST['courtprice'];
-    $crud->court->sportid = $_POST['sport'];
-    $crud->court->specsid = $_POST['specs'];
+    $crud->court->courtNumber = checkData($_POST['courtnumber']);
+    $crud->court->pricePerHour = checkData($_POST['courtprice']);
+    $crud->court->sportid = checkData($_POST['sport']);
+    $crud->court->specsid = checkData($_POST['specs']);
     $crud->addCourt($crud->court);
-    header('Location: CourtController.php');
+    echo '<meta http-equiv="refresh" content="0">';
 }
 if(isset($_POST['editButton']))
 {
@@ -59,14 +70,14 @@ if(isset($_POST['editCourt']))
 {
     $crud = new crudfacade();
     
-    $crud->court->courtNumber = $_POST['courtnumber'];
-    $crud->court->pricePerHour = $_POST['courtprice'];
-    $crud->court->sportid = $_POST['sport'];
-    $crud->court->specsid = $_POST['specs'];
-    $crud->court->id = $_POST['courtid'];
+    $crud->court->courtNumber = checkData($_POST['courtnumber']);
+    $crud->court->pricePerHour = checkData($_POST['courtprice']);
+    $crud->court->sportid = checkData($_POST['sport']);
+    $crud->court->specsid = checkData($_POST['specs']);
+    $crud->court->id = checkData($_POST['courtid']);
     $crud->editCourt($crud->court);
-    header('Location: CourtController.php');
+    echo '<meta http-equiv="refresh" content="0">';
 }
 //include('../ElaAdmin-master/footertest.html');
-
+include('footer.html');
 ?>

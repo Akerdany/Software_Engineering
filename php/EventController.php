@@ -12,6 +12,18 @@ $results_per_page = 10;
 
 $number_of_pages = ceil($number_of_results/$results_per_page);
 
+
+function checkData($data) {
+    // $DB = new DbConnection();
+    $DB = DbConnection::getInstance();
+
+    $data = strip_tags(mysqli_real_escape_string($DB->getdbconnect(), trim($data)));
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+
+    return $data;
+}
+
 if (!isset($_GET['p'])) {
     $page = 1;
 }else {
@@ -29,11 +41,12 @@ if (isset($_POST['addButton'])) {
 if(isset($_POST['addEvent']))
 {
     $crud = new crudfacade();
-    $crud->event->Name = $_POST['eventName'];
-    $crud->event->Date = $_POST['eventDate'];
-    $crud->event->Details = $_POST['eventDetails'];
+    $crud->event->Name = checkData($_POST['eventName']);
+    $crud->event->Date = checkData($_POST['eventDate']);
+    $crud->event->Details = checkData($_POST['eventDetails']);
     $crud->addEvent($crud->event);
-    header('Location: EventController.php');
+    echo '<meta http-equiv="refresh" content="0">';
+    //header('Location: EventController.php');
 }
 if(isset($_POST['editButton']))
 {
@@ -44,18 +57,21 @@ if(isset($_POST['editButton']))
 if(isset($_POST['editEvent']))
 {
     $crud = new crudfacade();
-    $crud->event->ID = $_POST['eventid'];
-    $crud->event->Name = $_POST['eventName'];
-    $crud->event->Date = $_POST['eventDate'];
-    $crud->event->Details = $_POST['eventDetails'];
+    $crud->event->ID = checkData($_POST['eventid']);
+    $crud->event->Name = checkData($_POST['eventName']);
+    $crud->event->Date = checkData($_POST['eventDate']);
+    $crud->event->Details = checkData($_POST['eventDetails']);
     $crud->editEvent($crud->event);
-    header('Location: EventController.php');
+    echo '<meta http-equiv="refresh" content="0">';
+    //header('Location: EventController.php');
 }
 if(isset($_POST['deleteButton']))
 {
     $crud = new crudfacade();
     $id = $_POST['deleteButton'];
     $crud->deleteEvent($id);
-    header('Location: EventController.php');
+    echo '<meta http-equiv="refresh" content="0">';
+    //header('Location: EventController.php');
 }
+include('footer.html');
 ?>

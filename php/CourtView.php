@@ -65,9 +65,9 @@ class CourtView
             }
             echo '</select> <br>';
             echo '<label>Court Number </label>
-                <input type = "text" name = "courtnumber" required><br>
+                <input type = "number" min = "1" max = "1000" name = "courtnumber" required><br>
                 <label>Hourly Price</label>
-                <input type = "text" name = "courtprice" required> <br>
+                <input type = "number" min = "1" max = "5000" name = "courtprice" required> <br>
                 <label>Court Specs </label>
                 <select name = "specs">';
 
@@ -92,9 +92,9 @@ class CourtView
             }
             echo '</select> <br>';
             echo '<label>Court Number </label>
-                <input type = "text" name = "courtnumber" value = "'.$court->courtNumber.'"><br>
+                <input type = "number" min = "1" max = "1000" name = "courtnumber" value = "'.$court->courtNumber.'" required><br>
                 <label>Hourly Price</label>
-                <input type = "text" name = "courtprice" value = "'.$court->pricePerHour.'"> <br>
+                <input type = "number" min = "1" max = "5000" name = "courtprice" value = "'.$court->pricePerHour.'" required> <br>
                 <label>Court Specs </label>
                 <select name = "specs" value = "'.$court->specs.'">';
 

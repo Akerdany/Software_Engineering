@@ -11,7 +11,8 @@ class EventModel implements Icrud {
     {
         $DB = DbConnection::getInstance();
         $conn = $DB->getdbconnect();
-        $sql = 'CALL getEvents('.$this_page_first_result.','.$results_per_page.')';
+        $sql = 'SELECT id, name, date, details FROM events WHERE `isDeleted`= 0
+                LIMIT '. $this_page_first_result . ',' . $results_per_page;
         $result = mysqli_query($DB->getdbconnect(), $sql);
         $event;
         $i = 0;
@@ -39,9 +40,18 @@ class EventModel implements Icrud {
     public static function add($E)
     {
         $DB = DbConnection::getInstance();
-        $conn=$DB->getdbconnect();
-        $Q="INSERT INTO `events` (`name`, `date`, `details`, `isDeleted`) VALUES ('$E->Name', '$E->Date', '$E->Details', '0')";
-        mysqli_query($conn,$Q);
+        $validateSQL = 'SELECT * from events WHERE name = "'.$E->Name.'" AND date = "'.$E->Date.'" AND isDeleted = "0"';
+        $validateResult = mysqli_query($DB->getdbconnect(), $validateSQL);
+        if(mysqli_num_rows($validateResult) != 0)
+        {
+            echo '<meta http-equiv="refresh" content="0">';
+            echo '<script>alert("Duplicate event");</script>';
+        }
+        else{
+            $conn=$DB->getdbconnect();
+            $Q="INSERT INTO `events` (`name`, `date`, `details`, `isDeleted`) VALUES ('$E->Name', '$E->Date', '$E->Details', '0')";
+            mysqli_query($conn,$Q);
+        }
     }
     public static function getEventDetails($id)
     {
@@ -60,10 +70,19 @@ class EventModel implements Icrud {
     public static function edit($E)
     {
         $DB = DbConnection::getInstance();
-        $conn=$DB->getdbconnect();
-        $Q="UPDATE `events` SET `name` = '$E->Name', `Date` = '$E->Date', `Details` = '$E->Details' WHERE `ID` = '$E->ID' ";
-        mysqli_query($conn,$Q);
-        header('Location: displayEvents.php');
+        $validateSQL = 'SELECT * from events WHERE name = "'.$E->Name.'" AND date = "'.$E->Date.'" AND isDeleted = "0"';
+        $validateResult = mysqli_query($DB->getdbconnect(), $validateSQL);
+        if(mysqli_num_rows($validateResult) != 0)
+        {
+            echo '<meta http-equiv="refresh" content="0">';
+            echo '<script>alert("Duplicate event");</script>';
+        }
+        else{
+            $conn=$DB->getdbconnect();
+            $Q="UPDATE `events` SET `name` = '$E->Name', `Date` = '$E->Date', `Details` = '$E->Details' WHERE `ID` = '$E->ID' ";
+            mysqli_query($conn,$Q);
+        }
+        //header('Location: displayEvents.php');
     }
     public static function delete($ID)
     {
@@ -71,7 +90,7 @@ class EventModel implements Icrud {
         $conn=$DB->getdbconnect();
         $Q="UPDATE `events` SET `isDeleted` = '1' WHERE `ID` = '$ID' ";
         mysqli_query($conn,$Q);
-        header('Location: displayEvents.php');
+        //header('Location: displayEvents.php');
     }
 }
 ?>
