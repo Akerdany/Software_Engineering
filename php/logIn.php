@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<?php include_once 'navbar.php'; ?>
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,8 +15,8 @@
   <form name="logInForm" action="logInController.php" method="POST">
     <input id="username" name="username" type="text" class="input" placeholder="Username"><br>
     <input id="password" name="password" type="password" class="input" placeholder="Password" data-type="password"><br><br>
-    <a href="registration.php">Register</a><br>
     <input type="submit"  value="Sign In" name="submit">
+    <button><a href="registration.php"> Register </a><br>  </button>
   </form>
 </div>
 
