@@ -94,6 +94,7 @@ a.sideNavLink:link, a.sideNavLink:visited{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    margin-left: 5%;
   }
 
   input[type=checkbox] {
