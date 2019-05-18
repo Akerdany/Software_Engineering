@@ -26,6 +26,7 @@ $RDID=mysqli_fetch_assoc($r);
 $sql1="INSERT INTO `reservation` (`userId`, `courtId`, `reservationDetailsId`,`code`) VALUES ( '".$_SESSION["id"]."', '".$_SESSION["cID"]."', '".$RDID["MAX(id)"]."', '".$_SESSION["code"]."')";
 //echo $sql1;
 mysqli_query($DB->getdbconnect(), $sql1);
+
 $pdf->Output("confirmation.pdf", "D");
-header('Location: index.php');
+// $pdf->Output();
 ?>

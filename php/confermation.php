@@ -94,13 +94,33 @@ echo " <h3>" . $_SESSION["Method"] . "</h3>";?>
         $_SESSION["pdfcontent"] = $pdfcontent;
    ?>
     <a href="ToDB.php">
-    <button class="button">confirm</button>
+    <button id = "confirm" class="button">confirm and download invoice :)</button>
     </a>
     <a href="addRe.php">
-    <button class="button">cancel</button>
+    <button id = "cancel" class="button">cancel</button>
     </a>
 
+    <a href="index.php">
+    <button id = "home" class="button">Back to homepage</button>
+    </a>
 
     </div>
 </body>
+<script>
+var confirm = document.getElementById('confirm');
+var cancel = document.getElementById('cancel');
+var home = document.getElementById('home');
+confirm.addEventListener('click',hide,false);
+
+home.style.display = 'none';
+download.style.display = 'none';
+
+    function hide() {
+        confirm.style.display = 'none';
+        cancel.style.display = 'none';
+        home.style.display = 'inline';
+        download.style.display = 'inline';
+    }   
+
+</script>
 </html>
