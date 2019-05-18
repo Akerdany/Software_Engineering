@@ -12,7 +12,7 @@ class Reservationview {
         } else {
             $action = false;
         }
-        echo '<table class = "displaytables">';
+        echo '<table class = "table text-center table-dark table-striped table-hover table-bordered">';
         echo '<tr>'
             . '<th>Court Number</th>'
             . '<th>Date</th>'
@@ -51,18 +51,18 @@ class Reservationview {
             if ($action) {
                 if ($row['status'] == 0) {
                     echo '<td> <form action = "Reservation_controller.php" method = "POST">'
-                        . '<button type = "submit" name = "approve" value = "' . $row['id'] . '">Approve</button>'
+                        . '<button class="btn btn-lg btn-danger" type = "submit" name = "approve" value = "' . $row['id'] . '">Approve</button>'
                         . '</form>';
                 } else {
                     echo '<td> <form action = "Reservation_controller.php" method = "POST">'
-                        . '<button type = "submit" name = "decline" value = "' . $row['id'] . '">Decline</button>'
+                        . '<button class="btn btn-lg btn-danger" type = "submit" name = "decline" value = "' . $row['id'] . '">Decline</button>'
                         . '</form>';
                 }
             }
             echo '</form>'
                 . '</tr>';
         }
-        echo '<tr style = "background-color: white;">';
+        echo '<tr class="text-white">';
         echo '<td align = "center" colspan = "6">';
         echo '<div class = "pagination">';
         for($page=1; $page<=$numOfPages; $page++) {
@@ -72,7 +72,7 @@ class Reservationview {
             }
             else
             {
-                echo '<a href="displayRe.php?p=' . $page . '">' . $page . '</a> ';
+                echo '<a class = "btn btn-sm btn-primary" href="displayRe.php?p=' . $page . '">' . $page . '</a> ';
             }
         }
         echo '</div>';

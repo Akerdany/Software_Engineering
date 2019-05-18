@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 17, 2019 at 10:48 PM
+-- Generation Time: May 18, 2019 at 03:01 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `features` (
   `feature` varchar(50) NOT NULL,
   `file` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `features`
@@ -231,7 +231,8 @@ INSERT INTO `features` (`id`, `feature`, `file`) VALUES
 (5, 'Reserve', 'addRe.php'),
 (6, 'ManageAccount', 'editUser.php'),
 (7, 'Reservation', 'displayRe.php'),
-(9, 'Options', 'OptionsController.php');
+(9, 'Options', 'OptionsController.php'),
+(10, 'Add Promocode', 'addpromo.php');
 
 -- --------------------------------------------------------
 
@@ -403,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `previliges` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `optionId` (`featureId`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `previliges`
@@ -420,7 +421,8 @@ INSERT INTO `previliges` (`id`, `userTypeId`, `featureId`) VALUES
 (10, 1, 7),
 (11, 2, 6),
 (14, 1, 4),
-(15, 3, 9);
+(15, 3, 9),
+(16, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -436,7 +438,7 @@ CREATE TABLE IF NOT EXISTS `promo` (
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `promo`
@@ -444,7 +446,9 @@ CREATE TABLE IF NOT EXISTS `promo` (
 
 INSERT INTO `promo` (`id`, `code`, `value`, `start`, `end`) VALUES
 (1, 'hi', 50, '2019-05-14 21:15:31', '2019-05-22 22:00:00'),
-(2, 'test', 20, '2019-05-17 14:23:12', '2019-05-24 22:00:00');
+(2, 'test', 20, '2019-05-17 14:23:12', '2019-05-24 22:00:00'),
+(7, 'wageeg', 12, '2019-05-18 14:41:52', '2019-05-21 22:00:00'),
+(6, 'wageh', 32, '2019-05-18 14:40:59', '2019-05-22 22:00:00');
 
 -- --------------------------------------------------------
 
@@ -461,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `p_method_option_value` (
   PRIMARY KEY (`id`),
   KEY `reservationId` (`reservationId`),
   KEY `selectedoptionsId` (`selectedoptionsId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -482,7 +486,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `reservationDetailsId` (`reservationDetailsId`),
   KEY `courtId` (`courtId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservation`
@@ -499,7 +503,10 @@ INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `c
 (9, 11, 3, 13, 'e77fce1cc82b0b6d06fb0e9d9fcb0ce577965e31', 0, '2019-04-30 15:27:12'),
 (10, 11, 3, 14, 'e0b88743b07e7cb38aaacf869fd56c15a465b2fa', 0, '2019-05-14 22:03:30'),
 (11, 11, 5, 15, '8bc176e6a3e56ea4ca33746ba481caeb806b2b62', 0, '2019-05-16 08:08:53'),
-(12, 11, 5, 16, '8bc176e6a3e56ea4ca33746ba481caeb806b2b62', 0, '2019-05-16 08:09:25');
+(12, 11, 5, 16, '8bc176e6a3e56ea4ca33746ba481caeb806b2b62', 0, '2019-05-16 08:09:25'),
+(13, 11, 7, 17, 'eac3f1fd0563347a32ab80fea914fa864d51a0fa', 0, '2019-05-17 22:54:10'),
+(14, 11, 7, 18, 'eac3f1fd0563347a32ab80fea914fa864d51a0fa', 0, '2019-05-17 22:55:25'),
+(15, 11, 7, 19, 'cb6caa8caa5a3c6f26f1f01bf5077f78593f5caf', 0, '2019-05-18 09:04:53');
 
 -- --------------------------------------------------------
 
@@ -519,7 +526,7 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `supervisorId` (`supervisorId`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservationdetails`
@@ -531,16 +538,19 @@ INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervi
 (3, '2019-03-21', '1.30', '3.00', 4, 'normal', 15, 0),
 (4, '2019-03-21', '8.00', '11.30', 4, 'normal', 15, 0),
 (5, '2019-03-22', '8.00', '9.30', 1, 'normal', 128, 0),
-(7, '2019-03-22', '8.00', '9.30', 1, 'normal', 128, 0),
+(7, '2019-03-22', '8.00', '9.30', 1, 'normal', 128, 1),
 (8, '2019-03-22', '9.30', '11.30', 1, 'normal', 128, 0),
 (9, '2019-03-21', '10.00', '13.00', 1, 'normal', 128, 0),
 (10, '2019-04-18', '11.00', '14.00', 1, 'normal', 128, 0),
-(11, '2019-04-14', '8.30', '10.30', 1, 'normal', 128, 0),
+(11, '2019-04-14', '8.30', '10.30', 1, 'normal', 128, 1),
 (12, '2019-04-23', '9.00', '16.00', 1, 'normal', 72, 0),
 (13, '2019-05-01', '9.00', '14.00', 1, 'normal', 48, 0),
 (14, '2019-05-15', '10.00', '14.00', 1, 'normal', 24, 0),
 (15, '2019-05-17', '9.30', '11.30', 1, 'normal', 26, 0),
-(16, '2019-05-17', '9.30', '11.30', 1, 'normal', 26, 0);
+(16, '2019-05-17', '9.30', '11.30', 1, 'normal', 26, 0),
+(17, '2019-05-29', '9.30', '14.30', 1, 'normal', 161, 0),
+(18, '2019-05-29', '9.30', '14.30', 1, 'normal', 161, 0),
+(19, '2019-05-20', '9.00', '14.00', 1, 'normal', 161, 0);
 
 -- --------------------------------------------------------
 
