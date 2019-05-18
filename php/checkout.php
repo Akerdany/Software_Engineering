@@ -29,7 +29,7 @@ $DB = DbConnection::getInstance();
 
 echo '<form id = "checkout" action = "" method = "POST">'
     . '<label>Payment Method</label><br>'
-    . '<select name = "paymentmethod" onchange = "getForm(this.value)">'
+    . '<select name = "paymentmethod" required onchange = "getForm(this.value)">'
     . '<option disabled selected> -- Choose -- </option>';
 
 //var_dump($data);

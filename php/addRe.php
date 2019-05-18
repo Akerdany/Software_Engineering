@@ -16,7 +16,20 @@ function getForm(pmId) {
     xmlhttp.send();
 
 }
-
+function required()
+{
+var empt = document.forms["form1"]["Rdate"].value;
+if (empt == "")
+{
+alert("Please input a Value");
+return false;
+}
+else 
+{
+alert('Code has accepted : you can try another');
+return true; 
+}
+}
 
 </script>
 <?php
@@ -32,15 +45,15 @@ $DB = DbConnection::getInstance();
 $sqlcourt    = 'SELECT * FROM `court`WHERE isDeleted=0 ';
 $resultcourt = mysqli_query($DB->getdbconnect(), $sqlcourt);
 
-echo '<form action = "table.php" method = "POST">
+echo '<form name="form1" action = "table.php" method = "POST" ">
                     <label>Choose court </label>
-                    <select id = "court" name = "court" class = "select" "><option>Choose</option>';
+                    <select id = "court" name = "court" class = "select" required  "><option value="" >Choose</option>';
 while ($row = mysqli_fetch_array($resultcourt)) {
     echo '<option value = "' . $row['id'] . '">Court ' . $row['courtNumber'] . ' / ' . $row['price'] . ' EGP</option>';
 }
 echo '</select> <br>';
 $date = date("Y-m-d");
-echo '<input type="date" min="' . $date . '" name="Rdate" >';
+echo '<input type="date" min="' . $date . '" name="Rdate" required >';
 echo '<input type = "submit" name = "submit" value = "Next">';
 echo '<div id = "fields"></div>';
 

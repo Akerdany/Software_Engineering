@@ -96,7 +96,7 @@ echo " <h3>" . $_SESSION["Method"] . "</h3>";?>
     <a href="ToDB.php">
     <button id = "confirm" class="button">confirm and download invoice :)</button>
     </a>
-    <a href="addRe.php">
+    <a href="index.php">
     <button id = "cancel" class="button">cancel</button>
     </a>
 
