@@ -25,7 +25,7 @@ class Reservationmodel {
             return $row;
         }
     }
-    public static function Display() {
+    public static function Display($this_page_first_result,$results_per_page) {
         $DB = DbConnection::getInstance();
 
         $conn = $DB->getdbconnect();
@@ -33,7 +33,7 @@ class Reservationmodel {
       FROM reservation
       INNER JOIN user ON reservation.userId=user.id
       INNER JOIN court ON reservation.courtId=court.id
-      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id";
+      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id LIMIT ".$this_page_first_result.",".$results_per_page."";
         $result = mysqli_query($conn, $Q);
         $array  = array();
         while ($row = mysqli_fetch_array($result)) {
@@ -112,6 +112,13 @@ class Reservationmodel {
         $row                  = mysqli_fetch_assoc($result);
         $query                = "UPDATE reservationdetails SET status=0 WHERE id='" . $row['reservationDetailsId'] . "'";
         $result2              = mysqli_query($DB->getdbconnect(), $query);
+    }
+    public static function getNumberofRs() {
+        $DB     = DbConnection::getInstance();
+        $sql    = "SELECT id FROM `reservation`";
+        $result = mysqli_query($DB->getdbconnect(), $sql);
+        $rowcount = mysqli_num_rows($result);
+        return $rowcount;
     }
 }
 

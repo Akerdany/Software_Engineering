@@ -5,7 +5,7 @@ require_once "factoryClass.php";
 class Reservationview {
     function __construct() {
     }
-    public static function Display($array) {
+    public static function Display($array,$numOfPages, $currentPage) {
 
         if (!empty($_SESSION['userType']) && $_SESSION['userType'] == 1) {
             $action = true;
@@ -62,6 +62,22 @@ class Reservationview {
             echo '</form>'
                 . '</tr>';
         }
+        echo '<tr style = "background-color: white;">';
+        echo '<td align = "center" colspan = "6">';
+        echo '<div class = "pagination">';
+        for($page=1; $page<=$numOfPages; $page++) {
+            if($page == $currentPage)
+            {
+                echo '<a href="displayRe.php?p=' . $page . '" class = "active">' . $page . '</a> ';
+            }
+            else
+            {
+                echo '<a href="displayRe.php?p=' . $page . '">' . $page . '</a> ';
+            }
+        }
+        echo '</div>';
+        echo '</td>';
+        echo '</tr>';
         echo '</table>';
 
     }

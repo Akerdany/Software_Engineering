@@ -54,14 +54,14 @@ class reservation {
         $model->Delete($this->ID, $this->RDID);
 
     }
-    public static function Display() {
+    public static function Display($this_page_first_result,$results_per_page,$page,$number_of_pages) {
 
         // $model = new Reservationmodel();
         $model = factoryClass::create("Model", "Reservation", null);
-        $array = $model->Display();
+        $array = $model->Display($this_page_first_result,$results_per_page);
         // $view  = new Reservationview();
         $view = factoryClass::create("View", "Reservation", null);
-        $view->Display($array);
+        $view->Display($array,$number_of_pages, $page);
 
     }
     public static function DisplayPR($ID) {
