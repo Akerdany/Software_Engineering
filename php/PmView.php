@@ -70,9 +70,9 @@ class PmView {
     public static function addMethodV($data) {
         echo '<form action = "" method = "POST">
                         <label>Method Name</label>
-                        <input class="form-control" type = "text" name = "methodName"   style="width:30%" >
+                        <input class="form-control" type = "text" name = "methodName" maxlength="25">
                         <label>Add Option</label>
-                        <select  class="form-control" id="Optionsdrpdwn" name="Optionsdrpdwn" style="width:30%" onchange="addoption()">
+                        <select  class="form-control" id="Optionsdrpdwn" name="Optionsdrpdwn"  onchange="addoption()">
                         <option disabled selected value="none"> -- select an option -- </option>';
                         for ($i = 0; $i < count($data); $i++) {
                             echo '<option  value=' . $data[$i]['id'] . '>' . $data[$i]['name'] . '</option>';
@@ -87,7 +87,7 @@ class PmView {
     public static function editMethodV($data) {
         echo '<form action = "" method = "POST">
                   <label>Method Name</label>
-                  <input class="form-control" type = "text" name = "methodName" value = "' . $data[0]->methodName . '">';
+                  <input class="form-control" type = "text" maxlength="25" name = "methodName" value = "' . $data[0]->methodName . '">';
         echo '<table id=editTable class = "table text-center table-dark table-striped table-hover table-bordered">
                   <tr>
                   <th> Option</th> <th> Priority</th> <th> Delete </th> </tr>';
@@ -105,7 +105,7 @@ class PmView {
             echo '<tr>';
             echo '<td> <label>' . $optionsName[$i] . '</label> </td> ';
             echo '<input type=checkbox name = "Checkedconstraints[]"  style="display:none" value=' . $soid[$i] . ' checked >';
-            echo '<td> <input class="form-control" type = "number" min=1 name=priority' . $soid[$i] . ' value=' . $priority[$i] . ' style="width:15%"> </td>
+            echo '<td> <input class="form-control" type = "number" min=1 max=9999 name=priority' . $soid[$i] . ' value=' . $priority[$i] . ' style="width:30%"> </td>
                   <td> <input class="single-checkbox" style="  width: 25px;  height: 25px;" type=checkbox name = "delete[]"  value=' . $soid[$i] . ' > </td>';
             echo '</tr>';
             $key = array_search($optionsName[$i], $allOptionsName);
@@ -116,7 +116,7 @@ class PmView {
         echo '</table>';
         echo '<div id="addOption"></div>
                       <label> Add Option </label>
-                 <select class="form-control" id="InOptions"  onchange="onselection()" style=width:15%>
+                 <select class="form-control" id="InOptions"  onchange="onselection()" style=width:30%>
                  <option disabled selected value> -- select an option -- </option>';
 
         for ($i = 0; $i < count($options); $i++) {

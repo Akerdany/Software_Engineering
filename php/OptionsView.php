@@ -61,18 +61,18 @@ class optionsView {
     public static function addMethodV() {
         echo '<form action = "" method = "POST">
                         <label>Option Name</label>
-                        <input class="form-control" type = "text" name = "optionName">
+                        <input class="form-control" type = "text" maxlength="25" name = "optionName">
                         <label>Option Type</label>
-                        <input class="form-control" type = "text" name = "optionType">
+                        <input class="form-control" type = "text" maxlength="25" name = "optionType">
                         <input class="btn btn-lg btn-primary" type = "submit" name = "addOptionSubmit" value = "Add Option">
                         </form>';
     }
     public static function editOptionV($data) {
         echo '<form action = "" method = "POST">
                   <label>Option Name</label>
-                  <input class="form-control" type = "text" name = "optionName" value = "' . $data->optionsName . '">';
+                  <input class="form-control" type = "text" maxlength="25" name = "optionName" value = "' . $data->optionsName . '">';
         echo '<label>Option Type</label>
-                 <input class="form-control" type = "text" name = "optionType" value = "' . $data->optionsType . '">';
+                 <input class="form-control" type = "text" maxlength="25" name = "optionType" value = "' . $data->optionsType . '">';
         echo ' <button class="btn btn-lg btn-primary" type = "submit" name = "editBtnSubmit" value = ' . $data->optionsID . '> Update </button>
                   </form>';
     }
