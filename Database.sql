@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 18, 2019 at 03:01 PM
+-- Generation Time: May 19, 2019 at 08:12 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `features` (
   `feature` varchar(50) NOT NULL,
   `file` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `features`
@@ -232,7 +232,8 @@ INSERT INTO `features` (`id`, `feature`, `file`) VALUES
 (6, 'ManageAccount', 'editUser.php'),
 (7, 'Reservation', 'displayRe.php'),
 (9, 'Options', 'OptionsController.php'),
-(10, 'Add Promocode', 'addpromo.php');
+(10, 'Add Promocode', 'addpromo.php'),
+(11, 'Reports', 'reports.php');
 
 -- --------------------------------------------------------
 
@@ -345,7 +346,7 @@ CREATE TABLE IF NOT EXISTS `paymentmethod` (
   `isDeleted` tinyint(1) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `paymentmethod`
@@ -356,7 +357,8 @@ INSERT INTO `paymentmethod` (`id`, `name`, `isDeleted`, `creationDate`) VALUES
 (5, 'fawry', 0, '2019-03-14 13:00:25'),
 (15, 'QQCard', 0, '2019-04-18 13:51:46'),
 (16, 'vps', 1, '2019-04-19 13:14:34'),
-(17, 'asdasdas', 1, '2019-05-14 22:57:27');
+(17, 'asdasdas', 1, '2019-05-14 22:57:27'),
+(18, 'tst123', 1, '2019-05-19 00:38:26');
 
 -- --------------------------------------------------------
 
@@ -404,7 +406,7 @@ CREATE TABLE IF NOT EXISTS `previliges` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `optionId` (`featureId`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `previliges`
@@ -422,7 +424,9 @@ INSERT INTO `previliges` (`id`, `userTypeId`, `featureId`) VALUES
 (11, 2, 6),
 (14, 1, 4),
 (15, 3, 9),
-(16, 1, 10);
+(16, 1, 10),
+(17, 1, 11),
+(18, 5, 11);
 
 -- --------------------------------------------------------
 
@@ -465,7 +469,7 @@ CREATE TABLE IF NOT EXISTS `p_method_option_value` (
   PRIMARY KEY (`id`),
   KEY `reservationId` (`reservationId`),
   KEY `selectedoptionsId` (`selectedoptionsId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -567,7 +571,7 @@ CREATE TABLE IF NOT EXISTS `selectedoptions` (
   PRIMARY KEY (`id`),
   KEY `paymentId` (`paymentId`),
   KEY `optionId` (`optionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `selectedoptions`
@@ -586,7 +590,11 @@ INSERT INTO `selectedoptions` (`id`, `paymentId`, `optionId`, `priority`) VALUES
 (88, 16, 2, 4),
 (89, 16, 6, 5),
 (90, 17, 1, 1),
-(91, 15, 4, 3);
+(91, 15, 4, 3),
+(92, 18, 3, 1),
+(93, 18, 1, 2),
+(94, 18, 5, 3),
+(98, 18, 2, 7);
 
 -- --------------------------------------------------------
 
