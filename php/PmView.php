@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link href="../css/temp.css" rel="stylesheet" type="text/css">
+        <!-- <link href="../css/temp.css" rel="stylesheet" type="text/css"> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body>
@@ -12,7 +12,7 @@ class PmView {
     }
 
     public static function displayMethodsV($data,$numOfPages, $currentPage) {
-        echo '<table id=pmtable class = "displaytables">';
+        echo '<table id=pmtable class = "table text-center table-dark table-striped table-hover table-bordered" style="width:70%">';
         echo '<tr>'
             . '<th>Payment Method</th>'
             . '<th>Options</th>'
@@ -32,10 +32,10 @@ class PmView {
             }
             echo '</td>'
             . '<td> <form action = "PmController.php" method = "POST">'
-            . '<button type = "submit" name = "editButton" value = "' . $data[$i]->pmID . '">Edit</button> </td>'
+            . '<button class="btn btn-lg btn-primary" type = "submit" name = "editButton" value = "' . $data[$i]->pmID . '">Edit</button> </td>'
             . '</form>'
             . '<td> <form action = "PmController.php" method = "POST">'
-            . '<button class = "button" type = "submit" name = "deleteButton" value = "' . $data[$i]->pmID . '">Delete</button>'
+            . '<button class = "btn btn-lg btn-danger" type = "submit" name = "deleteButton" value = "' . $data[$i]->pmID . '">Delete</button>'
                 . '</form>'
                 . '</tr>';
         }
@@ -45,17 +45,17 @@ class PmView {
         for($page=1; $page<=$numOfPages; $page++) {
             if($page == $currentPage)
             {
-                echo '<a href="PmController.php?p=' . $page . '" class = "active">' . $page . '</a> ';
+                echo '<a class="btn btn-sm btn-primary" href="PmController.php?p=' . $page . '" >' . $page . '</a> ';
             }
             else
             {
-                echo '<a href="PmController.php?p=' . $page . '">' . $page . '</a> ';
+                echo '<a class="btn btn-link" href="PmController.php?p=' . $page . '">' . $page . '</a> ';
             }
         }
         echo '</div>';
         echo '</td>';
         echo '</tr>';
-        echo '<tr> <td> <form method=POST> <button type=submit name= "addBtn" class="button"> Add New Method </button> </form> </td> </tr>';
+        echo '<tr> <td> <form method=POST> <button class="btn btn-lg btn-primary" type=submit name= "addBtn" class="button"> Add New Method </button> </form> </td> </tr>';
         echo '</table>';
     }
     public static function Undisplay() {
@@ -70,27 +70,25 @@ class PmView {
     public static function addMethodV($data) {
         echo '<form action = "" method = "POST">
                         <label>Method Name</label>
-                        <input type = "text" name = "methodName">
-                        <table id="optionsTable" class = "displaytables" style=display:none;>
+                        <input class="form-control" type = "text" name = "methodName"   style="width:30%" >
+                        <label>Add Option</label>
+                        <select  class="form-control" id="Optionsdrpdwn" name="Optionsdrpdwn" style="width:30%" onchange="addoption()">
+                        <option disabled selected value="none"> -- select an option -- </option>';
+                        for ($i = 0; $i < count($data); $i++) {
+                            echo '<option  value=' . $data[$i]['id'] . '>' . $data[$i]['name'] . '</option>';
+                        }
+                        echo '</select>';
+           echo'<table id="optionsTable" class = "table text-center table-dark table-striped table-hover table-bordered" style="display:none; width:70%;">
                         <tr> <th> Option</th> <th> Priority</th> </tr>
-                        </table>
-                       <label>Add Option</label>
-                       <select id="Optionsdrpdwn" name="Optionsdrpdwn" style="width:15%" onchange="addoption()">
-                       <option disabled selected value="none"> -- select an option -- </option>';
-
-        for ($i = 0; $i < count($data); $i++) {
-            echo '<option  value=' . $data[$i]['id'] . '>' . $data[$i]['name'] . '</option>';
-        }
-
-        echo '</select>
-                   <input type = "submit" name = "addMethodsubmit" value = "Add Method">
+                        </table>';
+           echo'<input class="btn btn-lg btn-primary" type = "submit" name = "addMethodsubmit" value = "Add Method" style="margin-left:40px;">
                    </form>';
     }
     public static function editMethodV($data) {
         echo '<form action = "" method = "POST">
                   <label>Method Name</label>
-                  <input type = "text" name = "methodName" value = "' . $data[0]->methodName . '">';
-        echo '<table id=editTable class = "displaytables">
+                  <input class="form-control" type = "text" name = "methodName" value = "' . $data[0]->methodName . '">';
+        echo '<table id=editTable class = "table text-center table-dark table-striped table-hover table-bordered">
                   <tr>
                   <th> Option</th> <th> Priority</th> <th> Delete </th> </tr>';
         $optionsName = $data[0]->optionsName;
@@ -107,8 +105,8 @@ class PmView {
             echo '<tr>';
             echo '<td> <label>' . $optionsName[$i] . '</label> </td> ';
             echo '<input type=checkbox name = "Checkedconstraints[]"  style="display:none" value=' . $soid[$i] . ' checked >';
-            echo '<td> <input type = "number" min=1 name=priority' . $soid[$i] . ' value=' . $priority[$i] . ' style="width:15%"> </td>
-                  <td> <input class="single-checkbox" type=checkbox name = "delete[]"  value=' . $soid[$i] . ' > </td>';
+            echo '<td> <input class="form-control" type = "number" min=1 name=priority' . $soid[$i] . ' value=' . $priority[$i] . ' style="width:15%"> </td>
+                  <td> <input class="single-checkbox" style="  width: 25px;  height: 25px;" type=checkbox name = "delete[]"  value=' . $soid[$i] . ' > </td>';
             echo '</tr>';
             $key = array_search($optionsName[$i], $allOptionsName);
             unset($options[$key]);
@@ -118,8 +116,7 @@ class PmView {
         echo '</table>';
         echo '<div id="addOption"></div>
                       <label> Add Option </label>
-
-                 <select id="InOptions"  onchange="onselection()" style=width:15%>
+                 <select class="form-control" id="InOptions"  onchange="onselection()" style=width:15%>
                  <option disabled selected value> -- select an option -- </option>';
 
         for ($i = 0; $i < count($options); $i++) {
@@ -127,7 +124,7 @@ class PmView {
         }
 
         echo '</select>  <br>';
-        echo ' <button type = "submit" name = "editBtnSubmit" value = ' . $pmID . '> Update </button>
+        echo ' <button class="btn btn-lg btn-primary" type = "submit" name = "editBtnSubmit" value = ' . $pmID . ' style="margin-bottom:100px;"> Update </button>
                   </form>';
 
     }

@@ -218,7 +218,7 @@ function addoption()
   newOp.style.display="inline-table";
   var selectedVal=Addselect.options[Addselect.selectedIndex].value;
   Addhtml= '<tr> <td>'+Addselect.options[Addselect.selectedIndex].text+'</td>'
-    +'<td> <input type = "number" name=priority'+selectedVal+' style="width:15%" min=1> </td> </tr>'
+    +'<td> <input class="form-control" type = "number" name=priority'+selectedVal+' style="width:15%" min=1> </td> </tr>'
     +'<input style="display:none" type = "checkbox" name = "constraints[]" value='+selectedVal+' checked>';
  newOp.innerHTML+= Addhtml;
  $("#Optionsdrpdwn option[value='"+selectedVal+"']").remove();
@@ -232,13 +232,16 @@ function onselection()
 {
     editHtml= '<input type=checkbox name = "unCheckedconstraints[]" style="display:none" value='+Editselect.options[Editselect.selectedIndex].value+' checked >'
     +'<label> Option: '+Editselect.options[Editselect.selectedIndex].text+ '</label> <br>'
-    +'<label> Priority: </label> <input type="number" min=1 name=priority'+Editselect.options[Editselect.selectedIndex].value+' style="width:15%"> <br>';
+    +'<label> Priority: </label> <input class="form-control" type="number" min=1 name=priority'+Editselect.options[Editselect.selectedIndex].value+' style="width:15%"> <br>';
     editOp.innerHTML= editHtml;
 }
-var limit = document.getElementById("editTable").getElementsByTagName("tr").length - 2;
+
+    var limit = document.getElementById("editTable").getElementsByTagName("tr").length - 2;
 $('.single-checkbox').on('change', function() {
    if($('.single-checkbox:checked').length > limit) {
        this.checked = false;
    }
 });
+
+
 </script>

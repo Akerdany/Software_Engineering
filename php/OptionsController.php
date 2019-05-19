@@ -130,4 +130,5 @@ if (isset($_POST["editButton"])) {
 if (isset($_POST['editBtnSubmit'])) {
     $optionsC->editOptionC();
 }
+include_once('footer.html');
 ?>
