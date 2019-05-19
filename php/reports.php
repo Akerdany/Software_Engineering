@@ -1,23 +1,48 @@
-
+<?php require_once 'navbar.php'; ?>
 <html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   <body>
+<div>
+  <div id="top_x_div" style="width: 900px; height: 500px;  float:left; "></div>
+  <div style=" float:left; ">
   <form method="POST" action="">
-  <select name="chart">
+  <label> Choose Report: </label>
+  <select class="form-control" id="reportTypelist" name="reportType" onchange="ShowMonth()" >
+<option value="UserType">Number of User Types</option>
+<option value="reservations">Number of Reservations/Month <option>
+</select>
+<label> Choose Shape: </label>
+  <select class="form-control" name="chart" >
   <option name="barChart" value="barChart"> Bar Chart </option>
   <option name="pieChart" value="pieChart"> Pie Chart </option>
-  <input name="month" id="monthID" type="month">
-  <input type=submit value=ok>
   </select>
+  <label id="monthLabel" style="display:none;"> Choose Month: </label>
+  <input class="form-control" name="month" id="monthID" type="month" style="display:none; ">
+
+<input class="btn btn-primary" type=submit value=GO>
 
   </form>
-    <div id="top_x_div" style="width: 900px; height: 500px;"></div>
+  </div>
+</div>
   </body>
 </html>
-
-
+<script>
+function ShowMonth()
+{
+    if (document.getElementById('reportTypelist').value=="reservations")
+    {
+        document.getElementById('monthID').style.display="inline-block";
+        document.getElementById('monthLabel').style.display="inline-block";
+    }
+    else
+    {
+        document.getElementById('monthID').style.display="none";
+        document.getElementById('monthLabel').style.display="none";
+    }
+}
+</script>
 <?php
 require_once 'connection.php';
 require_once 'Ireports.php';
@@ -74,14 +99,14 @@ class countReservation extends absreports {
         $Days  = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $str   = '';
         for ($i = 1; $i < $Days + 1; $i++) {
-            $sql    = 'SELECT COUNT(id) FROM `reservationdetails` Where Day(date)=' . $i . ' AND Month(date)=' . $month;
+            $sql    = 'SELECT COUNT(id) FROM `reservationdetails` Where Day(date)=' . $i . ' AND Month(date)=' . $month.' AND Year(date)='. $year;
             $result = mysqli_query($DB->getdbconnect(), $sql);
 
             while ($row = mysqli_fetch_assoc($result)) {
                 $str .= ', ["Day ' . $i . '", ' . $row['COUNT(id)'] . '] ';
             }
         }
-        $monthName = date('F', strtotime("2012-$month-01"));
+        $monthName = date('F', strtotime("$year-$month-01"));
         $js        = '
       var data = new google.visualization.arrayToDataTable([
       ["' . $monthName . ' ' . $year . '", "Number of Reservations"] ' . $str . '
@@ -92,27 +117,58 @@ class countReservation extends absreports {
 
 $CountUsers = new countUserType();
 $CountUsers->display();
-if (isset($_POST['chart'])) {
-    if ($_POST['chart'] == "pieChart") {
-        $CountUsers->setDisplayMethod(new displayPieCharts());
-        $CountUsers->display();
-
-        if (isset($_POST['month']) && !empty($_POST['month'])) {
+if (isset($_POST['chart']) && isset($_POST['reportType'])) {
+    if ($_POST['chart'] == "pieChart" )
+    {
+        if($_POST['reportType']=="UserType") {
+            $CountUsers->setDisplayMethod(new displayPieCharts());
+            $CountUsers->display();
+        }
+        else if($_POST['reportType']=="reservations"){
+            
+            if (isset($_POST['month']) && !empty($_POST['month'])) {
             $CountReservations = new countReservation();
             $CountReservations->setDisplayMethod(new displayPieCharts());
             $CountReservations->display();
+            echo "<script> document.getElementById('monthID').style.display='inline-block';
+            document.getElementById('reportTypelist').value='reservations';
+            document.getElementById('monthLabel').style.display='inline-block';
+            document.getElementById('monthID').value='".$_POST['month']."';
+            </script>";
+                }
+            else if ((empty($_POST['month'])))
+            {
+                    echo "<script> alert('choose Month'); </script>";
+            }
         }
-
-    } else if ($_POST['chart'] == "barChart") {
-        $CountUsers->setDisplayMethod(new displayBarCharts());
-        $CountUsers->display();
-        if (isset($_POST['month']) && !empty($_POST['month'])) {
+    }
+    else if ($_POST['chart'] == "barChart") 
+    {
+        if($_POST['reportType']=="UserType") {
+            $CountUsers->setDisplayMethod(new displayBarCharts());
+            $CountUsers->display();
+        }
+        else if($_POST['reportType']=="reservations"){
+            
+            if (isset($_POST['month']) && !empty($_POST['month'])) {
             $CountReservations = new countReservation();
             $CountReservations->setDisplayMethod(new displayBarCharts());
             $CountReservations->display();
+            echo"<script> document.getElementById('monthID').style.display='inline-block';
+            document.getElementById('reportTypelist').value='reservations';
+            document.getElementById('monthLabel').style.display='inline-block';
+            document.getElementById('monthID').value='".$_POST['month']."';
+            </script>";
         }
-    }
+        else if ((empty($_POST['month'])))
+        {
+            echo "<script> alert('choose Month'); </script>";
+        }
+     }
+  }     
 }
+
+require_once 'footer.html';
 ?>
 <!-- function getCourtReservations($courtId){
     $DB = new DbConnection();
