@@ -32,10 +32,10 @@ class PmModel {
 
         }
     }
-    public static function displayMethodsM($this_page_first_result,$results_per_page) {
+    public static function displayMethodsM() {
         $DB     = DbConnection::getInstance();
         $conn   = $DB->getdbconnect();
-        $sql    = 'SELECT pm.id,pm.name FROM paymentmethod pm Where isDeleted=0 LIMIT '.$this_page_first_result.','.$results_per_page.'';
+        $sql    = 'SELECT pm.id,pm.name FROM paymentmethod pm Where isDeleted=0';
         $result = mysqli_query($conn, $sql);
         $i      = 0;
         $data   = [];

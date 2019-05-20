@@ -15,9 +15,9 @@ class PmController {
         $this->View  = factoryClass::create("View", "Pm", null);
     }
  
-    public static function displayMethodsC($this_page_first_result,$results_per_page,$page,$number_of_pages) {
-        $data = PmModel::displayMethodsM($this_page_first_result,$results_per_page);
-        PmView::displayMethodsV($data,$number_of_pages, $page);
+    public static function displayMethodsC() {
+        $data = PmModel::displayMethodsM();
+        PmView::displayMethodsV($data);
     }
     public static function deleteMethodC($id) {
         PmModel::deleteMethodM($id);
@@ -168,21 +168,21 @@ class PmController {
     }
 }
 
-$number_of_results = PmModel::getNumberofPMs();
-$results_per_page = 2;
+// $number_of_results = PmModel::getNumberofPMs();
+// $results_per_page = 2;
 
-$number_of_pages = ceil($number_of_results/$results_per_page);
+// $number_of_pages = ceil($number_of_results/$results_per_page);
 
-if (!isset($_GET['p'])) {
-    $page = 1;
-}else {
-    $page = $_GET['p'];
-}
+// if (!isset($_GET['p'])) {
+//     $page = 1;
+// }else {
+//     $page = $_GET['p'];
+// }
 
-$this_page_first_result = ($page-1)*$results_per_page;
+// $this_page_first_result = ($page-1)*$results_per_page;
 
 $pm = new PmController();
-$pm->displayMethodsC($this_page_first_result,$results_per_page,$page,$number_of_pages);
+$pm->displayMethodsC();
 
 if (isset($_POST['deleteButton'])) {
     $ID = $_POST['deleteButton'];
@@ -242,6 +242,4 @@ $('.single-checkbox').on('change', function() {
        this.checked = false;
    }
 });
-
-
 </script>

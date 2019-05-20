@@ -11,14 +11,20 @@ class PmView {
 
     }
 
-    public static function displayMethodsV($data,$numOfPages, $currentPage) {
-        echo '<table id=pmtable class = "table text-center table-dark table-striped table-hover table-bordered" style="width:70%">';
-        echo '<tr>'
+    public static function displayMethodsV($data) {
+        
+        echo'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/b-1.5.6/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/b-1.5.6/datatables.min.js"></script>';
+        echo '<div id="myDiv" style="width:70%">';
+        echo '<table id="pmtable" class = "table text-center table-dark table-striped table-hover table-bordered">';
+        echo '<thead><tr>'
             . '<th>Payment Method</th>'
             . '<th>Options</th>'
             . '<th>Edit Method</th>'
             . '<th>Delete Method</th>'
-            . '</tr>';
+            . '</tr></thead><tbody>';
 
         for ($i = 0; $i < count($data); $i++) {
             echo '<tr>'
@@ -32,35 +38,42 @@ class PmView {
             }
             echo '</td>'
             . '<td> <form action = "PmController.php" method = "POST">'
-            . '<button class="btn btn-lg btn-primary" type = "submit" name = "editButton" value = "' . $data[$i]->pmID . '">Edit</button> </td>'
-            . '</form>'
+            . '<button class="btn btn-lg btn-primary" type = "submit" name = "editButton" value = "' . $data[$i]->pmID . '">Edit</button>'
+            . '</form> </td>'
             . '<td> <form action = "PmController.php" method = "POST">'
             . '<button class = "btn btn-lg btn-danger" type = "submit" name = "deleteButton" value = "' . $data[$i]->pmID . '">Delete</button>'
-                . '</form>'
+                . '</form></td>'
                 . '</tr>';
         }
-        echo '<tr style = "background-color: white;">';
-        echo '<td align = "center" colspan = "6">';
-        echo '<div class = "pagination">';
-        for($page=1; $page<=$numOfPages; $page++) {
-            if($page == $currentPage)
-            {
-                echo '<a class="btn btn-sm btn-primary" href="PmController.php?p=' . $page . '" >' . $page . '</a> ';
-            }
-            else
-            {
-                echo '<a class="btn btn-link" href="PmController.php?p=' . $page . '">' . $page . '</a> ';
-            }
-        }
+        // echo '<tr style = "background-color: white;">';
+        // echo '<td align = "center" colspan = "6">';
+        // echo '<div class = "pagination">';
+        // for($page=1; $page<=$numOfPages; $page++) {
+        //     if($page == $currentPage)
+        //     {
+        //         echo '<a class="btn btn-sm btn-primary" href="PmController.php?p=' . $page . '" >' . $page . '</a> ';
+        //     }
+        //     else
+        //     {
+        //         echo '<a class="btn btn-link" href="PmController.php?p=' . $page . '">' . $page . '</a> ';
+        //     }
+        // }
+        // echo '</div>';
+        // echo '</td>';
+        // echo '</tr>';
+
+        echo '</tbody></table>';
+        echo '<br> <form method=POST> <button class="btn btn-lg btn-primary" type=submit name= "addBtn" class="button"> Add New Method </button></form>';
         echo '</div>';
-        echo '</td>';
-        echo '</tr>';
-        echo '<tr> <td> <form method=POST> <button class="btn btn-lg btn-primary" type=submit name= "addBtn" class="button"> Add New Method </button> </form> </td> </tr>';
-        echo '</table>';
+        echo"<script>
+        $(document).ready( function () {
+            $('#pmtable').DataTable();
+        } );
+         </script>";
     }
     public static function Undisplay() {
         echo '<script>
-                    var myNode = document.getElementById("pmtable");
+                    var myNode = document.getElementById("myDiv");
                 while (myNode.firstChild) {
                     myNode.removeChild(myNode.firstChild);
                 }
