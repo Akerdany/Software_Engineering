@@ -51,6 +51,7 @@
     {
         $crud = new crudfacade();
         $view->addCourtForm($crud->court->getAllSports(), $crud->court->getCourtSpecs());
+        $view->Undisplay();
     }
     if(isset($_POST['addCourt']))
     {
@@ -68,6 +69,7 @@
         $id = $_POST['editButton'];
         $court = $crud->court->getCourtDetails($id);
         $view->editCourtView($crud->court->getAllSports(), $crud->court->getCourtSpecs(), $court);
+        $view->Undisplay();
     }
     if(isset($_POST['editCourt']))
     {

@@ -1,37 +1,49 @@
 <?php
 require_once 'EventModel.php';
+require_once('classes.php');
 
 class EventView {
     public function displayEvents($events, $numOfPages, $currentPage) {
 
+        
         echo'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/b-1.5.6/datatables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/b-1.5.6/datatables.min.js"></script>';
+        $user = new User();
         echo '<div id="myDiv" style="width:70%">';
         echo '<table id="table_id" class = "table text-center table-dark table-striped table-hover table-bordered">';
         echo '<thead><tr>'
             . '<th>Event Name</th>'
             . '<th>Event Date</th>'
-            . '<th>Event Details</th>'
-            . '<th>Edit Event</th>'
-            . '<th>Delete Event</th>'
-            . '</tr></thead><tbody>';
+            . '<th>Event Details</th>';
+            if($user->getPermission('editEvents'))
+            {
+                echo '<th>Edit Event</th>';
+            }
+            if($user->getPermission('deleteEvents'))
+            {
+                echo '<th>Delete Event</th>';
+            }
+            echo '</tr></thead><tbody>';
     if(!empty($events))
     {
         for ($i = 0; $i < count($events); $i++) {
             echo '<tr>'
                 . '<td>' . $events[$i]['name'] . '</td>'
                 . '<td>' . $events[$i]['date'] . '</td>'
-                . '<td>' . $events[$i]['details'] . '</td>'
-                . '<td> <form action = "EventController.php" method = "POST">'
+                . '<td>' . $events[$i]['details'] . '</td>';
+                if($user->getPermission('editEvents')){
+                echo '<td> <form action = "EventController.php" method = "POST">'
                 . '<button type = "submit" name = "editButton" value = "' . $events[$i]['id'] . '">Edit</button>'
-                . '</form>'
-                . '<td> <form action = "EventController.php" method = "POST">'
+                . '</form>';
+                }
+                if($user->getPermission('deleteEvents')){
+                echo '<td> <form action = "EventController.php" method = "POST">'
                 . '<button  type = "submit" name = "deleteButton" value = "' . $events[$i]['id'] . '">Delete</button>'
-
-                . '</form>'
-                . '</tr></tbody>';
+                . '</form>';
+                }
+                echo '</tr></tbody>';
         }
         // echo '<tr style = "background-color: white;">';
         // echo '<td align = "center" colspan = "6">';
@@ -57,9 +69,20 @@ class EventView {
         $('#table_id').DataTable();
     } );
     </script>";
+    if($user->getPermission('addEvent')){
         echo '<br><form action = "EventController.php" method = "POST">'
             . '<button type = "submit" name = "addButton">Add Event</button>'
             . '</form><br><br>';
+    }
+
+    }
+    public static function Undisplay() {
+        echo '<script>
+                    var myNode = document.getElementById("myDiv");
+                while (myNode.firstChild) {
+                    myNode.removeChild(myNode.firstChild);
+                }
+                    </script>';
 
     }
     public function addEventForm() {

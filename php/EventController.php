@@ -37,6 +37,7 @@ $view->displayEvents($display, $number_of_pages, $page);
 
 if (isset($_POST['addButton'])) {
     $view->addEventForm();
+    $view->Undisplay();
 }
 if(isset($_POST['addEvent']))
 {
@@ -53,6 +54,7 @@ if(isset($_POST['editButton']))
     $crud = new crudfacade();
     $id = $_POST['editButton'];
     $view->editEventForm($crud->event->getEventDetails($id));
+    $view->Undisplay();
 }
 if(isset($_POST['editEvent']))
 {

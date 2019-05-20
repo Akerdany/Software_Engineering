@@ -14,8 +14,7 @@
             INNER JOIN sports ON court.sportId = sports.id
             INNER JOIN ccd ON court.id = ccd.courtId
             INNER JOIN courtdetails ON courtdetails.id = ccd.courtDetailsId
-            WHERE court.isDeleted = "0"
-            LIMIT '. $this_page_first_result . ',' . $results_per_page;
+            WHERE court.isDeleted = "0"';
             $result = mysqli_query($DB->getdbconnect(), $sql);
             $courtObjects;
             $i = 0;
