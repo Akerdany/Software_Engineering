@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 20, 2019 at 06:51 PM
+-- Generation Time: May 20, 2019 at 07:19 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -126,7 +126,14 @@ CREATE TABLE IF NOT EXISTS `constants` (
   `name` varchar(100) NOT NULL,
   `value` decimal(20,0) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `constants`
+--
+
+INSERT INTO `constants` (`id`, `name`, `value`) VALUES
+(1, 'tax', '110');
 
 -- --------------------------------------------------------
 
@@ -371,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `permission`
@@ -391,7 +398,9 @@ INSERT INTO `permission` (`id`, `name`) VALUES
 (11, 'deletePm'),
 (18, 'verifyReservation'),
 (19, 'editEvents'),
-(20, 'deleteEvents');
+(20, 'deleteEvents'),
+(22, 'editcourt'),
+(23, 'deletecourt');
 
 -- --------------------------------------------------------
 
@@ -793,7 +802,7 @@ CREATE TABLE IF NOT EXISTS `usertype_permission` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `permissionId` (`permissionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usertype_permission`
@@ -802,7 +811,13 @@ CREATE TABLE IF NOT EXISTS `usertype_permission` (
 INSERT INTO `usertype_permission` (`id`, `userTypeId`, `permissionId`) VALUES
 (1, 1, 1),
 (2, 1, 3),
-(3, 1, 2);
+(3, 1, 2),
+(4, 6, 4),
+(5, 6, 19),
+(6, 6, 20),
+(7, 1, 22),
+(8, 1, 23),
+(9, 1, 5);
 
 -- --------------------------------------------------------
 
