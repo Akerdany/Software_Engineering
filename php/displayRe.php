@@ -1,3 +1,5 @@
+<html>
+    <body>
 <?php
 require_once 'connection.php';
 // require('Resevationclass.php');
@@ -26,6 +28,8 @@ if (!isset($_GET['p'])) {
 $this_page_first_result = ($page-1)*$results_per_page;
 $reservation->Display($this_page_first_result,$results_per_page,$page,$number_of_pages);
 ?>
-<?php
+    </body>
+    <?php
 include('footer.html');
 ?>
+</html>

@@ -1,8 +1,4 @@
-<?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +11,11 @@ if (session_status() == PHP_SESSION_NONE) {
 
 </head>
 <body>
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
     <?php
 require_once "factoryClass.php";
 include "navbar.php";
@@ -116,7 +117,10 @@ echo "<script>
 if ($addAccess) {
     echo '<a href= "registration.php" class="button">Add User</a><br><br><br><br><br><br><br>';
 }
-include 'footer.html';
+echo '</div>';
 ?>
 </body>
+<?php
+include('footer.html');
+?>
 </html>
