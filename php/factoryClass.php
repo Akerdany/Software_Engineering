@@ -54,6 +54,9 @@ class factoryClass {
         } elseif ($type == "Controller") {
             if ($className == "Options") {
                 return new optionsController();
+            } elseif ($className == "User") {
+                require_once "userController.php";
+                return new userController();
             } else {
                 return null;
             }

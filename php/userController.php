@@ -1,7 +1,9 @@
 <?php
 
 require_once "factoryClass.php";
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_POST['register'])) {
 
@@ -26,17 +28,6 @@ if (isset($_POST['register'])) {
     $ssn   = $user->checkData($ssn);
 
     $user->userData(null, $fName, $lName, $email, password_hash($pass, PASSWORD_DEFAULT), $DoB, $tel, $ssn, 3, $userType, $notifier);
-    // $user->firstName   = $fName;
-    // $user->lastName    = $lName;
-    // $user->email       = $email;
-    // $pass              = $pass . $email;
-    // $pass              = password_hash($pass, PASSWORD_DEFAULT);
-    // $user->password    = $pass;
-    // $user->dateOfBirth = $DoB;
-    // $user->telephone   = $tel;
-    // $user->ssn         = $ssn;
-    // $user->addressId   = 3;
-    // $user->userTypeId  = $userType;
 
     if ($user->insertUser($user)) {
 
@@ -125,11 +116,16 @@ if (isset($_POST['register'])) {
     $tempUser->deleteUser($_POST['deleteUserButton']);
 
     header('Location: displayUsers.php');
-} elseif (isset($_POST['editUserButton'])) {
+} elseif (isset($_POST['activateUserButton'])) {
+    $tempUser = factoryClass::create("Model", "User", null);
+    $tempUser->activateUser($_POST['activateUserButton']);
+
+    header('Location: displayUsers.php');
+} elseif (isset($_POST['editUserTypeButtonOnly'])) {
     $userType = $_POST['userType'];
     $tempUser = factoryClass::create("Model", "User", null);
 
-    $tempUser->editUserType($_POST['editUserButton'], $userType);
+    $tempUser->editUserType($_POST['editUserTypeButtonOnly'], $userType);
 
     header('Location: displayUsers.php');
 } elseif (isset($_POST['newUsertype'])) {
@@ -144,4 +140,26 @@ if (isset($_POST['register'])) {
     }
 }
 
+class userController {
+    public function __contruct() {
+
+    }
+    public function displayUsers() {
+        $user = factoryClass::create("Model", "User", null);
+        $data = $user->displayAllUsers();
+        return $data;
+    }
+    public function getPermission($name) {
+        $user = factoryClass::create("Model", "User", null);
+        return $user->getPermission($name);
+    }
+    public function getUsertypeName($id) {
+        $user = factoryClass::create("Model", "User", null);
+        return $user->getUserTypeName($id);
+    }
+    public function getAllUserTypes() {
+        $user = factoryClass::create("Model", "User", null);
+        return $user->getUserTypes();
+    }
+}
 ?>

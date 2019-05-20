@@ -298,106 +298,52 @@ class User {
         // $DB = new DbConnection();
         $DB = DbConnection::getInstance();
 
-        $sql          = "SELECT * FROM user";
-        $result       = mysqli_query($DB->getdbconnect(), $sql);
-        $addAccess    = false;
-        $editAccess   = false;
-        $deleteAccess = false;
+        $sql    = "SELECT * FROM user";
+        $result = mysqli_query($DB->getdbconnect(), $sql);
+        $array  = array();
 
-        if (mysqli_num_rows($result) > 0) {
-            $userPermission = mysqli_query($DB->getdbconnect(), "SELECT * From usertype_permission WHERE userTypeId='" . $_SESSION["userType"] . "'");
-            while ($r2 = mysqli_fetch_array($userPermission)) {
-                if ($r2['permissionId'] == 1) {
-                    $addAccess = true;
-                } else if ($r2['permissionId'] == 2) {
-                    $editAccess = true;
-                } else if ($r2['permissionId'] == 3) {
-                    $deleteAccess = true;
-                }
-            }
-            // echo"<form id='form' name='form' method='post' action=''>";
-            // echo "<input type='submit' id='Activate_Account' name='Activate_Account' value='Activate Account'>";
-            // echo "<input type='submit' id='Decline_Account' name='Decline_Account' value='Decline Account'>";
-            echo "<table id='table' border='1' class='displaytables'>
-                    <tr>";
-            // <th>#</th>
-            echo "<th>ID</th>
-                    <th>Email</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Date of Birth</th>
-                    <th>Telephone Number</th>
-                    <th>SSN</th>
-                    <th>Address</th>
-                    <th>Type of User</th>";
-            if ($editAccess) {
-                echo "<th>Edit User Type</th>";
-            }
-            if ($deleteAccess) {
-                echo "<th>Account Status</th>
-                        <th>Action</th>";
-            }
-            echo "<th>Date & Time Joined</th>
-                    </tr>";
-
-            while ($row = mysqli_fetch_array($result)) {
-                echo "<tr>";
-                // echo "<td><input type='checkbox' name='checkbox[]' id='checkbox[]' value=".$row['id']."></td>";
-                echo "<td>" . $row['id'] . "</td>";
-                echo "<td>" . $row['email'] . "</td>";
-                echo "<td>" . $row['firstName'] . "</td>";
-                echo "<td>" . $row['lastName'] . "</td>";
-                echo "<td>" . $row['dateOfBirth'] . "</td>";
-                echo "<td>" . $row['telephone'] . "</td>";
-                echo "<td>" . $row['ssn'] . "</td>";
-                echo "<td>" . $row['addressId'] . "</td>";
-                $userType = mysqli_query($DB->getdbconnect(), "SELECT * FROM usertype WHERE id='" . $row["userTypeId"] . "'");
-                if ($r = mysqli_fetch_array($userType)) {
-                    echo "<td>" . $r['userTypeName'] . "</td>";
-                }
-
-                if ($editAccess && $row['userTypeId'] == 1) {
-                    echo "<td>No Actions</td>";
-                } else if ($editAccess) {
-                    echo '<form action="userController.php" method="POST">';
-
-                    echo "<td><select name='userType'>";
-                    echo "<option value=0>Choose</option>";
-
-                    $sqlUserType = mysqli_query($DB->getdbconnect(), "SELECT * FROM usertype");
-                    while ($rowUserType = mysqli_fetch_array($sqlUserType)) {
-                        $valueId = $rowUserType['id'];
-                        $value   = $rowUserType['userTypeName'];
-                        echo '<option value="' . $valueId . '">' . $value . '</option>';
-                    }
-                    echo "</select><br>";
-
-                    echo '<button type="submit" name="editUserButton" value="' . $row['id'] . '">Save</button>'
-                        . '</form></td>';
-                }
-
-                if ($deleteAccess) {
-                    if ($row['isDeleted'] == 0) {
-                        echo "<td>Active</td>";
-                        echo '<td> <form action="userController.php" method="POST">'
-                            . '<button type="submit" name="deleteUserButton" value="' . $row['id'] . '">Delete User</button>'
-                            . '</form></td>';
-                    } else if ($row['isDeleted']) {
-                        echo "<td>Deleted</td>";
-                        echo '<td> <form action="activateUser.php" method="POST">'
-                            . '<button type="submit" name="activateUserButton" value="' . $row['id'] . '">Activate User</button>'
-                            . '</form></td>';
-                    }
-                }
-                echo "<td>" . $row['creationDate'] . "</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-            // echo "</form>";
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            array_push($array, $row);
         }
-        if ($addAccess) {
-            echo '<a href= "registration.php" class="button">Add User</a><br><br>';
+
+        //free the memory is important with large data !!
+        mysqli_free_result($result);
+
+        return $array;
+    }
+
+    public function getPermission($name) {
+        $DB = DbConnection::getInstance();
+
+        $permissionId = "SELECT * FROM permission WHERE name='$name'";
+
+        if ($result = mysqli_query($DB->getdbconnect(), $permissionId)) {
+
+            $ID = mysqli_fetch_assoc($result);
+            $ID = $ID['id'];
+
+            $userPermission = mysqli_query($DB->getdbconnect(), "SELECT * From usertype_permission WHERE userTypeId='" . $_SESSION["userType"] . "' AND permissionId=$ID");
+
+            if (mysqli_num_rows($userPermission) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
+    }
+
+    public function getUserTypeName($id) {
+        $DB = DbConnection::getInstance();
+
+        $usertypeId = "SELECT * FROM usertype WHERE id='$id'";
+
+        $result = mysqli_query($DB->getdbconnect(), $usertypeId);
+
+        $usertype = mysqli_fetch_assoc($result);
+
+        return $usertype['userTypeName'];
     }
 }
 
