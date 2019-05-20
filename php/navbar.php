@@ -15,8 +15,10 @@
         <!-- Our Custom CSS -->
         <link rel="stylesheet"href="../css/style5.css">
     </head>
-  
+    <body>
+    
     <?php
+    echo'<link href="../css/BG.css" rel="stylesheet" type="text/css">';
                 if (session_status() == PHP_SESSION_NONE) {
                 session_start();
                 }
@@ -94,5 +96,6 @@
                  });
              });
          </script>
-    
+       
+        <body>
 </html>

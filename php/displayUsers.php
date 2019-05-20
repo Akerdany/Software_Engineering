@@ -7,10 +7,11 @@
     <title>Display Users</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../css/temp.css" rel="stylesheet" type="text/css">
+    
     <script src="main.js"></script>
 
 </head>
-<body>
+<body >
 <?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -27,7 +28,7 @@ $deleteAccess = $myUser->getPermission("deleteUser");
 $editAccess   = $myUser->getPermission("editUser");
 $myData       = $myUser->displayUsers();
 $userTypes    = $myUser->getAllUserTypes();
-
+echo'<link href="../css/BG.css" rel="stylesheet" type="text/css">';
 
 echo'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     
