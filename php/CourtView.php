@@ -36,7 +36,7 @@ class CourtView
                     .'</form></td>'
                     .'</tr>';
         }
-        echo'<tbody>';
+        echo'</tbody>';
        
     }
     echo '</table>';
