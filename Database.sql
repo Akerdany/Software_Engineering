@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 19, 2019 at 08:12 PM
+-- Generation Time: May 20, 2019 at 06:51 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -371,7 +371,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `permission`
@@ -389,8 +389,9 @@ INSERT INTO `permission` (`id`, `name`) VALUES
 (9, 'addPm'),
 (10, 'editPm'),
 (11, 'deletePm'),
-(12, 'PmController'),
-(17, 'OptionsController');
+(18, 'verifyReservation'),
+(19, 'editEvents'),
+(20, 'deleteEvents');
 
 -- --------------------------------------------------------
 
@@ -406,27 +407,32 @@ CREATE TABLE IF NOT EXISTS `previliges` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `optionId` (`featureId`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `previliges`
 --
 
 INSERT INTO `previliges` (`id`, `userTypeId`, `featureId`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 5),
-(5, 2, 5),
-(8, 4, 3),
-(9, 1, 6),
-(10, 1, 7),
+(1, 1, 3),
+(2, 1, 1),
+(3, 1, 7),
+(4, 1, 6),
+(5, 1, 2),
+(6, 1, 11),
+(7, 5, 11),
+(8, 5, 6),
+(9, 2, 5),
+(10, 2, 2),
 (11, 2, 6),
-(14, 1, 4),
-(15, 3, 9),
-(16, 1, 10),
-(17, 1, 11),
-(18, 5, 11);
+(12, 4, 10),
+(13, 4, 3),
+(14, 4, 2),
+(15, 4, 7),
+(16, 4, 6),
+(17, 3, 4),
+(18, 3, 9),
+(19, 3, 6);
 
 -- --------------------------------------------------------
 
@@ -909,6 +915,13 @@ ALTER TABLE `user`
 ALTER TABLE `usertype_pages`
   ADD CONSTRAINT `userType_Pages_ibfk_1` FOREIGN KEY (`pageId`) REFERENCES `pages` (`id`),
   ADD CONSTRAINT `userType_Pages_ibfk_2` FOREIGN KEY (`userTypeId`) REFERENCES `usertype` (`id`);
+
+--
+-- Constraints for table `usertype_permission`
+--
+ALTER TABLE `usertype_permission`
+  ADD CONSTRAINT `usertype_permission_ibfk_1` FOREIGN KEY (`permissionId`) REFERENCES `permission` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usertype_permission_ibfk_2` FOREIGN KEY (`userTypeId`) REFERENCES `usertype` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_notifiers`
