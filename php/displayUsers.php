@@ -27,7 +27,7 @@ $editAccess   = $myUser->getPermission("editUser");
 $myData       = $myUser->displayUsers();
 $userTypes    = $myUser->getAllUserTypes();
 
-print("<table id='displayUsersTable' border='1' class=' text-center  table-hover table-bordered'>");
+print("<table id='displayUsersTable' border='1' class='table text-center table-striped table-hover table-bordered'>");
 
 echo "<thead>
         <tr>
@@ -101,22 +101,22 @@ foreach ($myData as $x => $x_value) {
     }
     print("</tr>");
 }
-print("</tbody></table>");
+print("</tbody></table><br><br><br><br><br>");
 
-echo '<script src = "https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity = "sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin = "Anonymous"></script>
+echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
 ';
 
-echo "    <script>
-                $('#displayUsersTable').DataTable();
-            </script>
+echo "<script>
+        $('#displayUsersTable').DataTable();
+        </script>
 ";
 
 if ($addAccess) {
     echo '<a href= "registration.php" class="button">Add User</a><br><br>';
 }
-; // include 'footer.html';
+include 'footer.html';
 ?>
 </body>
 </html>
