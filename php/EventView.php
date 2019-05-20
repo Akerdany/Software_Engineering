@@ -4,14 +4,19 @@ require_once 'EventModel.php';
 class EventView {
     public function displayEvents($events, $numOfPages, $currentPage) {
 
-        echo '<table class = "displaytables">';
-        echo '<tr>'
+        echo'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/b-1.5.6/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/b-1.5.6/datatables.min.js"></script>';
+
+        echo '<table id="table_id" class = "table text-center table-dark table-striped table-hover table-bordered">';
+        echo '<thead><tr>'
             . '<th>Event Name</th>'
             . '<th>Event Date</th>'
             . '<th>Event Details</th>'
             . '<th>Edit Event</th>'
             . '<th>Delete Event</th>'
-            . '</tr>';
+            . '</tr></thead><tbody>';
     if(!empty($events))
     {
         for ($i = 0; $i < count($events); $i++) {
@@ -26,26 +31,32 @@ class EventView {
                 . '<button  type = "submit" name = "deleteButton" value = "' . $events[$i]['id'] . '">Delete</button>'
 
                 . '</form>'
-                . '</tr>';
+                . '</tr></tbody>';
         }
-        echo '<tr style = "background-color: white;">';
-        echo '<td align = "center" colspan = "6">';
-        echo '<div class = "pagination">';
-        for($page=1; $page<=$numOfPages; $page++) {
-            if($page == $currentPage)
-            {
-                echo '<a href="EventController.php?p=' . $page . '" class = "active">' . $page . '</a> ';
-            }
-            else
-            {
-                echo '<a href="EventController.php?p=' . $page . '">' . $page . '</a> ';
-            }
-        }
-        echo '</div>';
-        echo '</td>';
-        echo '</tr>';
+        // echo '<tr style = "background-color: white;">';
+        // echo '<td align = "center" colspan = "6">';
+        // echo '<div class = "pagination">';
+        // for($page=1; $page<=$numOfPages; $page++) {
+        //     if($page == $currentPage)
+        //     {
+        //         echo '<a href="EventController.php?p=' . $page . '" class = "active">' . $page . '</a> ';
+        //     }
+        //     else
+        //     {
+        //         echo '<a href="EventController.php?p=' . $page . '">' . $page . '</a> ';
+        //     }
+        // }
+        // echo '</div>';
+        // echo '</td>';
+        // echo '</tr>';
     }
         echo '</table>';
+        
+        echo"<script>
+    $(document).ready( function () {
+        $('#table_id').DataTable();
+    } );
+    </script>";
         echo '<br><form action = "EventController.php" method = "POST">'
             . '<button type = "submit" name = "addButton">Add Event</button>'
             . '</form><br><br>';

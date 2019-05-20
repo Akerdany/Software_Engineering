@@ -39,13 +39,14 @@ require_once 'Resevationclass.php';
 include_once 'navbar.php';
 echo '<link rel="stylesheet"href="../css/style5.css">';
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
+echo'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">';
 // $DB = new DbConnection();
 $DB = DbConnection::getInstance();
 
 $sqlcourt    = 'SELECT * FROM `court`WHERE isDeleted=0 ';
 $resultcourt = mysqli_query($DB->getdbconnect(), $sqlcourt);
 
-echo '<form name="form1" action = "table.php" method = "POST" ">
+echo '<form name="form1" class ="dark" action = "table.php" method = "POST" ">
                     <label>Choose court </label>
                     <select id = "court" name = "court" class = "select" required  "><option value="" >Choose</option>';
 while ($row = mysqli_fetch_array($resultcourt)) {

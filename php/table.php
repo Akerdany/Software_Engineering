@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Selectable - Serialize</title>
+
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
  
@@ -76,7 +76,9 @@
 <body>
 <?php
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
-$court=$_POST["court"];
+require_once('CourtModel.php');
+$court = CourtModel::getCourtDetails($_POST["court"]);
+
 
 $date=$_POST["Rdate"];
 if (session_status() == PHP_SESSION_NONE) {
@@ -84,8 +86,8 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 $_SESSION["date"] = $date;
-$_SESSION["cID"] = $court;
-echo"<H2>Court number  ".$court." On ".$date."</H2>";
+$_SESSION["cID"] = $court->id;
+echo"<H2>Court number  ".$court->courtNumber." On ".$date."</H2>";
 ?>
 <div id="test">
 <ol id="selectable">
