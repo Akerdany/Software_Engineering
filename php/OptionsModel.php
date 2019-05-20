@@ -17,10 +17,10 @@ class optionsModel {
             $this->optionsType = $row['type'];
         }
     }
-    public static function displayOptionsM($this_page_first_result,$results_per_page) {
+    public static function displayOptionsM() {
         $DB     = DbConnection::getInstance();
         $conn   = $DB->getdbconnect();
-        $sql    = 'SELECT id FROM options Where isDeleted=0 LIMIT '.$this_page_first_result.','.$results_per_page.'';
+        $sql    = 'SELECT id FROM options Where isDeleted=0';
         $result = mysqli_query($conn, $sql);
         $i      = 0;
         $data   = [];
