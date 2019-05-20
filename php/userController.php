@@ -5,7 +5,36 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-if (isset($_POST['register'])) {
+if (isset($_POST['logInBtn'])) {
+    // require_once "connection.php";
+    require_once "factoryClass.php";
+    include 'navbar.php';
+
+    $email = $_POST['username'];
+    $pass  = $_POST['password'];
+
+    $tempUser = factoryClass::create("Model", "User", null);
+
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        //Security:
+        $email = $tempUser->checkData($email);
+        $pass  = $tempUser->checkData($pass);
+        $pass  = $pass . $email;
+
+        if ($tempUser->logIn($email, $pass)) {
+            // $tempUser->userQuery($_SESSION['id']);
+            // $tempUser->printo($_SESSION['id']);
+
+            header("Location: ../php/index.php");
+        } else {
+            echo "Username or Password invalid";
+            echo "<br>";
+        }
+    } else {
+        echo "Username or Password invalid";
+        echo "<br>";
+    }
+} elseif (isset($_POST['register'])) {
 
     $fName    = $_POST['fName'];
     $lName    = $_POST['lName'];
@@ -26,6 +55,8 @@ if (isset($_POST['register'])) {
     $pass  = $user->checkData($pass);
     $tel   = $user->checkData($tel);
     $ssn   = $user->checkData($ssn);
+
+    $pass = $pass . $email;
 
     $user->userData(null, $fName, $lName, $email, password_hash($pass, PASSWORD_DEFAULT), $DoB, $tel, $ssn, 3, $userType, $notifier);
 

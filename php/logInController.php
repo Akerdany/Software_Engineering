@@ -9,7 +9,6 @@ if (isset($_POST['submit'])) {
     $pass  = $_POST['password'];
 
     $tempUser = factoryClass::create("Model", "User", null);
-    echo print_r($tempUser);
 
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         //Security:

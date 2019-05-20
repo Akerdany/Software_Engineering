@@ -15,11 +15,11 @@ if (session_status() == PHP_SESSION_NONE) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   
+
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
@@ -212,7 +212,6 @@ if (session_status() == PHP_SESSION_NONE) {
             if (fcheck && lcheck && pcheck && scheck && echeck && dcheck && pacheck && ccheck) {
                 return true;
             } else {
-                alert(echeck);
                 return false;
             }
         }
