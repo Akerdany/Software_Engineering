@@ -24,7 +24,9 @@
     <h1>Checkout</h1>
     
     <h2>Date:</h2>
-    <?php if (session_status() == PHP_SESSION_NONE) {session_start();}
+    <?php 
+    
+    if (session_status() == PHP_SESSION_NONE) {session_start();}
 echo "<h3>" . $_SESSION["date"] . "</h3>";?>
     <h2>From:</h2>
     <?php if (session_status() == PHP_SESSION_NONE) {session_start();}

@@ -24,9 +24,9 @@
   	</head>
   	<body>
 	
-  		<nav class="navbar navbar-default" role="navigation">
+  		<!-- <nav class="navbar navbar-default" role="navigation">
   			<div class="container">
-  				<!-- Brand and toggle get grouped for better mobile display -->
+  				 Brand and toggle get grouped for better mobile display -->
   				<div class="navbar-header">
   					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
   						<span class="sr-only">Toggle navigation</span>
@@ -38,10 +38,10 @@
   				</div>
   		
   				<!-- Collect the nav links, forms, and other content for toggling -->
-  				
+  			<!--	
   			</div>
   		</nav>
-		
+		 -->
 		<!-- START SECTION -->
   		<div class="section hero text-center background-dark dark-bg">
   			<div class="background-image" style="background: url(../images/hero.jpg) no-repeat center center; background-size: cover; opacity: .2;"></div>

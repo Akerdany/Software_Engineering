@@ -41,7 +41,7 @@
     
 
 
-    <button type="button" id="sidebarCollapse" class="navbar-btn active">
+    <button  type="button" id="sidebarCollapse" class="navbar-btn active">
         
         <span ></span>
         <span ></span>
