@@ -55,11 +55,11 @@ class Reservationview {
             }
             if ($action) {
                 if ($row['status'] == 0) {
-                    echo '<td> <form action = "Reservation_controller.php" method = "POST">'
+                    echo '<td> <form action = "Resevationclass.php" method = "POST">'
                         . '<button class="btn btn-lg btn-danger" type = "submit" name = "approve" value = "' . $row['id'] . '">Approve</button>'
                         . '</form>';
                 } else {
-                    echo '<td> <form action = "Reservation_controller.php" method = "POST">'
+                    echo '<td> <form action = "Resevationclass.php" method = "POST">'
                         . '<button class="btn btn-lg btn-danger" type = "submit" name = "decline" value = "' . $row['id'] . '">Decline</button>'
                         . '</form>';
                 }
