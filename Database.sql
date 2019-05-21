@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 20, 2019 at 11:54 PM
--- Server version: 5.7.23
--- PHP Version: 7.2.10
+-- Generation Time: May 21, 2019 at 10:31 PM
+-- Server version: 5.7.21
+-- PHP Version: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -254,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   `userID` int(10) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `log`
@@ -262,7 +262,11 @@ CREATE TABLE IF NOT EXISTS `log` (
 
 INSERT INTO `log` (`id`, `userID`, `time`) VALUES
 (1, 11, '2019-05-20 23:37:42'),
-(2, 11, '2019-05-20 23:52:30');
+(2, 11, '2019-05-20 23:52:30'),
+(3, 11, '2019-05-21 20:18:56'),
+(4, 11, '2019-05-21 20:21:31'),
+(5, 11, '2019-05-21 20:30:10'),
+(6, 11, '2019-05-21 21:32:09');
 
 --
 -- Triggers `log`
@@ -274,6 +278,17 @@ CREATE TRIGGER `expiredEvents` AFTER INSERT ON `log` FOR EACH ROW BEGIN
         SET isDeleted = 1
         WHERE  date < CURRENT_DATE;
     END
+$$
+DELIMITER ;
+DROP TRIGGER IF EXISTS `expiredreservation`;
+DELIMITER $$
+CREATE TRIGGER `expiredreservation` AFTER INSERT ON `log` FOR EACH ROW BEGIN
+    UPDATE reservation AS reservation INNER JOIN reservationdetails as resdetails 
+ON reservation.reservationDetailsId = resdetails.id
+SET reservation.isDeleted = 1
+WHERE resdetails.date < CURRENT_DATE;
+
+END
 $$
 DELIMITER ;
 
@@ -547,20 +562,20 @@ CREATE TABLE IF NOT EXISTS `reservation` (
 --
 
 INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `code`, `isDeleted`, `creationDate`) VALUES
-(1, 3, 1, 1, '1', 0, '2019-02-28 19:45:48'),
-(3, 11, 1, 7, '2', 0, '2019-03-18 23:34:44'),
-(4, 11, 1, 8, '3', 0, '2019-03-18 23:35:19'),
-(5, 11, 1, 9, '4', 0, '2019-03-19 07:59:56'),
-(6, 11, 1, 10, '5', 0, '2019-04-12 20:32:55'),
-(7, 11, 1, 11, '6', 0, '2019-04-12 21:56:10'),
-(8, 20, 3, 12, '7', 0, '2019-04-22 18:44:12'),
-(9, 11, 3, 13, 'e77fce1cc82b0b6d06fb0e9d9fcb0ce577965e31', 0, '2019-04-30 15:27:12'),
-(10, 11, 3, 14, 'e0b88743b07e7cb38aaacf869fd56c15a465b2fa', 0, '2019-05-14 22:03:30'),
-(11, 11, 5, 15, '8bc176e6a3e56ea4ca33746ba481caeb806b2b62', 0, '2019-05-16 08:08:53'),
-(12, 11, 5, 16, '8bc176e6a3e56ea4ca33746ba481caeb806b2b62', 0, '2019-05-16 08:09:25'),
+(1, 3, 1, 1, '1', 1, '2019-02-28 19:45:48'),
+(3, 11, 1, 7, '2', 1, '2019-03-18 23:34:44'),
+(4, 11, 1, 8, '3', 1, '2019-03-18 23:35:19'),
+(5, 11, 1, 9, '4', 1, '2019-03-19 07:59:56'),
+(6, 11, 1, 10, '5', 1, '2019-04-12 20:32:55'),
+(7, 11, 1, 11, '6', 1, '2019-04-12 21:56:10'),
+(8, 20, 3, 12, '7', 1, '2019-04-22 18:44:12'),
+(9, 11, 3, 13, 'e77fce1cc82b0b6d06fb0e9d9fcb0ce577965e31', 1, '2019-04-30 15:27:12'),
+(10, 11, 3, 14, 'e0b88743b07e7cb38aaacf869fd56c15a465b2fa', 1, '2019-05-14 22:03:30'),
+(11, 11, 5, 15, '8bc176e6a3e56ea4ca33746ba481caeb806b2b62', 1, '2019-05-16 08:08:53'),
+(12, 11, 5, 16, '8bc176e6a3e56ea4ca33746ba481caeb806b2b62', 1, '2019-05-16 08:09:25'),
 (13, 11, 7, 17, 'eac3f1fd0563347a32ab80fea914fa864d51a0fa', 0, '2019-05-17 22:54:10'),
 (14, 11, 7, 18, 'eac3f1fd0563347a32ab80fea914fa864d51a0fa', 0, '2019-05-17 22:55:25'),
-(15, 11, 7, 19, 'cb6caa8caa5a3c6f26f1f01bf5077f78593f5caf', 0, '2019-05-18 09:04:53');
+(15, 11, 7, 19, 'cb6caa8caa5a3c6f26f1f01bf5077f78593f5caf', 1, '2019-05-18 09:04:53');
 
 -- --------------------------------------------------------
 
@@ -587,7 +602,7 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
 --
 
 INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervisorId`, `type`, `cost`, `status`) VALUES
-(1, '2019-02-11', '2.00', '4.00', 4, 'player', 50, 1),
+(1, '2019-02-11', '2.00', '4.00', 4, 'player', 50, 0),
 (2, '2019-03-21', '4.00', '6.00', 4, 'normal', 15, 0),
 (3, '2019-03-21', '1.30', '3.00', 4, 'normal', 15, 0),
 (4, '2019-03-21', '8.00', '11.30', 4, 'normal', 15, 0),
@@ -750,13 +765,13 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfBirth`, `telephone`, `ssn`, `addressId`, `userTypeId`, `isDeleted`, `creationDate`) VALUES
-(1, 'test1', 'test1', 'test', 'pass', '0111-11-11', '010', '111', 2, 3, 0, '2019-02-28 19:46:28'),
-(3, 'hello', 'hello', 'hello', '$2y$10$Zm.1tm4yXUlitqpvwY//yeGnbXeEqA8hyLw/OrwYIXyHpZy2ILjQ6', '1111-11-11', '011', '123', 2, 4, 1, '2019-02-28 19:46:28'),
-(4, 'admin', 'admin', 'admin', '$2y$10$EVyYxauio/qK6uysFBjtO.n7a1wf6NeBdzjsOEOiIzo1DYGEVQiQe', '1111-11-11', '012', '124', 2, 1, 0, '2019-02-28 19:46:28'),
-(5, 'aa', 'aa', 'aa', '$2y$10$piv8sfS2caynSYamyO70b.jv78RwdUbIfK0XUPz1DSBLZGwBz0n62', '0000-00-00', '01010', '125', 3, 3, 0, '2019-02-28 19:46:28'),
-(6, 'test', 'test', 'test', '$2y$10$RzrBPRj5SDpfd3YvU1GscuxEAERmVruNhOhvZTEi443oo8mS5Hu5G', '0066-06-16', '6616', '661616', 3, 2, 0, '2019-03-09 21:09:03'),
-(7, 'test', 'test', 'test', '$2y$10$kHbKqh/xTTd.rnrS08j3W.VuvqIAEQihtdvkWIHl9prEGc/PkO6c2', '0018-12-18', '81818', '18181', 3, 2, 0, '2019-03-09 21:09:58'),
-(8, 'ahmed', 'zeft', 'zeft', '$2y$10$BYXXQnkvwHvqO.PR89JAZ.LEkt4CU6qYgYtJAagJm6eqihd/xk5wS', '0017-12-17', '1717171', '1111111', 3, 1, 1, '2019-03-09 21:40:13'),
+(1, 'test1', 'test1', 'hussam2323232@gmail.com', 'pass', '0111-11-11', '010', '111', 2, 3, 0, '2019-02-28 19:46:28'),
+(3, 'hello', 'hello', 'hussam2323232@gmail.com', '$2y$10$Zm.1tm4yXUlitqpvwY//yeGnbXeEqA8hyLw/OrwYIXyHpZy2ILjQ6', '1111-11-11', '011', '123', 2, 4, 1, '2019-02-28 19:46:28'),
+(4, 'admin', 'admin', 'hussam2323232@gmail.com', '$2y$10$EVyYxauio/qK6uysFBjtO.n7a1wf6NeBdzjsOEOiIzo1DYGEVQiQe', '1111-11-11', '012', '124', 2, 1, 0, '2019-02-28 19:46:28'),
+(5, 'aa', 'aa', 'hussam2323232@gmail.com', '$2y$10$piv8sfS2caynSYamyO70b.jv78RwdUbIfK0XUPz1DSBLZGwBz0n62', '0000-00-00', '01010', '125', 3, 3, 0, '2019-02-28 19:46:28'),
+(6, 'test', 'test', 'hussam2323232@gmail.com', '$2y$10$RzrBPRj5SDpfd3YvU1GscuxEAERmVruNhOhvZTEi443oo8mS5Hu5G', '0066-06-16', '6616', '661616', 3, 2, 0, '2019-03-09 21:09:03'),
+(7, 'test', 'test', 'hussam2323232@gmail.com', '$2y$10$kHbKqh/xTTd.rnrS08j3W.VuvqIAEQihtdvkWIHl9prEGc/PkO6c2', '0018-12-18', '81818', '18181', 3, 2, 0, '2019-03-09 21:09:58'),
+(8, 'ahmed', 'zeft', 'hussam2323232@gmail.com', '$2y$10$BYXXQnkvwHvqO.PR89JAZ.LEkt4CU6qYgYtJAagJm6eqihd/xk5wS', '0017-12-17', '1717171', '1111111', 3, 1, 1, '2019-03-09 21:40:13'),
 (9, 'hussam', 'eldin', 'hussam@gmail.com', '$2y$10$uneyeYAhIXqnHWWEWqvDOedTOSYEFY7d78CxeAj6pA.e5lBcqjdzS', '2019-03-27', '123456234', '1242131243', 3, 2, 0, '2019-03-09 20:37:04'),
 (10, 'wageh', 'wego', 'wego@gmail.com', '$2y$10$CquEoUkFfh.G6YuwJ0zwAemlan87ebswYY/SODvg8nnHRcjefEGoW', '2019-03-22', '12345467', '123456', 3, 3, 0, '2019-03-09 18:46:51'),
 (11, 'ahmed', 'ahmed', 'ahmed@gmail.com', '$2y$10$m/wQGt97ok84qgQvq64rZOb7noPiGsYl8yMI.7VLTqVJGaFbwmmna', '1919-12-19', '19919919', '199919919919', 3, 1, 0, '2019-03-18 11:15:15'),

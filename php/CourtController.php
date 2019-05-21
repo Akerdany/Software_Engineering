@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
+<head>
+</head>
 <body>
 <?php
+include('navbar.php');
+
     require_once('crudfacade.php');
     require_once('CourtView.php');
-    include('navbar.php');
+    
     //include('../ElaAdmin-master/navtest.html');
     echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
     
@@ -84,7 +88,6 @@
         echo '<meta http-equiv="refresh" content="0">';
     }
     //include('../ElaAdmin-master/footertest.html');
-    
     ?>
 </body>
 <?php
