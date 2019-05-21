@@ -33,7 +33,7 @@ class Reservationmodel {
       FROM reservation
       INNER JOIN user ON reservation.userId=user.id
       INNER JOIN court ON reservation.courtId=court.id
-      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id LIMIT ".$this_page_first_result.",".$results_per_page."";
+      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id ";
         $result = mysqli_query($conn, $Q);
         $array  = array();
         while ($row = mysqli_fetch_array($result)) {
