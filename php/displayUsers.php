@@ -20,7 +20,8 @@ if (session_status() == PHP_SESSION_NONE) {
     <?php
 require_once "factoryClass.php";
 include "navbar.php";
-
+if(!empty($_SESSION))
+{
 $myUser = factoryClass::create("Controller", "User", null);
 
 $addAccess    = $myUser->getPermission("addUser");
@@ -119,6 +120,7 @@ if ($addAccess) {
     echo '<a href= "registration.php" class="button">Add User</a><br><br><br><br><br><br><br>';
 }
 echo '</div>';
+}
 ?>
 </body>
 <?php
