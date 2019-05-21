@@ -70,7 +70,7 @@ class reservation {
         $array = $model->personalR($ID);
         // $view  = new Reservationview();
         $view = factoryClass::create("View", "Reservation", null);
-        $view->Display($array);
+        $view->DisplayPR($array);
 
     }
 }
