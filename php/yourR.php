@@ -12,6 +12,10 @@ $reservation = factoryClass::create("Model", "reservation", "");
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+if(!empty($_SESSION))
+{
 $ID = $_SESSION['id'];
+
 $reservation->DisplayPR($ID);
+}
 ?>
