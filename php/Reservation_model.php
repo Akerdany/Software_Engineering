@@ -33,7 +33,7 @@ class Reservationmodel {
       FROM reservation
       INNER JOIN user ON reservation.userId=user.id
       INNER JOIN court ON reservation.courtId=court.id
-      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id LIMIT ".$this_page_first_result.",".$results_per_page."";
+      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id ";
         $result = mysqli_query($conn, $Q);
         $array  = array();
         while ($row = mysqli_fetch_array($result)) {
@@ -81,11 +81,12 @@ class Reservationmodel {
         $DB = DbConnection::getInstance();
 
         $conn = $DB->getdbconnect();
-        $Q    = "SELECT reservation.id,court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId,reservationdetails.date
+        $Q    = "SELECT reservation.id,court.courtNumber,user.firstName,user.lastName,reservationdetails.startTime,reservationdetails.endTime,reservationdetails.supervisorId,reservationdetails.date,reservationdetails.status
       FROM reservation
-      INNER JOIN user ON reservation.userId=" . $ID . "
+      INNER JOIN user ON reservation.userId= user.id
       INNER JOIN court ON reservation.courtId=court.id
-      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id";
+      INNER JOIN reservationdetails ON reservation.reservationDetailsId=reservationdetails.id
+      WHERE reservation.userId = ".$ID;
         $result = mysqli_query($conn, $Q);
         $array  = array();
         while ($row = mysqli_fetch_array($result)) {

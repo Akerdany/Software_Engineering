@@ -2,6 +2,8 @@
 require_once "connection.php";
 require_once "Reservation_model.php";
 require_once "Reservation_view.php";
+require_once "factoryClass.php";
+require_once("Isubject.php");
 // Reservation_model.php
 class reservation {
     public $ID;
@@ -70,9 +72,72 @@ class reservation {
         $array = $model->personalR($ID);
         // $view  = new Reservationview();
         $view = factoryClass::create("View", "Reservation", null);
-        $view->Display($array);
+        $view->DisplayPR($array);
 
     }
 }
 
+
+if (isset($_POST['approve'])) {
+    require_once("Isubject.php");
+    $tempModel = factoryClass::create("Model", "reservation", $_POST['approve']);
+    $msg="Your reservation was approved";
+    $U =factoryClass::create("Model", "User", null);
+    $U->userQuery($tempModel->UID);
+    echo $U->email;
+    $DB = DbConnection::getInstance();
+      $conn=$DB->getdbconnect();
+      $Q="SELECT user_notifiers.details d,notifiers.id t FROM `user_notifiers`LEFT JOIN `notifiers` ON notifiers.id=user_notifiers.notifiersID WHERE user_notifiers.UserId='".$tempModel->UID."'";
+         $result = mysqli_query( $conn, $Q);
+         $rowcount = mysqli_num_rows($result);
+         if($rowcount>0){
+            $row=mysqli_fetch_assoc($result);
+            $gun = new subject();
+            if($row['t']==1){
+                $n = new SMS($row['d'],$msg);
+                $gun->AddObserver($n);
+                $gun->fireobserver();
+
+             }
+             elseif($row['t']==2){
+                $n = new Email($row['d'],$msg);
+                $gun->AddObserver($n);
+                $gun->fireobserver();
+             }
+         }
+         $tempModel = factoryClass::create("Model", "Reservation",NULL);
+     $tempModel->approveReservation($_POST['approve']);
+    header("Location: ../php/displayRe.php");
+
+} elseif (isset($_POST['decline'])) {
+    require_once("Isubject.php");
+    $tempModel = factoryClass::create("Model", "reservation", $_POST['decline']);
+    $msg="Your reservation was Declined";
+    $U =factoryClass::create("Model", "User", null);
+    $U->userQuery($tempModel->UID);
+    echo $U->email;
+    $DB = DbConnection::getInstance();
+      $conn=$DB->getdbconnect();
+      $Q="SELECT user_notifiers.details d,notifiers.id t FROM `user_notifiers`LEFT JOIN `notifiers` ON notifiers.id=user_notifiers.notifiersID WHERE user_notifiers.UserId='".$tempModel->UID."'";
+         $result = mysqli_query( $conn, $Q);
+         $rowcount = mysqli_num_rows($result);
+         if($rowcount>0){
+            $row=mysqli_fetch_assoc($result);
+            $gun = new subject();
+            if($row['t']==1){
+                $n = new SMS($row['d'],$msg);
+                $gun->AddObserver($n);
+                $gun->fireobserver();
+
+             }
+             elseif($row['t']==2){
+                $n = new Email($row['d'],$msg);
+                $gun->AddObserver($n);
+                $gun->fireobserver();
+             }
+         }
+    $tempModel = factoryClass::create("Model", "Reservation", null);
+    $tempModel->declineReservation($_POST['decline']);
+    header("Location: ../php/displayRe.php");
+}
 ?>

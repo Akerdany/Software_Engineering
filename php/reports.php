@@ -1,10 +1,13 @@
-<?php require_once 'navbar.php'; ?>
+
+<?php 
+require_once 'navbar.php';
+?>
 <html>
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   <body>
-<div>
+<div id = "content">
   <div id="top_x_div" style="width: 900px; height: 500px;  float:left; "></div>
   <div style=" float:left; ">
   <form method="POST" action="">
@@ -42,12 +45,15 @@
 </div>
   <!-- <input class="form-control" name="month" id="monthID" type="month" style="display:none; "> -->
 
-<input class="btn btn-primary" type=submit value=GO>
+<input class="btn btn-primary pb-20" type=submit value=GO>
 
   </form>
   </div>
 </div>
+</div>
+<?php //require_once 'footer.html'; ?>
   </body>
+
 </html>
 <script>
     for(var i=2000 ; i<2051 ; i++)
@@ -200,7 +206,7 @@ if (isset($_POST['chart']) && isset($_POST['reportType'])) {
   }     
 }
 
-// require_once 'footer.html';
+require_once 'footer.html';
 ?>
 <!-- function getCourtReservations($courtId){
     $DB = new DbConnection();
