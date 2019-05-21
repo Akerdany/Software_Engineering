@@ -2,6 +2,8 @@
 require_once "connection.php";
 require_once "Reservation_model.php";
 require_once "Reservation_view.php";
+require_once "factoryClass.php";
+require_once("Isubject.php");
 // Reservation_model.php
 class reservation {
     public $ID;
@@ -75,4 +77,24 @@ class reservation {
     }
 }
 
+
+if (isset($_POST['approve'])) {
+    $tempModel = factoryClass::create("Model", "reservation", $_POST['approve']);
+    
+    $U =factoryClass::create("Model", "User", null);
+    $U->userQuery($tempModel->UID);
+    echo $U->email;
+    $DB = DbConnection::getInstance();
+      $conn=$DB->getdbconnect();
+      $Q="SELECT user_notifiers.details d,notifiers.id t FROM `user_notifiers`LEFT JOIN `notifiers` ON notifiers.id=user_notifiers.notifiersID WHERE user_notifiers.UserId='".$tempModel->UID."'";
+         $result = mysqli_query( $conn, $Q);
+    $n = new Email($row['d']);
+    // $tempModel->approveReservation($_POST['approve']);
+    // header("Location: ../php/displayRe.php");
+
+} elseif (isset($_POST['decline'])) {
+    $tempModel = factoryClass::create("Model", "Reservation", null);
+    $tempModel->declineReservation($_POST['decline']);
+    header("Location: ../php/displayRe.php");
+}
 ?>
