@@ -84,7 +84,6 @@ class User {
 
                 $userId = mysqli_fetch_assoc($result2);
                 $userId = $userId['id'];
-                print_r($userId);
 
                 if ($tempUser->notifier == 1) {
                     $detail = "+2" . $tempUser->telephone;

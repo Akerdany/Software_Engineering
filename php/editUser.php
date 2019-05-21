@@ -145,18 +145,39 @@ if (session_status() == PHP_SESSION_NONE) {
     }
 
     function checkPassword() {
-        document.getElementById("passwordError").innerHTML = null;
-        var password = document.getElementById("password");
+        document.getElementById("passError").innerHTML = null;
+        var password = document.getElementById("newPass");
 
         if ((password.value.length) < 8) {
             error = "Password should be at least 8 characters";
-            document.getElementById("passwordError").innerHTML = error;
+            document.getElementById("passError").innerHTML = error;
             password = null;
             return false;
         }
         pacheck = true;
         return false;
     }
+
+    function checkNewPass(){
+        document.getElementById("confirmPassError").innerHTML = null;
+        var password = document.getElementById("newPass");
+
+        if ((password.value.length) < 8) {
+            error = "Password should be at least 8 characters";
+            document.getElementById("confirmPassError").innerHTML = error;
+            password = null;
+            return false;
+        }
+        npacheck = true;
+        return false;
+    }
+
+    $(document).ready(function () {
+            checkFName();
+            checkLName();
+            checkEmail();
+            checkPhonenumber();
+        });
 </script>
 
 <body>
@@ -185,8 +206,8 @@ if ($editUser->userQuery($_SESSION['id'])) {
     echo '<div id="passwordForm" style="display:none;">';
     echo '<form name="changePassword" action="userController.php" method="POST">';
     echo "Old Password: <input type='password' name='oldPass' placeholder='Old Password' required><br>";
-    echo "New Password: <input type='password' name='newPass' placeholder='New Password' required><br>";
-    echo "Confirm New Password: <input type='password' name='confirmNewPass' placeholder='Confirm New Password' required><br>";
+    echo "New Password: <input type='password' name='newPass' placeholder='New Password' minlength='8' required><br>";
+    echo "Confirm New Password: <input type='password' name='confirmNewPass' placeholder='Confirm New Password' minlength='8' required><br>";
     echo '<input type="submit" name="passSubmit">';
     echo "</form>";
     echo "<button name='backP' id='backP'> Back </button>";
@@ -203,7 +224,7 @@ if ($editUser->userQuery($_SESSION['id'])) {
 } else {
     echo "We Might Have a Problem Right Now, Try Again Later";
 }
-include('footer.html');
+include 'footer.html';
 ?>
 
 </body>
