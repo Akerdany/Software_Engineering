@@ -14,15 +14,36 @@ require_once 'navbar.php';
   <label> Choose Report: </label>
   <select class="form-control" id="reportTypelist" name="reportType" onchange="ShowMonth()" >
 <option value="UserType">Number of User Types</option>
-<option value="reservations">Number of Reservations/Month <option>
+<option value="reservations">Number of Reservations/Month </option>
 </select>
 <label> Choose Shape: </label>
   <select class="form-control" name="chart" >
   <option name="barChart" value="barChart"> Bar Chart </option>
   <option name="pieChart" value="pieChart"> Pie Chart </option>
   </select>
-  <label id="monthLabel" style="display:none;"> Choose Month: </label>
-  <input class="form-control" name="month" id="monthID" type="month" style="display:none; ">
+  <div id=monthID style="display:none;">
+  <label id="monthLabel" style=""> Choose Month: </label>
+  <select class="form-control" name=month id='month' style="">
+    <option value='' disabled>--Select Month--</option>
+    <option selected value='1'>Janaury</option>
+    <option value='2'>February</option>
+    <option value='3'>March</option>
+    <option value='4'>April</option>
+    <option value='5'>May</option>
+    <option value='6'>June</option>
+    <option value='7'>July</option>
+    <option value='8'>August</option>
+    <option value='9'>September</option>
+    <option value='10'>October</option>
+    <option value='11'>November</option>
+    <option value='12'>December</option>
+    </select> 
+    <label id="YearLabel" style=""> Choose Year: </label>
+    <select class="form-control" name=Year id='YearID'>
+    <option disabled>--Select Year--</option>
+</select>
+</div>
+  <!-- <input class="form-control" name="month" id="monthID" type="month" style="display:none; "> -->
 
 <input class="btn btn-primary pb-20" type=submit value=GO>
 
@@ -35,17 +56,28 @@ require_once 'navbar.php';
 
 </html>
 <script>
+    for(var i=2000 ; i<2051 ; i++)
+    {
+        document.getElementById('YearID').innerHTML+="<option value="+i+">"+i+"</option>";
+    }
+    var TodayDate = new Date();
+    var day = TodayDate.getDay();
+    var month = TodayDate.getMonth()+1;
+    var year = TodayDate.getFullYear();
+    document.getElementById('YearID').value=year;
+    document.getElementById('month').value=month;
+
 function ShowMonth()
 {
     if (document.getElementById('reportTypelist').value=="reservations")
     {
         document.getElementById('monthID').style.display="inline-block";
-        document.getElementById('monthLabel').style.display="inline-block";
+        // document.getElementById('monthLabel').style.display="inline-block";
     }
     else
     {
         document.getElementById('monthID').style.display="none";
-        document.getElementById('monthLabel').style.display="none";
+        // document.getElementById('monthLabel').style.display="none";
     }
 }
 </script>
@@ -99,9 +131,11 @@ class countReservation extends absreports {
     }
     function getReservationCount() {
         $DB    = DbConnection::getInstance();
-        $month = "";
-        $month = substr($_POST['month'], 5);
-        $year  = substr($_POST['month'], 0, 4);
+        // $month = "";
+        // $month = substr($_POST['month'], 5);
+        // $year  = substr($_POST['month'], 0, 4);
+        $month=$_POST['month'];
+        $year=$_POST['Year'];
         $Days  = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $str   = '';
         for ($i = 1; $i < $Days + 1; $i++) {
@@ -138,8 +172,7 @@ if (isset($_POST['chart']) && isset($_POST['reportType'])) {
             $CountReservations->display();
             echo "<script> document.getElementById('monthID').style.display='inline-block';
             document.getElementById('reportTypelist').value='reservations';
-            document.getElementById('monthLabel').style.display='inline-block';
-            document.getElementById('monthID').value='".$_POST['month']."';
+            document.getElementById('month').value='".$_POST['month']."';
             </script>";
                 }
             else if ((empty($_POST['month'])))
@@ -162,8 +195,7 @@ if (isset($_POST['chart']) && isset($_POST['reportType'])) {
             $CountReservations->display();
             echo"<script> document.getElementById('monthID').style.display='inline-block';
             document.getElementById('reportTypelist').value='reservations';
-            document.getElementById('monthLabel').style.display='inline-block';
-            document.getElementById('monthID').value='".$_POST['month']."';
+            document.getElementById('month').value='".$_POST['month']."';
             </script>";
         }
         else if ((empty($_POST['month'])))
@@ -174,7 +206,7 @@ if (isset($_POST['chart']) && isset($_POST['reportType'])) {
   }     
 }
 
-
+require_once 'footer.html';
 ?>
 <!-- function getCourtReservations($courtId){
     $DB = new DbConnection();
