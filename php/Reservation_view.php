@@ -6,7 +6,8 @@ class Reservationview {
     function __construct() {
     }
     public static function Display($array,$numOfPages, $currentPage) {
-
+        if(!empty($_SESSION))
+        {
         if (!empty($_SESSION['userType']) && $_SESSION['userType'] == 1) {
             $action = true;
         } else {
@@ -78,6 +79,7 @@ class Reservationview {
         } );
         </script>";
     }
+}
 
     public static function DisplayPR($array) {
 
