@@ -11,6 +11,8 @@ class EventView {
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/b-1.5.6/datatables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/b-1.5.6/datatables.min.js"></script>';
         $user = new User();
+        if(!empty($_SESSION))
+        {
         echo '<div id="myDiv" style="width:70%">';
         echo '<table id="table_id" class = "table text-center table-dark table-striped table-hover table-bordered">';
         echo '<thead><tr>'
@@ -74,7 +76,7 @@ class EventView {
             . '<button type = "submit" name = "addButton">Add Event</button>'
             . '</form><br><br>';
     }
-
+        }
     }
     public static function Undisplay() {
         echo '<script>
