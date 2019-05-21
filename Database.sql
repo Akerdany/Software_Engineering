@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 20, 2019 at 07:19 PM
--- Server version: 5.7.21
--- PHP Version: 5.6.35
+-- Generation Time: May 20, 2019 at 11:54 PM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `events` (
 --
 
 INSERT INTO `events` (`id`, `name`, `date`, `details`, `isDeleted`, `creationDate`) VALUES
-(1, 'hhhh', '2010-11-10', 'hanel3aab koora', 0, '2019-02-28 19:44:55'),
+(1, 'hhhh', '2010-11-10', 'hanel3aab koora', 1, '2019-02-28 19:44:55'),
 (2, 'fefr', '2019-05-15', 'fefefefsum', 1, '2019-05-14 22:45:48');
 
 -- --------------------------------------------------------
@@ -241,6 +241,41 @@ INSERT INTO `features` (`id`, `feature`, `file`) VALUES
 (9, 'Options', 'OptionsController.php'),
 (10, 'Add Promocode', 'addpromo.php'),
 (11, 'Reports', 'reports.php');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `log`
+--
+
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `userID` int(10) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `log`
+--
+
+INSERT INTO `log` (`id`, `userID`, `time`) VALUES
+(1, 11, '2019-05-20 23:37:42'),
+(2, 11, '2019-05-20 23:52:30');
+
+--
+-- Triggers `log`
+--
+DROP TRIGGER IF EXISTS `expiredEvents`;
+DELIMITER $$
+CREATE TRIGGER `expiredEvents` AFTER INSERT ON `log` FOR EACH ROW BEGIN
+        UPDATE events
+        SET isDeleted = 1
+        WHERE  date < CURRENT_DATE;
+    END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -708,7 +743,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `address_id` (`addressId`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -734,7 +769,8 @@ INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `dateOfB
 (20, 'IT', 'IT', 'IT@gmail.com', '$2y$10$6yaDeSnzAFWVrrvlUIMRxepqW3oYtJIugsgJkZJn7MVGtr3u0t56i', '2019-04-08', '1234', '123456789', 3, 3, 0, '2019-04-21 19:37:18'),
 (21, 'Employee', 'Employee', 'emp@gmail.com', '$2y$10$mNEqB4MKqFMSs8xMr5MnI.Ol5fIMh2IuBJQEx8B3lKffXyYqT.wNC', '2019-04-09', '1234', '1234567890', 3, 4, 0, '2019-04-21 19:39:39'),
 (22, 'Accountant', 'Accountant', 'Accountant@gmail.com', '$2y$10$d8XYLwASsp8PfGeN2zj0KOjrYuNGanLuFahz4rbxzfjxRfAkR5g1a', '2019-04-04', '1234', '123456789', 3, 5, 0, '2019-04-21 19:40:40'),
-(23, 'Sponsor', 'Sponsor', 'Sponsor@gmail.com', '$2y$10$3w05ZTU.nsGm5f0B8X/8lu3iYn6GkeWzSDWEgneeneMxhQNwzRMV2', '2019-04-16', '1234', '123456789', 3, 6, 0, '2019-04-21 19:42:07');
+(23, 'Sponsor', 'Sponsor', 'Sponsor@gmail.com', '$2y$10$3w05ZTU.nsGm5f0B8X/8lu3iYn6GkeWzSDWEgneeneMxhQNwzRMV2', '2019-04-16', '1234', '123456789', 3, 6, 0, '2019-04-21 19:42:07'),
+(26, 'leo', 'messi', 'wago@wago.com', '$2y$10$7L2MzvJTxLOxJH6QfqkqrOvmmQwjWtCdEp7FvgzfmHNPyYAFGVyYS', '2019-05-15', '01234567890', '12345678901234', 3, 2, 0, '2019-05-20 19:58:51');
 
 -- --------------------------------------------------------
 
@@ -847,7 +883,7 @@ CREATE TABLE IF NOT EXISTS `user_notifiers` (
   PRIMARY KEY (`id`),
   KEY `Forign` (`UserId`),
   KEY `notifiersID` (`notifiersID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_notifiers`
@@ -857,7 +893,8 @@ INSERT INTO `user_notifiers` (`id`, `UserId`, `notifiersID`, `details`) VALUES
 (1, 20, 1, '+201027916660'),
 (2, 22, 1, '+201122511005'),
 (3, 21, 2, 'ma7md-159@hotmail.com\r\n'),
-(4, 14, 2, 'hussam0eldin@gmail.com');
+(4, 14, 2, 'hussam0eldin@gmail.com'),
+(7, 26, 2, 'wago@wago.com');
 
 --
 -- Constraints for dumped tables

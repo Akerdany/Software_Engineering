@@ -1,5 +1,6 @@
 <?php
 require_once('CourtModel.php');
+require_once('classes.php');
 
 class CourtView
 {
@@ -9,16 +10,25 @@ class CourtView
     
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/b-1.5.6/datatables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.18/b-1.5.6/datatables.min.js"></script>';
+        $user = new User();
+        if(!empty($_SESSION))
+        {
         echo '<div id="myDiv" style="width:70%">';
         echo '<table id="table_id" class = "table text-center table-dark table-striped table-hover table-bordered">';
             echo '<thead><tr>'
                 .'<th>Sport</th>'
                 .'<th>Court No.</th>'
                 .'<th>Hourly Price</th>'
-                .'<th>Court Specs</th>'
-                .'<th>Edit Court</th>'
-                .'<th>Delete Court</th>'
-                .'</tr></thead><tbody>';
+                .'<th>Court Specs</th>';
+                if($user->getPermission('editcourt'))
+                {
+                    echo '<th>Edit Court</th>';
+                }
+                if($user->getPermission('deletecourt'))
+                {
+                    echo '<th>Delete Court</th>';
+                }
+                echo '</tr></thead><tbody>';
     if(!empty($courtsArray))
     {
         for($i = 0; $i < count($courtsArray); $i++)
@@ -27,14 +37,18 @@ class CourtView
                     .'<td>'.$courtsArray[$i]['name'].'</td>'
                     .'<td>'.$courtsArray[$i]['courtNumber'].'</td>'
                     .'<td>'.$courtsArray[$i]['price'].'</td>'
-                    .'<td>'.$courtsArray[$i]['specs'].'</td>'
-                    .'<td> <form action = "CourtController.php" method = "POST">'
+                    .'<td>'.$courtsArray[$i]['specs'].'</td>';
+                    if($user->getPermission('editcourt')){
+                    echo '<td> <form action = "CourtController.php" method = "POST">'
                     .'<button type = "submit" name = "editButton" value = "'.$courtsArray[$i]['id'].'">Edit</button>'
-                    .'</form></td>'
-                    .'<td> <form action = "CourtController.php" method = "POST">'
+                    .'</form></td>';
+                    }
+                    if($user->getPermission('deletecourt')){
+                    echo '<td> <form action = "CourtController.php" method = "POST">'
                     .'<button type = "submit" name = "deleteButton" value = "'.$courtsArray[$i]['id'].'">Delete</button>'
-                    .'</form></td>'
-                    .'</tr>';
+                    .'</form></td>';
+                    }
+                    echo '</tr>';
         }
         echo'</tbody>';
        
@@ -46,10 +60,23 @@ class CourtView
         $('#table_id').DataTable();
     } );
     </script>";
+
+    if($user->getPermission('addcourt')){
             echo '<br><br><form action = "CourtController.php" method = "POST">';
             echo '<button type= "submit" name = "addButton">Add Court</button>'
                 .'</form>';
+    }
+}
             
+    }
+    public static function Undisplay() {
+        echo '<script>
+                    var myNode = document.getElementById("myDiv");
+                while (myNode.firstChild) {
+                    myNode.removeChild(myNode.firstChild);
+                }
+                    </script>';
+
     }
     public function addCourtForm($sports, $specs)
     {

@@ -214,6 +214,12 @@ class User {
                 $_SESSION['userType']  = $row['userTypeId'];
                 $_SESSION['addressID'] = $row['addressId'];
 
+                //log hhh
+                $logSql = 'INSERT INTO log (userID)
+                VALUES("'.$_SESSION['id'].'")';
+                mysqli_query($DB->getdbconnect(), $logSql);
+
+
                 return true;
             } else {
                 return false;
