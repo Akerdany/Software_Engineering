@@ -353,11 +353,6 @@ if (!empty($_SESSION['userType']) && $_SESSION['userType'] == 1) {
 }
 ?>
                         </fieldset>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> Agree the terms and policy
-                            </label>
-                        </div>
                         <input type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30" value="Register"
                             name="register">
 
