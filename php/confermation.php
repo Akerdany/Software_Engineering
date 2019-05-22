@@ -19,8 +19,10 @@
   background-color: green;
 }
 </style>
+<?php  require_once 'navbar.php';  ?>
 </head>
-<body style="text-align: center" >
+<body  >
+<div style="text-align: center">
     <h1>Checkout</h1>
     
     <h2>Date:</h2>
@@ -106,6 +108,7 @@ echo " <h3>" . $_SESSION["Method"] . "</h3>";?>
     <button id = "home" class="button">Back to homepage</button>
     </a>
 
+    </div>
     </div>
 </body>
 <script>

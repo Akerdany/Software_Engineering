@@ -15,11 +15,13 @@ function getForm(pmId) {
 //$time1 = strtotime($string);
 
 </script>
+<link rel="stylesheet"href="../css/BG.css">
 </head>
 
 </html>
 
 <?php
+// include_once "navbar.php";
 require_once 'connection.php';
 require_once "factoryClass.php";
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
@@ -82,5 +84,6 @@ if (isset($_POST['submit'])) {
     }
      header('Location: confermation.php');
 }
-include('footer.html');
+// include('footer.html');
+
 ?>

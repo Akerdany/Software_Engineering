@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
- 
+  <link rel="stylesheet"href="../css/BG.css">
   <style>
   ul {
   list-style-type: none;
@@ -75,6 +75,7 @@
 </head>
 <body>
 <?php
+
 echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
 require_once('CourtModel.php');
 $court = CourtModel::getCourtDetails($_POST["court"]);
