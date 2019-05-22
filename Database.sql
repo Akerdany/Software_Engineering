@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 21, 2019 at 10:31 PM
+-- Generation Time: May 22, 2019 at 08:17 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `company` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `isDeleted` tinyint(1) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `events`
@@ -210,7 +210,10 @@ CREATE TABLE IF NOT EXISTS `events` (
 
 INSERT INTO `events` (`id`, `name`, `date`, `details`, `isDeleted`, `creationDate`) VALUES
 (1, 'hhhh', '2010-11-10', 'hanel3aab koora', 1, '2019-02-28 19:44:55'),
-(2, 'fefr', '2019-05-15', 'fefefefsum', 1, '2019-05-14 22:45:48');
+(2, 'fefr', '2019-05-15', 'fefefefsum', 1, '2019-05-14 22:45:48'),
+(3, '\'', '2019-05-24', '1=1 or 1=1 or 1=1 or 1=1', 1, '2019-05-22 00:15:52'),
+(4, 'Football Match', '2019-05-31', 'Ahly vs Zamalek', 0, '2019-05-22 18:59:13'),
+(5, 'Music Concert', '2019-05-28', '3adel shakal will rock the stage', 0, '2019-05-22 18:59:13');
 
 -- --------------------------------------------------------
 
@@ -224,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `features` (
   `feature` varchar(50) NOT NULL,
   `file` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `features`
@@ -240,7 +243,8 @@ INSERT INTO `features` (`id`, `feature`, `file`) VALUES
 (7, 'Reservation', 'displayRe.php'),
 (9, 'Options', 'OptionsController.php'),
 (10, 'Add Promocode', 'addpromo.php'),
-(11, 'Reports', 'reports.php');
+(11, 'Reports', 'reports.php'),
+(12, 'Your Reservations', 'yourR.php');
 
 -- --------------------------------------------------------
 
@@ -253,8 +257,9 @@ CREATE TABLE IF NOT EXISTS `log` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `userID` int(10) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  KEY `userID` (`userID`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `log`
@@ -266,7 +271,15 @@ INSERT INTO `log` (`id`, `userID`, `time`) VALUES
 (3, 11, '2019-05-21 20:18:56'),
 (4, 11, '2019-05-21 20:21:31'),
 (5, 11, '2019-05-21 20:30:10'),
-(6, 11, '2019-05-21 21:32:09');
+(6, 11, '2019-05-21 21:32:09'),
+(7, 11, '2019-05-22 00:11:41'),
+(8, 20, '2019-05-22 00:19:18'),
+(9, 18, '2019-05-22 00:24:00'),
+(10, 18, '2019-05-22 00:39:27'),
+(11, 18, '2019-05-22 14:37:07'),
+(12, 20, '2019-05-22 17:41:01'),
+(13, 18, '2019-05-22 18:35:03'),
+(14, 18, '2019-05-22 18:49:39');
 
 --
 -- Triggers `log`
@@ -466,7 +479,7 @@ CREATE TABLE IF NOT EXISTS `previliges` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `optionId` (`featureId`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `previliges`
@@ -491,7 +504,8 @@ INSERT INTO `previliges` (`id`, `userTypeId`, `featureId`) VALUES
 (16, 4, 6),
 (17, 3, 4),
 (18, 3, 9),
-(19, 3, 6);
+(19, 3, 6),
+(20, 2, 12);
 
 -- --------------------------------------------------------
 
@@ -506,18 +520,20 @@ CREATE TABLE IF NOT EXISTS `promo` (
   `value` int(3) NOT NULL,
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  `UserId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Forign` (`UserId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `promo`
 --
 
-INSERT INTO `promo` (`id`, `code`, `value`, `start`, `end`) VALUES
-(1, 'hi', 50, '2019-05-14 21:15:31', '2019-05-22 22:00:00'),
-(2, 'test', 20, '2019-05-17 14:23:12', '2019-05-24 22:00:00'),
-(7, 'wageeg', 12, '2019-05-18 14:41:52', '2019-05-21 22:00:00'),
-(6, 'wageh', 32, '2019-05-18 14:40:59', '2019-05-22 22:00:00');
+INSERT INTO `promo` (`id`, `code`, `value`, `start`, `end`, `UserId`) VALUES
+(1, 'hi', 50, '2019-05-14 21:15:31', '2019-05-22 22:00:00', 1),
+(2, 'test', 20, '2019-05-17 14:23:12', '2019-05-24 22:00:00', 1),
+(6, 'wageh', 32, '2019-05-18 14:40:59', '2019-05-22 22:00:00', 1),
+(7, 'wageeg', 12, '2019-05-18 14:41:52', '2019-05-21 22:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -534,7 +550,7 @@ CREATE TABLE IF NOT EXISTS `p_method_option_value` (
   PRIMARY KEY (`id`),
   KEY `reservationId` (`reservationId`),
   KEY `selectedoptionsId` (`selectedoptionsId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -555,7 +571,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   KEY `reservationDetailsId` (`reservationDetailsId`),
   KEY `courtId` (`courtId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservation`
@@ -575,7 +591,8 @@ INSERT INTO `reservation` (`id`, `userId`, `courtId`, `reservationDetailsId`, `c
 (12, 11, 5, 16, '8bc176e6a3e56ea4ca33746ba481caeb806b2b62', 1, '2019-05-16 08:09:25'),
 (13, 11, 7, 17, 'eac3f1fd0563347a32ab80fea914fa864d51a0fa', 0, '2019-05-17 22:54:10'),
 (14, 11, 7, 18, 'eac3f1fd0563347a32ab80fea914fa864d51a0fa', 0, '2019-05-17 22:55:25'),
-(15, 11, 7, 19, 'cb6caa8caa5a3c6f26f1f01bf5077f78593f5caf', 1, '2019-05-18 09:04:53');
+(15, 11, 7, 19, 'cb6caa8caa5a3c6f26f1f01bf5077f78593f5caf', 1, '2019-05-18 09:04:53'),
+(16, 18, 5, 20, 'e706f782cb76d8bdde0a1805607614b0d0222888', 0, '2019-05-22 18:37:58');
 
 -- --------------------------------------------------------
 
@@ -595,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `reservationdetails` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `supervisorId` (`supervisorId`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservationdetails`
@@ -619,7 +636,8 @@ INSERT INTO `reservationdetails` (`id`, `date`, `startTime`, `endTime`, `supervi
 (16, '2019-05-17', '9.30', '11.30', 1, 'normal', 26, 0),
 (17, '2019-05-29', '9.30', '14.30', 1, 'normal', 161, 0),
 (18, '2019-05-29', '9.30', '14.30', 1, 'normal', 161, 0),
-(19, '2019-05-20', '9.00', '14.00', 1, 'normal', 161, 0);
+(19, '2019-05-20', '9.00', '14.00', 1, 'normal', 161, 0),
+(20, '2019-05-24', '10.30', '11.30', 1, 'normal', 13, 0);
 
 -- --------------------------------------------------------
 
@@ -636,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `selectedoptions` (
   PRIMARY KEY (`id`),
   KEY `paymentId` (`paymentId`),
   KEY `optionId` (`optionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `selectedoptions`
@@ -644,10 +662,9 @@ CREATE TABLE IF NOT EXISTS `selectedoptions` (
 
 INSERT INTO `selectedoptions` (`id`, `paymentId`, `optionId`, `priority`) VALUES
 (1, 1, 1, 1),
-(4, 1, 2, 3),
-(9, 5, 1, 1),
+(4, 1, 2, 2),
 (49, 5, 3, 2),
-(52, 1, 3, 2),
+(52, 1, 3, 3),
 (82, 15, 1, 1),
 (83, 15, 3, 2),
 (85, 16, 1, 2),
@@ -659,7 +676,9 @@ INSERT INTO `selectedoptions` (`id`, `paymentId`, `optionId`, `priority`) VALUES
 (92, 18, 3, 1),
 (93, 18, 1, 2),
 (94, 18, 5, 3),
-(98, 18, 2, 7);
+(98, 18, 2, 7),
+(99, 18, 4, 1),
+(100, 18, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -853,7 +872,7 @@ CREATE TABLE IF NOT EXISTS `usertype_permission` (
   PRIMARY KEY (`id`),
   KEY `userTypeId` (`userTypeId`),
   KEY `permissionId` (`permissionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usertype_permission`
@@ -868,7 +887,9 @@ INSERT INTO `usertype_permission` (`id`, `userTypeId`, `permissionId`) VALUES
 (6, 6, 20),
 (7, 1, 22),
 (8, 1, 23),
-(9, 1, 5);
+(9, 1, 5),
+(10, 1, 4),
+(11, 1, 19);
 
 -- --------------------------------------------------------
 
@@ -880,8 +901,10 @@ DROP TABLE IF EXISTS `user_company`;
 CREATE TABLE IF NOT EXISTS `user_company` (
   `ID` int(11) NOT NULL,
   `UserId` int(11) NOT NULL,
-  `CompanyID` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `CompanyID` int(11) NOT NULL,
+  KEY `UserId` (`UserId`,`CompanyID`),
+  KEY `CompanyID` (`CompanyID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -935,11 +958,23 @@ ALTER TABLE `court`
   ADD CONSTRAINT `court_ibfk_1` FOREIGN KEY (`sportId`) REFERENCES `sports` (`id`);
 
 --
+-- Constraints for table `log`
+--
+ALTER TABLE `log`
+  ADD CONSTRAINT `log_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `previliges`
 --
 ALTER TABLE `previliges`
   ADD CONSTRAINT `previliges_ibfk_1` FOREIGN KEY (`userTypeId`) REFERENCES `usertype` (`id`),
   ADD CONSTRAINT `previliges_ibfk_2` FOREIGN KEY (`featureId`) REFERENCES `features` (`id`);
+
+--
+-- Constraints for table `promo`
+--
+ALTER TABLE `promo`
+  ADD CONSTRAINT `promo_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `p_method_option_value`
@@ -989,6 +1024,13 @@ ALTER TABLE `usertype_pages`
 ALTER TABLE `usertype_permission`
   ADD CONSTRAINT `usertype_permission_ibfk_1` FOREIGN KEY (`permissionId`) REFERENCES `permission` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `usertype_permission_ibfk_2` FOREIGN KEY (`userTypeId`) REFERENCES `usertype` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_company`
+--
+ALTER TABLE `user_company`
+  ADD CONSTRAINT `user_company_ibfk_1` FOREIGN KEY (`CompanyID`) REFERENCES `company` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_company_ibfk_2` FOREIGN KEY (`UserId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_notifiers`
