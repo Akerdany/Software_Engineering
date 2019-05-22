@@ -95,8 +95,8 @@ echo"<H2>Court number  ".$court->courtNumber." On ".$date."</H2>";
  <?php
   $court=$_POST["court"];
   $date=$_POST["Rdate"];
-  
- $conn = mysqli_connect("localhost", "root", "", "Database");
+  $DB = DbConnection::getInstance();
+ $conn =$DB->getdbconnect();
  $sql = "SELECT `startTime`, `endTime` FROM `reservationdetails` WHERE `date`='$date' AND reservationdetails.id IN(SELECT reservation.reservationDetailsId FROM reservation WHERE reservation.courtId='$court') ";
  $sql1="SELECT `hours`,`state` FROM `time`";
  $result1 = mysqli_query($conn, $sql);
