@@ -31,8 +31,8 @@ $DB = DbConnection::getInstance();
 
 echo '<form id = "checkout" action = "" method = "POST">'
     . '<label>Payment Method</label><br>'
-    . '<select name = "paymentmethod" required onchange = "getForm(this.value)">'
-    . '<option disabled selected> -- Choose -- </option>';
+    . '<select name = "paymentmethod"  onchange = "getForm(this.value) ">'
+    . '<option disabled value="" selected> -- Choose -- </option>';
 
 //var_dump($data);
 $model = factoryClass::create("Model", "Checkout", null);
@@ -49,6 +49,7 @@ echo '<input type = "submit" name = "submit" value = "Checkout">
     </form>';
 
 if (isset($_POST['submit'])) {
+    if(isset($_POST['paymentmethod'])){
     $paymentMethodId = $_POST['paymentmethod'];
     $sql             = 'SELECT id, optionId from selectedoptions where paymentId = "' . $paymentMethodId . '"';
     $result          = mysqli_query($DB->getdbconnect(), $sql);
@@ -64,12 +65,14 @@ if (isset($_POST['submit'])) {
 
         $soRow     = mysqli_fetch_array($r1);
         $soId      = $soRow['id'];
-        $fieldname = $_POST['' . $optionName . '']; //use the option name to get field values
+        $fieldname = checkData($_POST['' . $optionName . '']); //use the option name to get field values
         $insertSQL = 'INSERT INTO p_method_option_value (`selectedoptionsId`, `value`, `reservationId`) VALUES ( "' . $soId . '","' . $fieldname . '","-1")';
         mysqli_query($DB->getdbconnect(), $insertSQL);
     }
+
     if(isset($_POST['promo'])){
-        $sql1 = 'SELECT * FROM `promo` WHERE `code`="'.$_POST['promo'].'" ';
+        
+        $sql1 = 'SELECT * FROM `promo` WHERE `code`="'.checkData($_POST['promo']).'" ';
        
         $result= mysqli_query($DB->getdbconnect(), $sql1);
         $r= mysqli_fetch_array($result);
@@ -83,6 +86,19 @@ if (isset($_POST['submit'])) {
         }
     }
      header('Location: confermation.php');
+    }else{
+        echo '<script>alert("Choose a payment method");</script>';
+    }
+}
+function checkData($data) {
+    // $DB = new DbConnection();
+    $DB = DbConnection::getInstance();
+
+    $data = strip_tags(mysqli_real_escape_string($DB->getdbconnect(), trim($data)));
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+
+    return $data;
 }
 // include('footer.html');
 
