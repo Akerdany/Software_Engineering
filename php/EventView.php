@@ -65,7 +65,7 @@ class EventView {
         // echo '</tr>';
     }
         echo '</table>';
-        echo '</div>';
+       
         echo"<script>
     $(document).ready( function () {
         $('#table_id').DataTable();
@@ -76,6 +76,7 @@ class EventView {
             . '<button type = "submit" name = "addButton">Add Event</button>'
             . '</form><br><br>';
     }
+    echo '</div>';
         }
     }
     public static function Undisplay() {
