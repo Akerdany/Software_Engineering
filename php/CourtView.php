@@ -54,7 +54,7 @@ class CourtView
        
     }
     echo '</table>';
-    echo '</div>';
+  
     echo"<script>
     $(document).ready( function () {
         $('#table_id').DataTable();
@@ -66,6 +66,7 @@ class CourtView
             echo '<button type= "submit" name = "addButton">Add Court</button>'
                 .'</form>';
     }
+    echo '</div>';
 }
             
     }
