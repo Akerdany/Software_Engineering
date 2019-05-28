@@ -7,4 +7,5 @@ abstract class price {
     }
     public abstract function cost();
 }
+
 ?>

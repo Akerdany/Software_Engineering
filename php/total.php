@@ -5,7 +5,6 @@ class total extends price
 {
     public $money;
     function __construct($m) {
-        $des="court";
         $this->money=$m;
     }
     public function getDesc(){

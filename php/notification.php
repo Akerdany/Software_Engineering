@@ -7,7 +7,7 @@ $gun = new subject();
       $conn=$DB->getdbconnect();
       $Q="SELECT user_notifiers.details d,notifiers.id t FROM `user_notifiers`LEFT JOIN `notifiers` ON notifiers.id=user_notifiers.notifiersID   ";
          $result = mysqli_query( $conn, $Q);
-        $array=array();
+        
         if (session_status() == PHP_SESSION_NONE) {
          session_start();
          }

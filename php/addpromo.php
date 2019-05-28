@@ -1,5 +1,6 @@
 <html>
     <?php
+    include('navbar.php');
     echo '<link rel="stylesheet"href="../css/style5.css">';
     echo '<link href="../css/temp.css" rel="stylesheet" type="text/css">';
     echo '<link href="../css/BG.css" rel="stylesheet" type="text/css">';
@@ -21,6 +22,6 @@
     </form>
 </body>
     <?php
-include('footer.html');
+// 
 ?>
 </html>
